@@ -1,0 +1,1001 @@
+report_id,source_type,area_name,latitude,longitude,issue_type,description,people_affected,vulnerable_group,timestamp,attachment,urgency_score
+1,Form,Ahmedabad,22.118362,72.012157,Medical,Food issue reported in Ahmedabad,17,Disabled,2026-04-17 05:47:33,voice.mp3,4
+2,Form,Ahmedabad,22.985199,71.491125,Shelter,Medical issue reported in Ahmedabad,84,None,2026-04-15 03:47:33,voice.mp3,1
+3,Call,Surat,22.855691,70.992009,Medical,Food issue reported in Surat,70,Children,2026-04-17 13:47:33,image.jpg,7
+4,NGO Report,Navsari,22.118469,71.211621,Education,Shelter issue reported in Navsari,44,Women,2026-04-15 00:47:33,report.pdf,10
+5,Form,Surat,22.407883,72.971756,Education,Education issue reported in Surat,64,Elderly,2026-04-17 07:47:33,none,3
+6,Call,Surat,21.741225,72.271093,Food,Water issue reported in Surat,96,Children,2026-04-15 11:47:33,none,8
+7,WhatsApp,Vadodara,21.261519,72.323334,Shelter,Education issue reported in Vadodara,28,None,2026-04-16 00:47:33,none,10
+8,Mobile App,Navsari,21.647657,70.384956,Education,Medical issue reported in Navsari,74,Disabled,2026-04-16 15:47:33,voice.mp3,9
+9,NGO Report,Vadodara,20.625017,70.704361,Medical,Medical issue reported in Vadodara,89,Disabled,2026-04-17 10:47:33,voice.mp3,7
+10,Call,Ahmedabad,21.625973,70.785791,Food,Water issue reported in Ahmedabad,45,Elderly,2026-04-15 07:47:33,image.jpg,8
+11,Mobile App,Navsari,20.457959,70.070817,Food,Shelter issue reported in Navsari,89,None,2026-04-15 11:47:33,none,6
+12,Mobile App,Navsari,22.976747,71.401796,Water,Food issue reported in Navsari,91,Women,2026-04-14 20:47:33,report.pdf,8
+13,WhatsApp,Navsari,20.392822,71.220108,Education,Shelter issue reported in Navsari,38,Elderly,2026-04-17 08:47:33,none,7
+14,WhatsApp,Navsari,22.289324,72.987574,Shelter,Medical issue reported in Navsari,38,Women,2026-04-14 22:47:33,report.pdf,1
+15,WhatsApp,Ahmedabad,20.749332,70.071543,Medical,Food issue reported in Ahmedabad,74,Women,2026-04-16 06:47:33,image.jpg,6
+16,WhatsApp,Navsari,22.467796,71.435785,Education,Education issue reported in Navsari,95,Elderly,2026-04-16 07:47:33,voice.mp3,3
+17,Mobile App,Ahmedabad,20.367437,70.499957,Medical,Shelter issue reported in Ahmedabad,11,Children,2026-04-17 01:47:33,report.pdf,10
+18,Form,Ahmedabad,21.197104,71.262622,Medical,Food issue reported in Ahmedabad,81,Elderly,2026-04-15 22:47:33,none,10
+19,NGO Report,Vadodara,20.088078,70.763035,Education,Food issue reported in Vadodara,72,Women,2026-04-14 18:47:33,image.jpg,8
+20,Form,Navsari,20.366391,71.106068,Medical,Education issue reported in Navsari,3,Disabled,2026-04-15 20:47:33,none,2
+21,WhatsApp,Navsari,21.817548,71.8023,Education,Shelter issue reported in Navsari,26,Disabled,2026-04-16 01:47:33,image.jpg,1
+22,Call,Navsari,20.06536,71.460256,Food,Medical issue reported in Navsari,33,None,2026-04-17 02:47:33,none,3
+23,Mobile App,Ahmedabad,22.968526,71.461937,Education,Shelter issue reported in Ahmedabad,74,Disabled,2026-04-15 04:47:33,report.pdf,9
+24,NGO Report,Vadodara,20.191319,72.03522,Medical,Food issue reported in Vadodara,71,Disabled,2026-04-15 11:47:33,voice.mp3,8
+25,WhatsApp,Rajkot,20.556717,72.735727,Shelter,Shelter issue reported in Rajkot,48,Disabled,2026-04-14 21:47:33,none,7
+26,NGO Report,Rajkot,22.14884,72.10259,Medical,Medical issue reported in Rajkot,72,Children,2026-04-16 19:47:33,image.jpg,9
+27,NGO Report,Vadodara,21.693224,70.252757,Medical,Water issue reported in Vadodara,13,None,2026-04-15 23:47:33,none,7
+28,Call,Ahmedabad,21.622824,71.305111,Education,Education issue reported in Ahmedabad,6,Children,2026-04-14 23:47:33,voice.mp3,2
+29,WhatsApp,Rajkot,21.701348,71.197597,Shelter,Food issue reported in Rajkot,31,None,2026-04-17 09:47:33,none,4
+30,Form,Navsari,20.331018,70.315593,Water,Medical issue reported in Navsari,86,None,2026-04-16 19:47:33,voice.mp3,7
+31,Call,Ahmedabad,22.026158,70.225961,Water,Food issue reported in Ahmedabad,62,None,2026-04-16 17:47:33,image.jpg,7
+32,Mobile App,Navsari,21.479503,72.577971,Education,Medical issue reported in Navsari,6,Women,2026-04-17 14:47:33,voice.mp3,1
+33,Form,Ahmedabad,21.034613,72.544133,Shelter,Food issue reported in Ahmedabad,40,Elderly,2026-04-15 11:47:33,none,10
+34,WhatsApp,Surat,21.088905,70.230042,Shelter,Medical issue reported in Surat,57,Women,2026-04-16 06:47:33,report.pdf,2
+35,WhatsApp,Vadodara,20.74932,72.859245,Water,Education issue reported in Vadodara,7,Elderly,2026-04-15 00:47:33,none,1
+36,WhatsApp,Ahmedabad,20.58402,72.053189,Water,Food issue reported in Ahmedabad,32,Disabled,2026-04-16 09:47:33,report.pdf,5
+37,Call,Ahmedabad,22.375258,71.841166,Medical,Shelter issue reported in Ahmedabad,64,Women,2026-04-16 00:47:33,none,9
+38,WhatsApp,Rajkot,20.291064,70.77006,Shelter,Shelter issue reported in Rajkot,94,Women,2026-04-14 18:47:33,report.pdf,2
+39,WhatsApp,Vadodara,22.335103,72.911291,Education,Water issue reported in Vadodara,68,Disabled,2026-04-16 17:47:33,image.jpg,1
+40,WhatsApp,Rajkot,21.691807,71.396511,Water,Food issue reported in Rajkot,31,None,2026-04-16 07:47:33,image.jpg,7
+41,NGO Report,Vadodara,22.629946,71.128778,Food,Shelter issue reported in Vadodara,43,None,2026-04-14 17:47:33,report.pdf,8
+42,Mobile App,Navsari,20.288344,71.297109,Medical,Shelter issue reported in Navsari,59,Women,2026-04-16 16:47:33,report.pdf,10
+43,WhatsApp,Surat,22.779842,70.975182,Food,Food issue reported in Surat,56,None,2026-04-15 13:47:33,report.pdf,2
+44,NGO Report,Vadodara,20.145868,72.338489,Food,Water issue reported in Vadodara,7,None,2026-04-14 22:47:33,voice.mp3,6
+45,Call,Rajkot,22.809355,70.410736,Water,Medical issue reported in Rajkot,10,Elderly,2026-04-17 12:47:33,image.jpg,9
+46,WhatsApp,Vadodara,21.588474,72.677359,Food,Water issue reported in Vadodara,4,Disabled,2026-04-17 01:47:33,voice.mp3,2
+47,NGO Report,Navsari,21.532795,70.154704,Water,Shelter issue reported in Navsari,12,Elderly,2026-04-15 13:47:33,none,4
+48,Call,Navsari,20.603977,72.158996,Shelter,Shelter issue reported in Navsari,8,None,2026-04-16 07:47:33,report.pdf,3
+49,Form,Vadodara,22.440316,70.487562,Water,Food issue reported in Vadodara,47,None,2026-04-16 09:47:33,voice.mp3,2
+50,NGO Report,Navsari,20.204029,72.082235,Food,Medical issue reported in Navsari,89,Elderly,2026-04-17 13:47:33,report.pdf,5
+51,NGO Report,Navsari,22.211597,70.291867,Water,Shelter issue reported in Navsari,19,Women,2026-04-15 07:47:33,report.pdf,9
+52,Form,Surat,22.110728,71.041264,Shelter,Education issue reported in Surat,64,Elderly,2026-04-15 14:47:33,image.jpg,7
+53,Call,Navsari,21.553928,70.503219,Food,Food issue reported in Navsari,48,None,2026-04-16 14:47:33,none,5
+54,Call,Navsari,22.399613,70.572276,Food,Shelter issue reported in Navsari,34,Children,2026-04-17 10:47:33,image.jpg,2
+55,Form,Rajkot,20.860398,72.551679,Medical,Shelter issue reported in Rajkot,100,Women,2026-04-15 19:47:33,voice.mp3,10
+56,Call,Navsari,20.358739,71.509007,Medical,Water issue reported in Navsari,32,Children,2026-04-16 04:47:33,none,10
+57,WhatsApp,Rajkot,22.386581,72.966913,Water,Medical issue reported in Rajkot,10,Elderly,2026-04-16 15:47:33,image.jpg,1
+58,Mobile App,Ahmedabad,20.07018,70.976824,Medical,Education issue reported in Ahmedabad,50,None,2026-04-17 05:47:33,voice.mp3,6
+59,Call,Surat,20.834599,72.634404,Education,Water issue reported in Surat,17,None,2026-04-17 12:47:33,none,8
+60,Form,Navsari,21.668565,70.377443,Medical,Food issue reported in Navsari,54,None,2026-04-16 08:47:33,voice.mp3,8
+61,NGO Report,Vadodara,21.520344,71.806055,Shelter,Water issue reported in Vadodara,18,Women,2026-04-15 07:47:33,image.jpg,9
+62,NGO Report,Vadodara,22.646334,70.650087,Education,Water issue reported in Vadodara,33,Children,2026-04-16 11:47:33,image.jpg,2
+63,Call,Vadodara,21.958315,72.032327,Shelter,Food issue reported in Vadodara,53,Women,2026-04-17 11:47:33,voice.mp3,7
+64,Call,Vadodara,22.545834,72.524108,Shelter,Food issue reported in Vadodara,90,Children,2026-04-17 11:47:33,voice.mp3,4
+65,NGO Report,Navsari,21.35575,70.450792,Food,Education issue reported in Navsari,44,Women,2026-04-14 15:47:33,report.pdf,5
+66,Form,Navsari,22.083874,71.89973,Shelter,Food issue reported in Navsari,6,Disabled,2026-04-16 18:47:33,report.pdf,6
+67,NGO Report,Ahmedabad,21.951741,72.540043,Shelter,Medical issue reported in Ahmedabad,11,Children,2026-04-16 13:47:33,image.jpg,5
+68,NGO Report,Surat,20.747808,72.083256,Medical,Food issue reported in Surat,24,Women,2026-04-16 20:47:33,image.jpg,7
+69,NGO Report,Navsari,20.481719,71.207615,Food,Education issue reported in Navsari,2,Children,2026-04-15 13:47:33,image.jpg,2
+70,Call,Rajkot,22.299167,70.778278,Food,Water issue reported in Rajkot,10,None,2026-04-15 22:47:33,voice.mp3,6
+71,Mobile App,Surat,21.017654,70.78551,Education,Education issue reported in Surat,39,None,2026-04-14 19:47:33,report.pdf,1
+72,NGO Report,Surat,22.004266,70.644764,Shelter,Water issue reported in Surat,71,Women,2026-04-16 01:47:33,none,4
+73,Mobile App,Ahmedabad,22.383953,72.39569,Food,Water issue reported in Ahmedabad,80,Disabled,2026-04-15 12:47:33,none,7
+74,NGO Report,Surat,21.530529,71.927313,Food,Medical issue reported in Surat,5,Elderly,2026-04-16 18:47:33,report.pdf,1
+75,Call,Navsari,22.818163,71.182711,Education,Medical issue reported in Navsari,53,Children,2026-04-17 00:47:33,image.jpg,7
+76,Mobile App,Vadodara,22.687345,71.085759,Shelter,Water issue reported in Vadodara,3,None,2026-04-17 09:47:33,report.pdf,3
+77,Mobile App,Rajkot,20.620024,71.691141,Education,Food issue reported in Rajkot,22,Children,2026-04-16 07:47:33,voice.mp3,5
+78,Call,Ahmedabad,21.621544,70.768222,Water,Food issue reported in Ahmedabad,3,Women,2026-04-15 23:47:33,image.jpg,9
+79,NGO Report,Vadodara,22.233104,71.829905,Medical,Education issue reported in Vadodara,32,None,2026-04-17 08:47:33,report.pdf,1
+80,WhatsApp,Vadodara,20.121307,72.503259,Food,Water issue reported in Vadodara,13,Disabled,2026-04-14 16:47:33,none,2
+81,Mobile App,Rajkot,21.122659,71.050342,Water,Water issue reported in Rajkot,5,Women,2026-04-16 22:47:33,none,5
+82,WhatsApp,Navsari,22.144961,72.361602,Education,Medical issue reported in Navsari,82,Elderly,2026-04-16 14:47:33,report.pdf,4
+83,WhatsApp,Vadodara,21.79854,72.555541,Food,Shelter issue reported in Vadodara,70,Children,2026-04-15 03:47:33,voice.mp3,1
+84,Form,Surat,21.692772,71.206454,Shelter,Education issue reported in Surat,20,None,2026-04-15 13:47:33,voice.mp3,7
+85,Mobile App,Ahmedabad,22.242446,71.340597,Shelter,Water issue reported in Ahmedabad,100,Women,2026-04-14 19:47:33,voice.mp3,7
+86,NGO Report,Navsari,22.821578,71.392321,Shelter,Shelter issue reported in Navsari,60,Children,2026-04-15 16:47:33,image.jpg,7
+87,Form,Ahmedabad,22.672321,71.346275,Medical,Water issue reported in Ahmedabad,17,Disabled,2026-04-14 14:47:33,report.pdf,2
+88,Call,Ahmedabad,22.509838,72.342919,Medical,Food issue reported in Ahmedabad,15,Disabled,2026-04-16 21:47:33,voice.mp3,8
+89,Call,Rajkot,20.78811,71.106561,Water,Education issue reported in Rajkot,42,Children,2026-04-14 21:47:33,voice.mp3,4
+90,WhatsApp,Ahmedabad,20.400208,72.368435,Food,Education issue reported in Ahmedabad,5,Children,2026-04-17 14:47:33,voice.mp3,6
+91,WhatsApp,Ahmedabad,20.471292,72.966351,Food,Shelter issue reported in Ahmedabad,97,Disabled,2026-04-15 00:47:33,voice.mp3,5
+92,NGO Report,Navsari,22.109051,72.350856,Water,Water issue reported in Navsari,97,None,2026-04-15 12:47:33,report.pdf,9
+93,Mobile App,Surat,21.389625,72.656711,Medical,Education issue reported in Surat,95,None,2026-04-15 19:47:33,voice.mp3,8
+94,Mobile App,Vadodara,22.442398,70.813546,Food,Medical issue reported in Vadodara,38,Disabled,2026-04-15 17:47:33,voice.mp3,4
+95,Mobile App,Navsari,22.947501,71.099774,Water,Education issue reported in Navsari,81,Disabled,2026-04-14 20:47:33,none,2
+96,Form,Navsari,22.483008,71.275695,Food,Water issue reported in Navsari,20,Elderly,2026-04-15 11:47:33,report.pdf,2
+97,WhatsApp,Navsari,20.474639,71.393707,Shelter,Food issue reported in Navsari,10,None,2026-04-17 04:47:33,voice.mp3,4
+98,Call,Rajkot,21.585044,70.330312,Food,Food issue reported in Rajkot,45,None,2026-04-16 08:47:33,image.jpg,1
+99,Call,Navsari,21.379681,70.57068,Education,Food issue reported in Navsari,71,None,2026-04-16 21:47:33,report.pdf,10
+100,Mobile App,Ahmedabad,22.432417,71.560866,Medical,Shelter issue reported in Ahmedabad,80,None,2026-04-17 00:47:33,image.jpg,2
+101,Mobile App,Rajkot,22.240513,70.084878,Education,Water issue reported in Rajkot,80,Women,2026-04-17 05:47:33,voice.mp3,10
+102,Call,Vadodara,20.787514,70.219691,Medical,Education issue reported in Vadodara,53,Women,2026-04-16 17:47:33,voice.mp3,1
+103,Mobile App,Ahmedabad,20.683448,70.597789,Education,Education issue reported in Ahmedabad,22,Women,2026-04-14 21:47:33,voice.mp3,5
+104,Mobile App,Vadodara,21.519047,71.21812,Shelter,Shelter issue reported in Vadodara,16,Elderly,2026-04-15 01:47:33,image.jpg,9
+105,WhatsApp,Surat,21.076479,70.063958,Water,Water issue reported in Surat,77,Children,2026-04-16 17:47:33,none,2
+106,Form,Vadodara,21.992707,71.519389,Food,Shelter issue reported in Vadodara,56,Elderly,2026-04-14 23:47:33,voice.mp3,4
+107,Form,Navsari,20.814505,70.645147,Shelter,Medical issue reported in Navsari,75,Elderly,2026-04-16 06:47:33,image.jpg,3
+108,NGO Report,Vadodara,22.564534,72.845302,Medical,Shelter issue reported in Vadodara,69,Elderly,2026-04-15 15:47:33,none,8
+109,Call,Ahmedabad,21.994444,70.357774,Medical,Water issue reported in Ahmedabad,13,Children,2026-04-17 03:47:33,report.pdf,10
+110,WhatsApp,Vadodara,22.008104,71.734903,Food,Water issue reported in Vadodara,41,Women,2026-04-15 13:47:33,voice.mp3,1
+111,WhatsApp,Surat,22.544191,70.466045,Shelter,Education issue reported in Surat,49,Women,2026-04-16 09:47:33,report.pdf,4
+112,Call,Vadodara,20.676302,72.135289,Water,Education issue reported in Vadodara,29,Disabled,2026-04-17 08:47:33,none,6
+113,Call,Rajkot,20.47543,71.510346,Medical,Medical issue reported in Rajkot,36,Disabled,2026-04-17 04:47:33,report.pdf,6
+114,WhatsApp,Surat,22.721597,70.545882,Medical,Medical issue reported in Surat,67,Women,2026-04-16 12:47:33,report.pdf,10
+115,Form,Rajkot,22.609495,72.32041,Food,Food issue reported in Rajkot,11,Elderly,2026-04-16 07:47:33,report.pdf,3
+116,Call,Navsari,22.936846,72.073974,Food,Food issue reported in Navsari,37,None,2026-04-17 02:47:33,report.pdf,9
+117,Call,Navsari,20.323573,70.828753,Water,Food issue reported in Navsari,37,Disabled,2026-04-16 22:47:33,image.jpg,3
+118,Mobile App,Rajkot,20.632823,70.892461,Education,Education issue reported in Rajkot,72,Women,2026-04-15 17:47:33,image.jpg,2
+119,NGO Report,Rajkot,22.537355,72.656118,Food,Medical issue reported in Rajkot,15,Disabled,2026-04-15 17:47:33,voice.mp3,1
+120,Call,Vadodara,21.615202,70.702106,Shelter,Shelter issue reported in Vadodara,63,Women,2026-04-17 03:47:33,report.pdf,9
+121,Form,Vadodara,20.243948,70.424605,Food,Education issue reported in Vadodara,57,Disabled,2026-04-15 09:47:33,voice.mp3,3
+122,Call,Ahmedabad,21.41971,71.236795,Water,Medical issue reported in Ahmedabad,97,Children,2026-04-15 00:47:33,none,3
+123,Form,Surat,22.267884,72.547957,Medical,Education issue reported in Surat,97,None,2026-04-16 08:47:33,image.jpg,3
+124,Call,Navsari,22.034109,71.173662,Medical,Food issue reported in Navsari,58,None,2026-04-15 23:47:33,voice.mp3,6
+125,WhatsApp,Surat,20.437249,71.314234,Education,Food issue reported in Surat,28,Disabled,2026-04-16 19:47:33,report.pdf,10
+126,NGO Report,Ahmedabad,20.578684,71.094176,Water,Medical issue reported in Ahmedabad,96,Disabled,2026-04-15 23:47:33,report.pdf,8
+127,Call,Navsari,20.876599,72.208022,Food,Education issue reported in Navsari,4,None,2026-04-17 11:47:33,voice.mp3,7
+128,Call,Navsari,20.551228,70.380792,Water,Water issue reported in Navsari,91,Children,2026-04-17 08:47:33,report.pdf,5
+129,WhatsApp,Surat,20.157102,72.587863,Food,Water issue reported in Surat,75,Women,2026-04-17 06:47:33,voice.mp3,5
+130,Call,Ahmedabad,22.060583,71.740798,Shelter,Shelter issue reported in Ahmedabad,61,Elderly,2026-04-15 07:47:33,voice.mp3,7
+131,Form,Vadodara,22.833791,70.647382,Food,Education issue reported in Vadodara,57,Children,2026-04-16 01:47:33,report.pdf,8
+132,Form,Vadodara,22.610504,70.069159,Water,Medical issue reported in Vadodara,20,Children,2026-04-15 05:47:33,none,3
+133,WhatsApp,Navsari,21.648792,71.561407,Education,Medical issue reported in Navsari,70,Women,2026-04-15 17:47:33,image.jpg,2
+134,Mobile App,Rajkot,20.829769,70.876947,Shelter,Water issue reported in Rajkot,83,None,2026-04-16 13:47:33,image.jpg,10
+135,NGO Report,Rajkot,20.512735,70.558199,Shelter,Shelter issue reported in Rajkot,53,Women,2026-04-14 15:47:33,report.pdf,2
+136,Call,Vadodara,22.777077,71.36507,Medical,Water issue reported in Vadodara,87,Disabled,2026-04-15 11:47:33,report.pdf,8
+137,Mobile App,Navsari,20.751989,71.319316,Shelter,Education issue reported in Navsari,28,Elderly,2026-04-16 15:47:33,image.jpg,9
+138,Call,Ahmedabad,20.445536,71.776409,Education,Shelter issue reported in Ahmedabad,41,Elderly,2026-04-16 02:47:33,report.pdf,3
+139,NGO Report,Ahmedabad,20.531126,70.225143,Shelter,Shelter issue reported in Ahmedabad,63,Children,2026-04-15 00:47:33,voice.mp3,10
+140,Mobile App,Surat,21.068521,72.858866,Shelter,Education issue reported in Surat,87,Children,2026-04-15 04:47:33,report.pdf,8
+141,NGO Report,Navsari,20.66845,72.132115,Education,Shelter issue reported in Navsari,49,Women,2026-04-15 12:47:33,none,3
+142,Call,Rajkot,20.473475,71.854824,Shelter,Food issue reported in Rajkot,92,Disabled,2026-04-14 21:47:33,image.jpg,5
+143,Form,Vadodara,21.123328,72.313812,Water,Education issue reported in Vadodara,15,Elderly,2026-04-17 09:47:33,report.pdf,3
+144,WhatsApp,Navsari,21.553755,71.530279,Education,Food issue reported in Navsari,90,Women,2026-04-15 05:47:33,voice.mp3,3
+145,Mobile App,Surat,21.235468,70.342278,Education,Food issue reported in Surat,20,Children,2026-04-16 07:47:33,report.pdf,1
+146,NGO Report,Navsari,21.683582,70.023011,Medical,Medical issue reported in Navsari,9,Children,2026-04-16 07:47:33,voice.mp3,2
+147,Form,Surat,20.896399,70.417512,Water,Education issue reported in Surat,81,Elderly,2026-04-17 05:47:33,none,10
+148,WhatsApp,Vadodara,21.859588,72.022741,Medical,Shelter issue reported in Vadodara,14,None,2026-04-16 05:47:33,voice.mp3,3
+149,WhatsApp,Surat,22.296902,72.607818,Medical,Food issue reported in Surat,74,Elderly,2026-04-15 03:47:33,report.pdf,9
+150,Mobile App,Surat,22.308171,72.411475,Shelter,Water issue reported in Surat,31,Children,2026-04-16 05:47:33,none,9
+151,Mobile App,Ahmedabad,22.181384,71.377533,Water,Medical issue reported in Ahmedabad,86,Disabled,2026-04-15 07:47:33,image.jpg,8
+152,Call,Navsari,22.398801,71.847099,Education,Medical issue reported in Navsari,51,Disabled,2026-04-15 10:47:33,none,6
+153,Mobile App,Ahmedabad,21.059317,72.988657,Food,Water issue reported in Ahmedabad,6,Children,2026-04-14 23:47:33,report.pdf,2
+154,Form,Navsari,20.953274,71.949683,Shelter,Shelter issue reported in Navsari,18,Elderly,2026-04-16 15:47:33,image.jpg,1
+155,Form,Vadodara,20.866919,71.533005,Medical,Medical issue reported in Vadodara,93,None,2026-04-15 15:47:33,none,8
+156,WhatsApp,Ahmedabad,21.367849,72.983386,Water,Shelter issue reported in Ahmedabad,73,None,2026-04-15 15:47:33,none,7
+157,WhatsApp,Ahmedabad,20.94512,71.665525,Shelter,Medical issue reported in Ahmedabad,37,None,2026-04-17 03:47:33,image.jpg,7
+158,Form,Vadodara,20.880349,70.86199,Shelter,Water issue reported in Vadodara,98,Disabled,2026-04-15 18:47:33,image.jpg,3
+159,Form,Surat,22.06357,70.375388,Water,Food issue reported in Surat,98,Elderly,2026-04-16 05:47:33,image.jpg,7
+160,NGO Report,Surat,20.431369,70.611974,Food,Shelter issue reported in Surat,22,Children,2026-04-16 15:47:33,voice.mp3,1
+161,WhatsApp,Navsari,20.34656,72.5262,Education,Medical issue reported in Navsari,50,Women,2026-04-15 19:47:33,report.pdf,5
+162,Call,Rajkot,22.670709,71.495357,Food,Food issue reported in Rajkot,59,None,2026-04-16 16:47:33,report.pdf,3
+163,NGO Report,Vadodara,21.61755,70.852354,Shelter,Medical issue reported in Vadodara,27,Elderly,2026-04-16 16:47:33,report.pdf,3
+164,Mobile App,Vadodara,22.097768,71.423982,Food,Water issue reported in Vadodara,20,Women,2026-04-16 06:47:33,voice.mp3,8
+165,Call,Navsari,22.229985,71.242131,Education,Food issue reported in Navsari,55,Elderly,2026-04-16 19:47:33,report.pdf,6
+166,Form,Navsari,21.195329,71.013579,Shelter,Medical issue reported in Navsari,47,Children,2026-04-17 12:47:33,voice.mp3,7
+167,WhatsApp,Vadodara,21.707436,72.888804,Education,Medical issue reported in Vadodara,28,Elderly,2026-04-15 19:47:33,image.jpg,1
+168,NGO Report,Vadodara,20.508388,72.708614,Food,Medical issue reported in Vadodara,74,Elderly,2026-04-16 17:47:33,voice.mp3,3
+169,Call,Navsari,21.715701,71.154139,Food,Medical issue reported in Navsari,32,Elderly,2026-04-15 14:47:33,image.jpg,3
+170,Call,Surat,21.799952,71.878017,Food,Medical issue reported in Surat,6,Children,2026-04-16 19:47:33,image.jpg,6
+171,NGO Report,Surat,21.272262,71.484162,Water,Water issue reported in Surat,38,Children,2026-04-16 09:47:33,report.pdf,9
+172,Call,Rajkot,20.941412,71.215323,Education,Education issue reported in Rajkot,41,Children,2026-04-17 05:47:33,voice.mp3,2
+173,Call,Navsari,20.750873,71.885873,Water,Medical issue reported in Navsari,20,Elderly,2026-04-17 08:47:33,image.jpg,4
+174,Mobile App,Rajkot,20.500309,72.401638,Education,Shelter issue reported in Rajkot,14,Disabled,2026-04-15 20:47:33,none,8
+175,Mobile App,Surat,20.25305,70.294426,Medical,Education issue reported in Surat,45,Women,2026-04-15 06:47:33,none,6
+176,Call,Vadodara,22.505617,70.186158,Water,Medical issue reported in Vadodara,38,Disabled,2026-04-14 17:47:33,image.jpg,9
+177,Call,Rajkot,21.671642,70.796777,Medical,Shelter issue reported in Rajkot,21,Disabled,2026-04-14 14:47:33,voice.mp3,5
+178,Call,Vadodara,20.084143,70.347369,Food,Medical issue reported in Vadodara,73,Children,2026-04-17 10:47:33,report.pdf,6
+179,NGO Report,Surat,20.206385,72.774561,Education,Education issue reported in Surat,11,Elderly,2026-04-14 20:47:33,none,4
+180,NGO Report,Navsari,22.593414,70.661576,Shelter,Food issue reported in Navsari,5,Elderly,2026-04-16 05:47:33,none,6
+181,Mobile App,Surat,21.382219,72.24069,Food,Food issue reported in Surat,24,Disabled,2026-04-17 09:47:33,none,5
+182,Call,Navsari,21.881299,72.557557,Water,Water issue reported in Navsari,33,Elderly,2026-04-15 11:47:33,report.pdf,4
+183,NGO Report,Navsari,21.464739,71.533871,Food,Water issue reported in Navsari,31,Children,2026-04-16 10:47:33,none,7
+184,Call,Vadodara,21.449082,72.277218,Food,Water issue reported in Vadodara,52,Disabled,2026-04-17 04:47:33,report.pdf,9
+185,Call,Navsari,20.9732,70.441183,Food,Food issue reported in Navsari,28,Women,2026-04-15 23:47:33,report.pdf,4
+186,Mobile App,Ahmedabad,20.985969,70.273409,Education,Education issue reported in Ahmedabad,28,Disabled,2026-04-17 01:47:33,report.pdf,4
+187,Call,Vadodara,22.952441,71.631051,Medical,Shelter issue reported in Vadodara,87,Disabled,2026-04-16 02:47:33,image.jpg,2
+188,WhatsApp,Rajkot,22.633858,72.959652,Medical,Medical issue reported in Rajkot,28,Children,2026-04-15 18:47:33,report.pdf,1
+189,WhatsApp,Navsari,22.84435,70.266149,Education,Food issue reported in Navsari,25,Women,2026-04-14 20:47:33,none,9
+190,Mobile App,Navsari,22.239833,71.995563,Education,Food issue reported in Navsari,45,Women,2026-04-16 02:47:33,report.pdf,6
+191,Form,Vadodara,22.91865,70.585391,Education,Medical issue reported in Vadodara,26,Women,2026-04-16 20:47:33,report.pdf,9
+192,NGO Report,Vadodara,22.693068,72.233204,Medical,Shelter issue reported in Vadodara,41,Women,2026-04-14 17:47:33,none,4
+193,Call,Ahmedabad,22.058777,72.258189,Education,Food issue reported in Ahmedabad,16,Disabled,2026-04-15 12:47:33,none,10
+194,Call,Ahmedabad,20.649804,70.905968,Education,Education issue reported in Ahmedabad,21,Elderly,2026-04-16 13:47:33,none,4
+195,WhatsApp,Rajkot,21.395149,71.448784,Water,Shelter issue reported in Rajkot,5,Children,2026-04-15 09:47:33,none,2
+196,NGO Report,Surat,20.564261,70.132535,Food,Shelter issue reported in Surat,61,None,2026-04-15 22:47:33,none,2
+197,Call,Vadodara,22.187631,70.346638,Medical,Water issue reported in Vadodara,88,None,2026-04-16 08:47:33,voice.mp3,4
+198,Call,Vadodara,20.664214,70.380625,Education,Medical issue reported in Vadodara,57,Women,2026-04-16 07:47:33,voice.mp3,8
+199,NGO Report,Surat,21.966399,70.500647,Food,Medical issue reported in Surat,16,Disabled,2026-04-16 09:47:33,none,9
+200,NGO Report,Rajkot,21.934211,72.844586,Shelter,Education issue reported in Rajkot,79,Elderly,2026-04-15 19:47:33,none,4
+201,WhatsApp,Rajkot,21.387224,71.503558,Education,Shelter issue reported in Rajkot,64,Elderly,2026-04-15 01:47:33,voice.mp3,1
+202,NGO Report,Surat,20.876252,70.142074,Water,Food issue reported in Surat,81,Disabled,2026-04-14 17:47:33,voice.mp3,5
+203,NGO Report,Navsari,22.35513,70.33139,Shelter,Medical issue reported in Navsari,22,Elderly,2026-04-15 06:47:33,voice.mp3,3
+204,WhatsApp,Ahmedabad,20.056119,71.46684,Food,Education issue reported in Ahmedabad,85,Children,2026-04-17 08:47:33,voice.mp3,9
+205,NGO Report,Vadodara,21.989131,72.729726,Shelter,Water issue reported in Vadodara,14,Disabled,2026-04-15 09:47:33,image.jpg,7
+206,Form,Navsari,20.697994,71.670568,Medical,Education issue reported in Navsari,78,Elderly,2026-04-16 12:47:33,none,3
+207,WhatsApp,Navsari,20.277289,72.561196,Medical,Medical issue reported in Navsari,62,Children,2026-04-15 10:47:33,image.jpg,8
+208,NGO Report,Ahmedabad,21.381816,72.588104,Education,Water issue reported in Ahmedabad,85,Elderly,2026-04-15 19:47:33,voice.mp3,3
+209,WhatsApp,Vadodara,20.047376,71.930974,Water,Education issue reported in Vadodara,1,Disabled,2026-04-17 04:47:33,image.jpg,6
+210,Call,Vadodara,21.775641,70.840811,Medical,Medical issue reported in Vadodara,22,None,2026-04-15 08:47:33,none,9
+211,NGO Report,Surat,20.4449,72.23042,Shelter,Shelter issue reported in Surat,99,Disabled,2026-04-15 20:47:33,none,6
+212,NGO Report,Vadodara,22.767544,70.368803,Education,Food issue reported in Vadodara,94,None,2026-04-15 23:47:33,report.pdf,10
+213,WhatsApp,Ahmedabad,20.097184,71.075374,Food,Medical issue reported in Ahmedabad,54,Disabled,2026-04-16 03:47:33,report.pdf,2
+214,NGO Report,Ahmedabad,20.107376,71.798015,Education,Education issue reported in Ahmedabad,56,Elderly,2026-04-15 00:47:33,image.jpg,2
+215,Mobile App,Ahmedabad,20.01377,72.245737,Food,Water issue reported in Ahmedabad,78,Children,2026-04-14 15:47:33,voice.mp3,9
+216,Form,Ahmedabad,22.291127,71.034403,Education,Shelter issue reported in Ahmedabad,67,Elderly,2026-04-15 17:47:33,image.jpg,1
+217,NGO Report,Navsari,22.097768,71.565292,Medical,Medical issue reported in Navsari,9,Children,2026-04-15 05:47:33,voice.mp3,2
+218,Mobile App,Surat,21.152934,71.392353,Education,Food issue reported in Surat,29,None,2026-04-15 09:47:33,none,3
+219,NGO Report,Rajkot,21.707037,71.243251,Food,Education issue reported in Rajkot,64,Children,2026-04-17 02:47:33,voice.mp3,1
+220,WhatsApp,Rajkot,22.229668,72.244791,Shelter,Water issue reported in Rajkot,27,None,2026-04-16 22:47:33,image.jpg,3
+221,Form,Vadodara,20.631363,70.602335,Food,Food issue reported in Vadodara,12,Disabled,2026-04-15 14:47:33,report.pdf,10
+222,Form,Surat,20.178139,71.941977,Food,Medical issue reported in Surat,76,Disabled,2026-04-17 02:47:33,none,3
+223,Call,Navsari,21.868792,72.377983,Shelter,Education issue reported in Navsari,89,Children,2026-04-15 07:47:33,image.jpg,6
+224,WhatsApp,Vadodara,20.788075,72.210123,Food,Education issue reported in Vadodara,42,Women,2026-04-14 15:47:33,report.pdf,3
+225,Form,Vadodara,22.939168,70.116376,Medical,Shelter issue reported in Vadodara,26,None,2026-04-15 15:47:33,image.jpg,9
+226,Mobile App,Ahmedabad,22.058819,70.709149,Shelter,Shelter issue reported in Ahmedabad,81,Children,2026-04-16 14:47:33,voice.mp3,10
+227,Call,Surat,22.939202,70.792744,Water,Water issue reported in Surat,64,None,2026-04-14 19:47:33,none,3
+228,Call,Rajkot,21.085332,71.326335,Food,Medical issue reported in Rajkot,41,Disabled,2026-04-16 05:47:33,voice.mp3,4
+229,Form,Rajkot,22.688999,71.227299,Education,Shelter issue reported in Rajkot,76,Women,2026-04-16 09:47:33,voice.mp3,5
+230,Form,Navsari,22.308867,71.047805,Medical,Water issue reported in Navsari,91,Women,2026-04-17 05:47:33,none,4
+231,Form,Navsari,22.618264,72.83505,Water,Medical issue reported in Navsari,62,Children,2026-04-16 01:47:33,image.jpg,4
+232,NGO Report,Rajkot,20.829849,72.234786,Shelter,Food issue reported in Rajkot,9,Elderly,2026-04-14 21:47:33,image.jpg,4
+233,Call,Ahmedabad,22.259807,72.284082,Medical,Water issue reported in Ahmedabad,32,Children,2026-04-15 05:47:33,voice.mp3,1
+234,Mobile App,Vadodara,20.882068,70.99556,Shelter,Shelter issue reported in Vadodara,49,Elderly,2026-04-14 23:47:33,voice.mp3,1
+235,NGO Report,Vadodara,20.799144,72.192092,Education,Medical issue reported in Vadodara,72,Children,2026-04-15 01:47:33,image.jpg,7
+236,WhatsApp,Rajkot,20.518496,70.856322,Food,Water issue reported in Rajkot,94,None,2026-04-16 17:47:33,image.jpg,3
+237,Mobile App,Vadodara,21.400772,71.547523,Shelter,Education issue reported in Vadodara,46,Women,2026-04-15 17:47:33,voice.mp3,7
+238,Call,Ahmedabad,22.513119,72.289799,Education,Food issue reported in Ahmedabad,44,None,2026-04-16 23:47:33,voice.mp3,3
+239,WhatsApp,Navsari,22.079887,72.43925,Education,Medical issue reported in Navsari,59,None,2026-04-15 00:47:33,voice.mp3,10
+240,Call,Surat,21.213262,71.556411,Food,Education issue reported in Surat,17,Children,2026-04-15 10:47:33,none,6
+241,Call,Vadodara,20.470552,70.885109,Food,Education issue reported in Vadodara,98,Elderly,2026-04-15 13:47:33,none,9
+242,Mobile App,Surat,21.054353,70.081747,Education,Medical issue reported in Surat,24,Disabled,2026-04-15 22:47:33,voice.mp3,6
+243,NGO Report,Ahmedabad,21.311779,71.719063,Education,Food issue reported in Ahmedabad,91,Disabled,2026-04-14 22:47:33,none,2
+244,Mobile App,Navsari,22.269749,72.068142,Food,Water issue reported in Navsari,20,Elderly,2026-04-16 06:47:33,none,10
+245,WhatsApp,Vadodara,22.257479,71.278866,Education,Medical issue reported in Vadodara,19,Elderly,2026-04-14 21:47:33,none,8
+246,Form,Navsari,20.463731,71.111095,Medical,Shelter issue reported in Navsari,59,Children,2026-04-15 16:47:33,voice.mp3,4
+247,Call,Rajkot,20.77616,70.701058,Medical,Education issue reported in Rajkot,77,Children,2026-04-14 22:47:33,voice.mp3,5
+248,NGO Report,Rajkot,21.143753,72.579859,Medical,Food issue reported in Rajkot,39,None,2026-04-15 06:47:33,report.pdf,9
+249,NGO Report,Navsari,22.583237,71.938606,Water,Water issue reported in Navsari,10,Disabled,2026-04-16 11:47:33,image.jpg,3
+250,Call,Ahmedabad,22.104062,71.266556,Shelter,Food issue reported in Ahmedabad,60,Children,2026-04-16 02:47:33,voice.mp3,6
+251,WhatsApp,Surat,22.424627,70.159942,Shelter,Food issue reported in Surat,82,Women,2026-04-17 11:47:33,report.pdf,4
+252,WhatsApp,Rajkot,20.795067,72.148728,Medical,Shelter issue reported in Rajkot,66,Children,2026-04-16 09:47:33,image.jpg,9
+253,Call,Vadodara,22.443289,72.586938,Shelter,Food issue reported in Vadodara,42,Women,2026-04-15 09:47:33,report.pdf,4
+254,Form,Surat,22.548335,71.408246,Education,Medical issue reported in Surat,84,None,2026-04-15 07:47:33,image.jpg,8
+255,NGO Report,Ahmedabad,22.771995,72.235078,Water,Water issue reported in Ahmedabad,23,Elderly,2026-04-17 10:47:33,none,10
+256,Mobile App,Rajkot,20.81908,70.779723,Medical,Medical issue reported in Rajkot,86,Children,2026-04-15 13:47:33,report.pdf,8
+257,WhatsApp,Navsari,21.587019,71.14422,Water,Shelter issue reported in Navsari,6,Disabled,2026-04-15 23:47:33,voice.mp3,7
+258,Call,Surat,22.96681,71.489265,Shelter,Water issue reported in Surat,83,Women,2026-04-16 18:47:33,image.jpg,6
+259,Call,Navsari,20.022359,71.50743,Education,Education issue reported in Navsari,71,Children,2026-04-15 19:47:33,voice.mp3,6
+260,WhatsApp,Surat,20.273595,72.992506,Food,Water issue reported in Surat,34,None,2026-04-14 14:47:33,image.jpg,4
+261,NGO Report,Vadodara,22.130372,72.128098,Food,Food issue reported in Vadodara,31,Children,2026-04-15 01:47:33,none,8
+262,Form,Vadodara,20.003199,72.395234,Food,Education issue reported in Vadodara,30,None,2026-04-17 06:47:33,voice.mp3,6
+263,Call,Vadodara,21.181383,72.061655,Food,Shelter issue reported in Vadodara,97,Women,2026-04-17 14:47:33,image.jpg,8
+264,WhatsApp,Vadodara,21.987036,70.792438,Food,Education issue reported in Vadodara,76,None,2026-04-16 03:47:33,report.pdf,3
+265,Form,Rajkot,20.83361,71.294728,Food,Water issue reported in Rajkot,26,Elderly,2026-04-16 21:47:33,none,5
+266,NGO Report,Ahmedabad,21.895488,70.617659,Shelter,Education issue reported in Ahmedabad,51,Disabled,2026-04-17 14:47:33,report.pdf,2
+267,NGO Report,Navsari,21.708845,71.098495,Water,Shelter issue reported in Navsari,4,Elderly,2026-04-17 10:47:33,voice.mp3,7
+268,WhatsApp,Ahmedabad,21.998725,70.395112,Medical,Food issue reported in Ahmedabad,80,Disabled,2026-04-15 21:47:33,report.pdf,8
+269,Call,Rajkot,20.186406,70.453376,Water,Food issue reported in Rajkot,36,Disabled,2026-04-15 16:47:33,image.jpg,1
+270,Mobile App,Rajkot,20.666522,70.834805,Medical,Food issue reported in Rajkot,17,Disabled,2026-04-14 23:47:33,none,1
+271,NGO Report,Vadodara,21.841467,71.314612,Shelter,Water issue reported in Vadodara,6,Disabled,2026-04-14 17:47:33,image.jpg,8
+272,WhatsApp,Rajkot,22.389815,72.955306,Shelter,Education issue reported in Rajkot,1,Children,2026-04-15 23:47:33,none,1
+273,Call,Vadodara,22.07368,72.536905,Medical,Medical issue reported in Vadodara,99,Elderly,2026-04-15 19:47:33,image.jpg,8
+274,Mobile App,Surat,22.925166,70.931166,Food,Medical issue reported in Surat,35,Children,2026-04-15 04:47:33,voice.mp3,2
+275,Call,Rajkot,22.909258,71.493183,Shelter,Shelter issue reported in Rajkot,79,Women,2026-04-15 12:47:33,image.jpg,10
+276,WhatsApp,Vadodara,22.713099,70.240204,Water,Education issue reported in Vadodara,88,Children,2026-04-15 03:47:33,report.pdf,3
+277,WhatsApp,Vadodara,20.690435,72.49592,Education,Shelter issue reported in Vadodara,27,Disabled,2026-04-14 23:47:33,report.pdf,9
+278,Call,Rajkot,22.531764,70.546211,Water,Water issue reported in Rajkot,46,Disabled,2026-04-15 04:47:33,image.jpg,8
+279,Form,Ahmedabad,20.631063,72.598617,Education,Food issue reported in Ahmedabad,89,Disabled,2026-04-16 08:47:33,voice.mp3,3
+280,Mobile App,Ahmedabad,21.862045,70.688639,Food,Education issue reported in Ahmedabad,4,None,2026-04-17 08:47:33,none,6
+281,NGO Report,Rajkot,22.257691,72.263432,Education,Shelter issue reported in Rajkot,96,Women,2026-04-14 16:47:33,image.jpg,4
+282,NGO Report,Navsari,22.638741,71.624656,Water,Education issue reported in Navsari,10,Women,2026-04-16 21:47:33,none,5
+283,Mobile App,Ahmedabad,20.949626,72.284195,Medical,Food issue reported in Ahmedabad,79,Elderly,2026-04-17 12:47:33,voice.mp3,6
+284,NGO Report,Navsari,22.750446,71.826302,Medical,Education issue reported in Navsari,4,None,2026-04-17 11:47:33,image.jpg,3
+285,WhatsApp,Vadodara,21.817738,71.445065,Food,Medical issue reported in Vadodara,95,Disabled,2026-04-17 08:47:33,report.pdf,5
+286,NGO Report,Navsari,21.739886,71.701913,Shelter,Education issue reported in Navsari,17,Elderly,2026-04-16 22:47:33,none,9
+287,Call,Surat,22.483431,72.98617,Food,Water issue reported in Surat,79,Disabled,2026-04-17 09:47:33,image.jpg,8
+288,NGO Report,Navsari,21.073316,72.713299,Water,Food issue reported in Navsari,88,Women,2026-04-16 23:47:33,none,8
+289,Form,Ahmedabad,20.306791,72.18283,Water,Shelter issue reported in Ahmedabad,87,Women,2026-04-14 23:47:33,image.jpg,5
+290,Mobile App,Rajkot,21.307036,71.431898,Water,Food issue reported in Rajkot,31,Elderly,2026-04-17 00:47:33,none,7
+291,Mobile App,Vadodara,21.062894,70.122403,Education,Shelter issue reported in Vadodara,98,Women,2026-04-16 19:47:33,voice.mp3,4
+292,Form,Surat,21.159985,72.687895,Education,Food issue reported in Surat,9,Children,2026-04-17 06:47:33,image.jpg,9
+293,NGO Report,Ahmedabad,22.173799,72.501118,Shelter,Education issue reported in Ahmedabad,52,None,2026-04-17 09:47:33,voice.mp3,3
+294,Call,Surat,20.690026,71.124496,Education,Medical issue reported in Surat,37,None,2026-04-15 05:47:33,voice.mp3,6
+295,NGO Report,Navsari,22.944107,72.489757,Education,Water issue reported in Navsari,72,Children,2026-04-16 13:47:33,image.jpg,4
+296,Call,Navsari,21.418808,71.322922,Food,Water issue reported in Navsari,84,Elderly,2026-04-14 18:47:33,report.pdf,9
+297,Mobile App,Surat,20.178292,72.937931,Food,Food issue reported in Surat,98,Children,2026-04-14 21:47:33,none,2
+298,Call,Vadodara,21.875039,71.174268,Education,Food issue reported in Vadodara,10,None,2026-04-15 23:47:33,image.jpg,2
+299,Form,Rajkot,21.798332,72.257439,Water,Education issue reported in Rajkot,88,Children,2026-04-16 14:47:33,report.pdf,4
+300,WhatsApp,Rajkot,21.978612,70.612994,Food,Shelter issue reported in Rajkot,14,Disabled,2026-04-15 04:47:33,none,3
+301,Mobile App,Surat,22.77674,70.088273,Food,Water issue reported in Surat,78,Children,2026-04-16 16:47:33,report.pdf,9
+302,Mobile App,Rajkot,21.427703,72.475323,Medical,Education issue reported in Rajkot,51,Disabled,2026-04-16 14:47:33,none,6
+303,WhatsApp,Ahmedabad,22.374004,72.524783,Medical,Medical issue reported in Ahmedabad,65,Disabled,2026-04-16 04:47:33,image.jpg,9
+304,Form,Navsari,20.878918,70.731042,Shelter,Medical issue reported in Navsari,77,Women,2026-04-16 00:47:33,voice.mp3,3
+305,Call,Vadodara,20.163636,72.632933,Water,Shelter issue reported in Vadodara,32,Elderly,2026-04-15 10:47:33,voice.mp3,9
+306,NGO Report,Vadodara,22.078896,72.873714,Medical,Water issue reported in Vadodara,24,Elderly,2026-04-15 09:47:33,voice.mp3,5
+307,Mobile App,Ahmedabad,21.189188,71.459605,Medical,Food issue reported in Ahmedabad,85,None,2026-04-17 02:47:33,image.jpg,9
+308,Call,Vadodara,21.154924,70.669415,Medical,Water issue reported in Vadodara,89,Elderly,2026-04-15 21:47:33,report.pdf,4
+309,WhatsApp,Navsari,20.01442,71.600803,Food,Medical issue reported in Navsari,70,Elderly,2026-04-16 14:47:33,report.pdf,7
+310,NGO Report,Ahmedabad,21.689469,70.298951,Medical,Water issue reported in Ahmedabad,50,Women,2026-04-15 22:47:33,none,4
+311,WhatsApp,Vadodara,22.801108,71.784926,Water,Medical issue reported in Vadodara,99,Children,2026-04-14 20:47:33,none,3
+312,WhatsApp,Rajkot,21.499313,70.432449,Water,Education issue reported in Rajkot,43,Children,2026-04-15 19:47:33,none,5
+313,Form,Navsari,20.953156,70.605074,Education,Medical issue reported in Navsari,55,Disabled,2026-04-16 07:47:33,image.jpg,1
+314,Mobile App,Navsari,22.871764,71.582789,Food,Education issue reported in Navsari,86,None,2026-04-15 18:47:33,image.jpg,9
+315,Form,Ahmedabad,20.994118,71.558112,Education,Water issue reported in Ahmedabad,48,None,2026-04-16 14:47:33,report.pdf,8
+316,NGO Report,Surat,20.282003,70.709186,Water,Medical issue reported in Surat,23,None,2026-04-16 00:47:33,none,1
+317,WhatsApp,Navsari,20.162123,71.536843,Shelter,Medical issue reported in Navsari,56,None,2026-04-16 16:47:33,image.jpg,4
+318,Call,Rajkot,20.146073,72.802637,Shelter,Water issue reported in Rajkot,87,Disabled,2026-04-15 01:47:33,image.jpg,3
+319,NGO Report,Vadodara,21.439275,71.941768,Water,Water issue reported in Vadodara,33,Elderly,2026-04-15 13:47:33,none,2
+320,Mobile App,Navsari,21.013032,72.172777,Water,Education issue reported in Navsari,14,Children,2026-04-15 06:47:33,voice.mp3,7
+321,Call,Vadodara,20.545683,71.957344,Food,Education issue reported in Vadodara,98,Disabled,2026-04-15 12:47:33,none,10
+322,Mobile App,Surat,20.09994,70.806375,Shelter,Food issue reported in Surat,17,None,2026-04-15 18:47:33,voice.mp3,10
+323,Call,Surat,22.614912,71.135576,Shelter,Water issue reported in Surat,97,Disabled,2026-04-15 11:47:33,image.jpg,7
+324,Call,Vadodara,21.711203,71.192954,Food,Water issue reported in Vadodara,70,Women,2026-04-16 23:47:33,image.jpg,8
+325,Mobile App,Rajkot,22.496121,72.669134,Education,Food issue reported in Rajkot,66,Children,2026-04-15 19:47:33,voice.mp3,4
+326,WhatsApp,Vadodara,21.760179,70.069538,Medical,Education issue reported in Vadodara,83,Children,2026-04-14 22:47:33,voice.mp3,6
+327,Form,Rajkot,22.70375,72.210928,Water,Water issue reported in Rajkot,22,Women,2026-04-14 23:47:33,voice.mp3,10
+328,Mobile App,Surat,20.591269,71.333189,Shelter,Water issue reported in Surat,51,Children,2026-04-16 05:47:33,voice.mp3,7
+329,Form,Rajkot,22.749508,70.072315,Medical,Food issue reported in Rajkot,36,Women,2026-04-17 11:47:33,image.jpg,8
+330,NGO Report,Navsari,21.0891,72.812804,Shelter,Food issue reported in Navsari,26,Elderly,2026-04-17 07:47:33,voice.mp3,1
+331,NGO Report,Rajkot,20.678301,72.42536,Water,Education issue reported in Rajkot,28,Disabled,2026-04-15 18:47:33,image.jpg,5
+332,NGO Report,Navsari,20.676505,71.26929,Shelter,Medical issue reported in Navsari,94,Women,2026-04-17 02:47:33,voice.mp3,3
+333,Form,Surat,20.267847,72.547321,Education,Medical issue reported in Surat,80,Women,2026-04-15 14:47:33,report.pdf,3
+334,Call,Ahmedabad,20.199748,71.097054,Education,Water issue reported in Ahmedabad,23,Disabled,2026-04-15 14:47:33,voice.mp3,7
+335,Call,Surat,22.13795,71.29537,Water,Shelter issue reported in Surat,84,Women,2026-04-15 01:47:33,none,8
+336,Mobile App,Navsari,22.885767,70.354196,Water,Water issue reported in Navsari,57,Elderly,2026-04-16 08:47:33,image.jpg,7
+337,WhatsApp,Surat,21.032106,72.466109,Education,Water issue reported in Surat,73,None,2026-04-16 13:47:33,image.jpg,3
+338,Mobile App,Vadodara,21.399787,71.217764,Water,Food issue reported in Vadodara,71,Elderly,2026-04-15 17:47:33,image.jpg,9
+339,Form,Rajkot,22.120297,70.167379,Food,Food issue reported in Rajkot,79,Women,2026-04-14 22:47:33,image.jpg,6
+340,NGO Report,Ahmedabad,21.117717,72.390716,Medical,Medical issue reported in Ahmedabad,100,Disabled,2026-04-14 20:47:33,report.pdf,10
+341,WhatsApp,Vadodara,21.71096,71.980035,Food,Shelter issue reported in Vadodara,58,Women,2026-04-14 20:47:33,voice.mp3,3
+342,Mobile App,Surat,22.540224,72.582872,Shelter,Shelter issue reported in Surat,34,Women,2026-04-14 15:47:33,voice.mp3,7
+343,Mobile App,Vadodara,22.534125,70.231713,Shelter,Medical issue reported in Vadodara,19,Children,2026-04-14 14:47:33,image.jpg,6
+344,Call,Navsari,20.238839,71.438559,Food,Medical issue reported in Navsari,16,None,2026-04-16 22:47:33,none,8
+345,Mobile App,Vadodara,22.024658,71.047192,Education,Education issue reported in Vadodara,61,Women,2026-04-14 18:47:33,none,4
+346,NGO Report,Rajkot,21.564153,70.00302,Medical,Medical issue reported in Rajkot,20,None,2026-04-14 17:47:33,image.jpg,8
+347,NGO Report,Ahmedabad,21.939949,71.854597,Medical,Water issue reported in Ahmedabad,78,Disabled,2026-04-16 02:47:33,voice.mp3,7
+348,Mobile App,Ahmedabad,20.735776,72.501608,Education,Education issue reported in Ahmedabad,59,Children,2026-04-17 07:47:33,report.pdf,3
+349,Mobile App,Surat,21.220511,72.314844,Food,Shelter issue reported in Surat,96,Disabled,2026-04-16 22:47:33,none,10
+350,Form,Ahmedabad,21.436819,72.159151,Food,Shelter issue reported in Ahmedabad,35,Disabled,2026-04-15 22:47:33,voice.mp3,8
+351,Call,Surat,22.593501,70.00811,Water,Shelter issue reported in Surat,81,Women,2026-04-15 09:47:33,image.jpg,7
+352,Form,Vadodara,21.272193,70.955811,Water,Food issue reported in Vadodara,27,Women,2026-04-17 10:47:33,none,10
+353,WhatsApp,Navsari,22.074424,71.531555,Shelter,Medical issue reported in Navsari,15,Women,2026-04-16 06:47:33,none,4
+354,Mobile App,Ahmedabad,22.716386,71.775519,Shelter,Education issue reported in Ahmedabad,67,Disabled,2026-04-15 08:47:33,image.jpg,7
+355,Call,Surat,20.837152,70.977736,Shelter,Water issue reported in Surat,81,Women,2026-04-16 00:47:33,voice.mp3,8
+356,Form,Navsari,22.199244,72.657371,Shelter,Shelter issue reported in Navsari,62,Children,2026-04-17 09:47:33,image.jpg,8
+357,Mobile App,Surat,20.386076,72.581256,Medical,Water issue reported in Surat,91,Disabled,2026-04-17 00:47:33,voice.mp3,5
+358,WhatsApp,Surat,22.516918,71.652838,Water,Water issue reported in Surat,13,None,2026-04-16 20:47:33,report.pdf,5
+359,NGO Report,Vadodara,21.191624,72.235803,Shelter,Medical issue reported in Vadodara,75,Women,2026-04-15 05:47:33,image.jpg,1
+360,NGO Report,Ahmedabad,21.689301,70.02741,Water,Food issue reported in Ahmedabad,59,Women,2026-04-17 11:47:33,image.jpg,6
+361,Call,Navsari,20.158815,71.92949,Water,Food issue reported in Navsari,81,Disabled,2026-04-16 12:47:33,image.jpg,4
+362,WhatsApp,Surat,20.482417,71.999712,Shelter,Shelter issue reported in Surat,15,Children,2026-04-15 15:47:33,none,1
+363,Call,Surat,20.129359,70.426265,Water,Water issue reported in Surat,24,Children,2026-04-17 09:47:33,none,2
+364,Call,Rajkot,21.67523,71.100823,Water,Food issue reported in Rajkot,89,Children,2026-04-16 04:47:33,report.pdf,9
+365,Mobile App,Navsari,20.1001,70.076048,Water,Medical issue reported in Navsari,76,Elderly,2026-04-15 20:47:33,voice.mp3,6
+366,NGO Report,Rajkot,22.196022,70.720298,Medical,Shelter issue reported in Rajkot,25,Elderly,2026-04-14 18:47:33,voice.mp3,5
+367,Form,Ahmedabad,20.525569,70.431476,Education,Water issue reported in Ahmedabad,35,Children,2026-04-16 23:47:33,image.jpg,7
+368,NGO Report,Surat,20.59921,71.694165,Shelter,Shelter issue reported in Surat,75,Children,2026-04-16 18:47:33,report.pdf,10
+369,WhatsApp,Vadodara,20.582304,70.014072,Shelter,Shelter issue reported in Vadodara,78,Children,2026-04-16 22:47:33,voice.mp3,2
+370,Call,Navsari,22.871324,70.87667,Education,Food issue reported in Navsari,30,Disabled,2026-04-16 12:47:33,none,2
+371,NGO Report,Navsari,20.274239,72.011177,Food,Food issue reported in Navsari,79,Women,2026-04-17 02:47:33,report.pdf,1
+372,Form,Surat,22.131974,72.902975,Food,Water issue reported in Surat,57,Disabled,2026-04-16 14:47:33,image.jpg,4
+373,Form,Rajkot,21.994967,71.232179,Education,Shelter issue reported in Rajkot,30,Children,2026-04-17 03:47:33,none,7
+374,Form,Rajkot,20.796161,72.995716,Food,Food issue reported in Rajkot,26,Women,2026-04-16 14:47:33,voice.mp3,8
+375,Mobile App,Rajkot,20.708252,71.493085,Education,Shelter issue reported in Rajkot,73,Women,2026-04-17 04:47:33,report.pdf,8
+376,WhatsApp,Ahmedabad,22.367662,72.441198,Shelter,Education issue reported in Ahmedabad,89,Disabled,2026-04-15 18:47:33,image.jpg,1
+377,Mobile App,Navsari,22.068078,70.265764,Shelter,Medical issue reported in Navsari,61,Elderly,2026-04-17 12:47:33,none,6
+378,NGO Report,Navsari,20.682966,71.232168,Food,Water issue reported in Navsari,11,Children,2026-04-16 09:47:33,voice.mp3,10
+379,WhatsApp,Rajkot,21.70902,70.829267,Education,Education issue reported in Rajkot,35,Elderly,2026-04-15 11:47:33,none,3
+380,NGO Report,Rajkot,20.69983,72.379951,Water,Shelter issue reported in Rajkot,51,Women,2026-04-16 13:47:33,none,2
+381,Form,Navsari,22.955666,71.475658,Medical,Shelter issue reported in Navsari,36,Children,2026-04-16 03:47:33,image.jpg,10
+382,Form,Surat,20.429692,70.544015,Food,Education issue reported in Surat,39,Women,2026-04-17 11:47:33,voice.mp3,3
+383,WhatsApp,Rajkot,20.965665,70.983833,Medical,Medical issue reported in Rajkot,96,Children,2026-04-16 21:47:33,image.jpg,4
+384,Call,Ahmedabad,22.094673,72.262698,Water,Food issue reported in Ahmedabad,63,Elderly,2026-04-16 13:47:33,none,7
+385,Call,Navsari,20.893247,72.076694,Education,Food issue reported in Navsari,26,Children,2026-04-15 07:47:33,voice.mp3,9
+386,NGO Report,Navsari,21.978751,70.532836,Food,Shelter issue reported in Navsari,91,Disabled,2026-04-17 04:47:33,voice.mp3,4
+387,Mobile App,Ahmedabad,21.907544,71.921337,Education,Water issue reported in Ahmedabad,65,Children,2026-04-15 10:47:33,image.jpg,10
+388,NGO Report,Surat,22.567406,72.618189,Food,Education issue reported in Surat,81,Elderly,2026-04-14 14:47:33,voice.mp3,4
+389,Mobile App,Rajkot,21.051826,71.950957,Shelter,Water issue reported in Rajkot,12,Disabled,2026-04-15 10:47:33,voice.mp3,1
+390,NGO Report,Vadodara,20.542597,72.37106,Education,Food issue reported in Vadodara,12,None,2026-04-17 06:47:33,report.pdf,8
+391,Call,Ahmedabad,20.682551,70.77297,Food,Water issue reported in Ahmedabad,51,Children,2026-04-17 12:47:33,voice.mp3,5
+392,Form,Rajkot,22.288754,70.351994,Water,Water issue reported in Rajkot,96,Children,2026-04-16 03:47:33,image.jpg,5
+393,Form,Vadodara,21.599231,72.229394,Food,Shelter issue reported in Vadodara,85,Children,2026-04-15 14:47:33,report.pdf,1
+394,NGO Report,Vadodara,21.56101,70.403869,Shelter,Food issue reported in Vadodara,47,Elderly,2026-04-16 11:47:33,report.pdf,1
+395,NGO Report,Surat,21.369042,71.34906,Food,Water issue reported in Surat,90,Elderly,2026-04-16 18:47:33,image.jpg,1
+396,Call,Navsari,21.275157,71.949696,Water,Water issue reported in Navsari,2,Disabled,2026-04-16 14:47:33,image.jpg,7
+397,WhatsApp,Navsari,20.240305,72.539167,Education,Education issue reported in Navsari,96,Children,2026-04-16 12:47:33,report.pdf,4
+398,NGO Report,Ahmedabad,21.631413,71.33706,Water,Education issue reported in Ahmedabad,44,Disabled,2026-04-15 21:47:33,voice.mp3,9
+399,Form,Ahmedabad,20.012584,72.554659,Medical,Shelter issue reported in Ahmedabad,63,Women,2026-04-14 21:47:33,none,9
+400,Call,Ahmedabad,22.000704,72.79697,Food,Education issue reported in Ahmedabad,64,Disabled,2026-04-16 07:47:33,voice.mp3,10
+401,WhatsApp,Vadodara,21.974671,70.952855,Shelter,Shelter issue reported in Vadodara,76,None,2026-04-17 08:47:33,voice.mp3,5
+402,WhatsApp,Navsari,22.565102,71.792497,Water,Water issue reported in Navsari,85,Elderly,2026-04-15 02:47:33,none,10
+403,NGO Report,Surat,22.25507,71.579351,Education,Education issue reported in Surat,67,Elderly,2026-04-16 19:47:33,image.jpg,5
+404,NGO Report,Ahmedabad,21.944663,70.805616,Water,Medical issue reported in Ahmedabad,74,Elderly,2026-04-15 08:47:33,none,3
+405,WhatsApp,Navsari,21.4813,70.657917,Education,Medical issue reported in Navsari,81,Disabled,2026-04-16 00:47:33,none,7
+406,WhatsApp,Surat,20.150557,72.856095,Shelter,Medical issue reported in Surat,43,Children,2026-04-15 21:47:33,none,10
+407,WhatsApp,Vadodara,21.390827,70.525057,Water,Shelter issue reported in Vadodara,62,Children,2026-04-16 20:47:33,report.pdf,9
+408,Call,Ahmedabad,20.185917,72.821723,Education,Shelter issue reported in Ahmedabad,87,Disabled,2026-04-15 01:47:33,voice.mp3,3
+409,Mobile App,Ahmedabad,20.165195,72.845079,Food,Shelter issue reported in Ahmedabad,74,Women,2026-04-16 21:47:33,voice.mp3,6
+410,Mobile App,Surat,22.885869,71.748859,Food,Food issue reported in Surat,47,Elderly,2026-04-15 09:47:33,image.jpg,10
+411,NGO Report,Vadodara,21.442267,71.902944,Medical,Water issue reported in Vadodara,11,Elderly,2026-04-17 04:47:33,none,7
+412,Form,Navsari,20.656246,71.651174,Food,Shelter issue reported in Navsari,32,None,2026-04-16 11:47:33,image.jpg,2
+413,NGO Report,Navsari,22.357251,72.38734,Medical,Medical issue reported in Navsari,60,None,2026-04-15 03:47:33,report.pdf,9
+414,Form,Ahmedabad,22.327151,71.469444,Food,Food issue reported in Ahmedabad,88,None,2026-04-15 11:47:33,image.jpg,3
+415,NGO Report,Ahmedabad,20.680916,71.924301,Food,Medical issue reported in Ahmedabad,70,Elderly,2026-04-15 19:47:33,voice.mp3,7
+416,NGO Report,Vadodara,21.121897,71.452396,Shelter,Water issue reported in Vadodara,49,Elderly,2026-04-17 00:47:33,image.jpg,10
+417,Form,Ahmedabad,21.046034,72.052245,Education,Shelter issue reported in Ahmedabad,51,Elderly,2026-04-17 03:47:33,none,5
+418,NGO Report,Rajkot,21.961894,72.155721,Medical,Education issue reported in Rajkot,57,Women,2026-04-15 18:47:33,image.jpg,8
+419,Mobile App,Navsari,22.502085,71.681383,Education,Food issue reported in Navsari,62,Elderly,2026-04-16 20:47:33,voice.mp3,7
+420,Mobile App,Vadodara,20.779322,72.692105,Food,Shelter issue reported in Vadodara,79,Children,2026-04-15 17:47:33,report.pdf,4
+421,Form,Ahmedabad,20.723674,70.791807,Shelter,Education issue reported in Ahmedabad,62,None,2026-04-16 21:47:33,voice.mp3,2
+422,NGO Report,Vadodara,20.682741,72.624194,Food,Shelter issue reported in Vadodara,49,Disabled,2026-04-17 13:47:33,report.pdf,10
+423,Mobile App,Rajkot,22.110326,71.578108,Food,Water issue reported in Rajkot,71,Disabled,2026-04-14 20:47:33,report.pdf,9
+424,WhatsApp,Navsari,20.590818,71.974176,Shelter,Water issue reported in Navsari,67,Women,2026-04-16 16:47:33,image.jpg,6
+425,WhatsApp,Ahmedabad,21.42888,72.648858,Water,Shelter issue reported in Ahmedabad,77,Elderly,2026-04-17 08:47:33,report.pdf,3
+426,Form,Surat,20.950366,71.480157,Shelter,Water issue reported in Surat,37,Children,2026-04-17 10:47:33,none,7
+427,Mobile App,Vadodara,20.306677,71.030938,Shelter,Water issue reported in Vadodara,17,Disabled,2026-04-16 01:47:33,image.jpg,4
+428,Mobile App,Vadodara,21.405834,71.857883,Education,Shelter issue reported in Vadodara,52,None,2026-04-17 00:47:33,none,6
+429,WhatsApp,Ahmedabad,20.46407,72.170872,Shelter,Medical issue reported in Ahmedabad,98,Disabled,2026-04-17 11:47:33,voice.mp3,7
+430,WhatsApp,Navsari,21.361705,70.3167,Education,Medical issue reported in Navsari,75,Children,2026-04-15 23:47:33,image.jpg,4
+431,Call,Surat,20.176407,70.469673,Water,Shelter issue reported in Surat,95,Women,2026-04-16 14:47:33,image.jpg,8
+432,Call,Navsari,22.328318,71.183123,Food,Shelter issue reported in Navsari,12,None,2026-04-15 14:47:33,none,3
+433,Mobile App,Vadodara,21.254539,70.247985,Medical,Education issue reported in Vadodara,41,Elderly,2026-04-15 07:47:33,none,3
+434,NGO Report,Rajkot,20.633243,71.663309,Shelter,Medical issue reported in Rajkot,42,Women,2026-04-15 09:47:33,image.jpg,7
+435,Form,Rajkot,21.806717,70.94473,Medical,Education issue reported in Rajkot,83,Elderly,2026-04-16 18:47:33,report.pdf,7
+436,NGO Report,Rajkot,20.069541,71.590204,Medical,Food issue reported in Rajkot,49,Women,2026-04-15 18:47:33,voice.mp3,4
+437,Form,Rajkot,21.657346,70.685854,Shelter,Food issue reported in Rajkot,65,None,2026-04-16 08:47:33,image.jpg,3
+438,Form,Rajkot,21.4598,70.498372,Water,Medical issue reported in Rajkot,4,Children,2026-04-15 10:47:33,voice.mp3,4
+439,Form,Rajkot,22.958527,70.170071,Shelter,Medical issue reported in Rajkot,18,Children,2026-04-16 14:47:33,voice.mp3,10
+440,Mobile App,Vadodara,21.005247,70.672222,Medical,Food issue reported in Vadodara,78,Women,2026-04-17 11:47:33,image.jpg,3
+441,Form,Ahmedabad,22.523367,70.264066,Food,Water issue reported in Ahmedabad,54,Elderly,2026-04-15 01:47:33,report.pdf,3
+442,Call,Ahmedabad,22.537356,70.41089,Shelter,Medical issue reported in Ahmedabad,7,Women,2026-04-14 16:47:33,voice.mp3,8
+443,Mobile App,Ahmedabad,21.096384,70.31403,Water,Shelter issue reported in Ahmedabad,23,Women,2026-04-17 05:47:33,report.pdf,2
+444,NGO Report,Surat,22.427597,70.98498,Water,Education issue reported in Surat,34,None,2026-04-15 15:47:33,report.pdf,10
+445,Form,Ahmedabad,22.776676,71.603746,Education,Medical issue reported in Ahmedabad,34,Elderly,2026-04-15 15:47:33,voice.mp3,7
+446,Mobile App,Rajkot,20.755539,70.810521,Water,Education issue reported in Rajkot,2,Women,2026-04-15 15:47:33,image.jpg,3
+447,NGO Report,Vadodara,20.275667,71.916677,Medical,Shelter issue reported in Vadodara,52,Disabled,2026-04-17 02:47:33,voice.mp3,3
+448,NGO Report,Navsari,22.019923,70.12702,Water,Shelter issue reported in Navsari,90,Women,2026-04-16 12:47:33,voice.mp3,8
+449,NGO Report,Rajkot,20.227197,72.668452,Shelter,Food issue reported in Rajkot,11,None,2026-04-17 01:47:33,none,3
+450,WhatsApp,Rajkot,21.420977,72.761793,Food,Education issue reported in Rajkot,49,Disabled,2026-04-15 15:47:33,image.jpg,4
+451,WhatsApp,Vadodara,22.26426,71.422556,Shelter,Education issue reported in Vadodara,85,Children,2026-04-16 14:47:33,voice.mp3,9
+452,WhatsApp,Rajkot,22.177331,71.062734,Water,Shelter issue reported in Rajkot,45,None,2026-04-17 09:47:33,voice.mp3,8
+453,Mobile App,Vadodara,22.372481,70.206746,Food,Water issue reported in Vadodara,84,Women,2026-04-15 12:47:33,voice.mp3,5
+454,Mobile App,Ahmedabad,22.507063,70.102565,Medical,Shelter issue reported in Ahmedabad,23,Children,2026-04-16 12:47:33,voice.mp3,7
+455,WhatsApp,Navsari,21.012768,71.278218,Shelter,Medical issue reported in Navsari,16,Disabled,2026-04-14 17:47:33,report.pdf,8
+456,Mobile App,Navsari,21.927818,70.679084,Water,Water issue reported in Navsari,56,None,2026-04-15 15:47:33,none,9
+457,Form,Vadodara,22.824896,72.035431,Shelter,Medical issue reported in Vadodara,88,Children,2026-04-14 19:47:33,voice.mp3,9
+458,WhatsApp,Surat,20.320082,71.549524,Shelter,Shelter issue reported in Surat,35,None,2026-04-16 18:47:33,voice.mp3,7
+459,Call,Ahmedabad,22.764689,71.45485,Education,Medical issue reported in Ahmedabad,54,Women,2026-04-17 08:47:33,report.pdf,9
+460,Mobile App,Vadodara,21.096349,72.46393,Water,Food issue reported in Vadodara,8,Disabled,2026-04-17 10:47:33,image.jpg,9
+461,WhatsApp,Surat,21.833893,71.944231,Education,Food issue reported in Surat,85,Elderly,2026-04-17 01:47:33,image.jpg,3
+462,NGO Report,Navsari,21.763118,70.291923,Medical,Food issue reported in Navsari,45,Elderly,2026-04-17 06:47:33,none,6
+463,Call,Surat,22.324873,71.258656,Shelter,Food issue reported in Surat,6,Disabled,2026-04-16 10:47:33,report.pdf,4
+464,Mobile App,Surat,20.455465,71.776027,Medical,Medical issue reported in Surat,3,None,2026-04-16 09:47:33,none,7
+465,WhatsApp,Vadodara,20.768165,70.681322,Education,Shelter issue reported in Vadodara,8,Children,2026-04-17 04:47:33,image.jpg,6
+466,NGO Report,Surat,22.999947,72.006851,Shelter,Food issue reported in Surat,92,Disabled,2026-04-16 07:47:33,voice.mp3,3
+467,Call,Vadodara,22.709362,72.523771,Shelter,Medical issue reported in Vadodara,1,Disabled,2026-04-17 02:47:33,image.jpg,6
+468,Mobile App,Surat,22.230382,70.891103,Food,Education issue reported in Surat,26,Elderly,2026-04-17 05:47:33,voice.mp3,4
+469,Call,Ahmedabad,21.373999,71.540784,Food,Food issue reported in Ahmedabad,68,Children,2026-04-16 02:47:33,report.pdf,3
+470,Form,Surat,21.275949,71.745038,Medical,Water issue reported in Surat,24,Children,2026-04-15 12:47:33,image.jpg,3
+471,NGO Report,Vadodara,21.294299,71.052265,Food,Medical issue reported in Vadodara,64,Elderly,2026-04-15 13:47:33,voice.mp3,10
+472,NGO Report,Surat,20.000645,71.147685,Water,Food issue reported in Surat,96,None,2026-04-17 02:47:33,image.jpg,6
+473,Mobile App,Rajkot,21.677182,71.689364,Water,Education issue reported in Rajkot,21,None,2026-04-16 22:47:33,voice.mp3,7
+474,Call,Ahmedabad,20.586252,70.394373,Water,Medical issue reported in Ahmedabad,87,None,2026-04-16 08:47:33,voice.mp3,8
+475,WhatsApp,Surat,21.912316,72.580016,Shelter,Food issue reported in Surat,79,Women,2026-04-15 15:47:33,voice.mp3,3
+476,Form,Vadodara,21.550548,72.610082,Water,Education issue reported in Vadodara,100,Children,2026-04-16 13:47:33,image.jpg,8
+477,Call,Ahmedabad,22.457534,70.921,Education,Food issue reported in Ahmedabad,12,Children,2026-04-17 13:47:33,image.jpg,6
+478,WhatsApp,Rajkot,20.001894,72.782199,Water,Shelter issue reported in Rajkot,93,None,2026-04-16 16:47:33,report.pdf,8
+479,Call,Rajkot,22.061967,70.719885,Medical,Water issue reported in Rajkot,61,Disabled,2026-04-16 06:47:33,none,7
+480,Mobile App,Navsari,21.641276,72.841589,Shelter,Shelter issue reported in Navsari,67,Children,2026-04-17 08:47:33,none,8
+481,Mobile App,Rajkot,22.508847,72.981134,Shelter,Food issue reported in Rajkot,64,Elderly,2026-04-16 17:47:33,image.jpg,9
+482,NGO Report,Ahmedabad,22.847793,72.401959,Shelter,Education issue reported in Ahmedabad,3,Disabled,2026-04-15 20:47:33,image.jpg,2
+483,NGO Report,Navsari,20.654329,70.405424,Water,Food issue reported in Navsari,38,Women,2026-04-15 06:47:33,voice.mp3,10
+484,NGO Report,Ahmedabad,21.993867,70.309926,Education,Medical issue reported in Ahmedabad,3,None,2026-04-15 07:47:33,none,10
+485,Form,Rajkot,21.690946,72.394593,Medical,Shelter issue reported in Rajkot,8,Women,2026-04-16 13:47:33,none,4
+486,WhatsApp,Navsari,20.969795,71.466504,Shelter,Shelter issue reported in Navsari,100,Children,2026-04-15 13:47:33,image.jpg,5
+487,WhatsApp,Surat,22.826994,71.353176,Education,Shelter issue reported in Surat,38,None,2026-04-17 00:47:33,voice.mp3,6
+488,Mobile App,Vadodara,21.878619,71.187496,Water,Shelter issue reported in Vadodara,76,Women,2026-04-17 10:47:33,report.pdf,1
+489,Mobile App,Rajkot,21.242021,71.583737,Medical,Medical issue reported in Rajkot,69,Disabled,2026-04-16 20:47:33,image.jpg,3
+490,Call,Ahmedabad,21.945905,70.150397,Water,Water issue reported in Ahmedabad,12,None,2026-04-16 11:47:33,image.jpg,2
+491,NGO Report,Navsari,22.940513,72.856905,Food,Education issue reported in Navsari,62,Disabled,2026-04-15 18:47:33,none,6
+492,WhatsApp,Rajkot,20.138382,72.905184,Water,Shelter issue reported in Rajkot,60,Elderly,2026-04-15 16:47:33,report.pdf,2
+493,WhatsApp,Vadodara,22.417748,72.631485,Education,Shelter issue reported in Vadodara,96,Children,2026-04-17 02:47:33,voice.mp3,3
+494,Call,Navsari,20.518842,70.082025,Shelter,Shelter issue reported in Navsari,70,None,2026-04-17 11:47:33,voice.mp3,10
+495,NGO Report,Surat,21.266568,72.535346,Food,Education issue reported in Surat,72,Disabled,2026-04-17 05:47:33,report.pdf,3
+496,Mobile App,Surat,21.449188,72.285955,Water,Medical issue reported in Surat,61,Children,2026-04-15 21:47:33,report.pdf,5
+497,Call,Vadodara,22.514588,71.475815,Education,Education issue reported in Vadodara,7,Women,2026-04-15 23:47:33,none,2
+498,Call,Surat,21.243251,70.346903,Shelter,Medical issue reported in Surat,3,Women,2026-04-17 14:47:33,none,10
+499,Mobile App,Rajkot,21.792611,70.159405,Education,Food issue reported in Rajkot,83,Elderly,2026-04-17 03:47:33,none,7
+500,Call,Navsari,22.522088,70.866999,Medical,Food issue reported in Navsari,38,Disabled,2026-04-16 02:47:33,voice.mp3,8
+501,NGO Report,Ahmedabad,22.708513,71.744993,Food,Shelter issue reported in Ahmedabad,69,Elderly,2026-04-17 08:47:33,none,6
+502,NGO Report,Surat,20.996774,71.045,Shelter,Medical issue reported in Surat,4,Women,2026-04-17 02:47:33,none,4
+503,NGO Report,Ahmedabad,22.706601,71.095952,Food,Education issue reported in Ahmedabad,2,Women,2026-04-16 07:47:33,voice.mp3,1
+504,WhatsApp,Vadodara,20.89967,72.910017,Education,Education issue reported in Vadodara,6,Children,2026-04-17 05:47:33,none,7
+505,Mobile App,Surat,21.539982,72.206699,Medical,Education issue reported in Surat,71,Elderly,2026-04-14 17:47:33,image.jpg,5
+506,Mobile App,Surat,21.859495,71.967712,Food,Water issue reported in Surat,26,Children,2026-04-16 23:47:33,image.jpg,10
+507,Form,Vadodara,20.289639,70.543656,Food,Education issue reported in Vadodara,73,Elderly,2026-04-17 07:47:33,report.pdf,4
+508,Call,Rajkot,22.310855,71.438877,Food,Water issue reported in Rajkot,35,Women,2026-04-17 07:47:33,none,6
+509,Mobile App,Ahmedabad,21.263257,70.68885,Medical,Food issue reported in Ahmedabad,43,Women,2026-04-14 23:47:33,image.jpg,10
+510,Call,Navsari,20.867126,70.33978,Medical,Education issue reported in Navsari,100,Children,2026-04-14 17:47:33,voice.mp3,10
+511,Call,Rajkot,21.789471,71.610818,Shelter,Education issue reported in Rajkot,44,None,2026-04-17 11:47:33,report.pdf,2
+512,Form,Surat,22.874258,70.87862,Medical,Water issue reported in Surat,41,None,2026-04-15 15:47:33,voice.mp3,4
+513,Call,Rajkot,20.416171,70.595961,Food,Education issue reported in Rajkot,45,Elderly,2026-04-15 21:47:33,none,3
+514,WhatsApp,Rajkot,20.011368,71.792136,Shelter,Education issue reported in Rajkot,72,Disabled,2026-04-16 16:47:33,report.pdf,9
+515,Call,Navsari,22.9537,70.096903,Water,Shelter issue reported in Navsari,84,Children,2026-04-16 20:47:33,voice.mp3,4
+516,Mobile App,Navsari,20.694419,72.770221,Food,Shelter issue reported in Navsari,73,Disabled,2026-04-16 17:47:33,none,4
+517,WhatsApp,Navsari,22.569451,72.356385,Shelter,Water issue reported in Navsari,2,Disabled,2026-04-16 20:47:33,image.jpg,4
+518,NGO Report,Surat,22.103852,70.669509,Education,Education issue reported in Surat,11,Elderly,2026-04-16 04:47:33,none,10
+519,NGO Report,Navsari,21.993013,72.805445,Food,Medical issue reported in Navsari,32,Children,2026-04-16 18:47:33,report.pdf,6
+520,NGO Report,Navsari,20.359264,72.001469,Education,Shelter issue reported in Navsari,44,Children,2026-04-17 13:47:33,image.jpg,9
+521,NGO Report,Rajkot,20.064829,72.488524,Education,Water issue reported in Rajkot,55,Children,2026-04-15 11:47:33,none,1
+522,Mobile App,Surat,22.1709,71.067673,Water,Food issue reported in Surat,10,Elderly,2026-04-16 13:47:33,voice.mp3,10
+523,WhatsApp,Navsari,22.70679,71.944143,Shelter,Education issue reported in Navsari,18,Women,2026-04-16 10:47:33,image.jpg,8
+524,Form,Surat,21.798818,71.532989,Water,Shelter issue reported in Surat,91,Elderly,2026-04-16 03:47:33,none,5
+525,Form,Ahmedabad,20.152085,72.72069,Education,Shelter issue reported in Ahmedabad,19,Women,2026-04-16 09:47:33,none,7
+526,Call,Surat,20.810949,70.606714,Shelter,Water issue reported in Surat,50,None,2026-04-17 06:47:33,none,8
+527,NGO Report,Rajkot,22.865365,71.754482,Food,Shelter issue reported in Rajkot,86,Elderly,2026-04-15 15:47:33,voice.mp3,7
+528,WhatsApp,Ahmedabad,22.60726,70.965966,Shelter,Medical issue reported in Ahmedabad,17,Disabled,2026-04-16 08:47:33,none,1
+529,NGO Report,Rajkot,21.478775,72.199218,Water,Education issue reported in Rajkot,93,Children,2026-04-14 15:47:33,report.pdf,6
+530,Call,Vadodara,20.673528,71.822759,Water,Water issue reported in Vadodara,90,Elderly,2026-04-17 04:47:33,report.pdf,9
+531,NGO Report,Rajkot,22.394724,72.419231,Medical,Food issue reported in Rajkot,93,Elderly,2026-04-17 03:47:33,report.pdf,3
+532,WhatsApp,Rajkot,21.695748,71.411899,Food,Shelter issue reported in Rajkot,83,Children,2026-04-16 04:47:33,image.jpg,4
+533,WhatsApp,Navsari,20.526904,70.160965,Education,Shelter issue reported in Navsari,98,Children,2026-04-17 12:47:33,image.jpg,6
+534,Mobile App,Ahmedabad,20.13879,72.540173,Education,Medical issue reported in Ahmedabad,4,Disabled,2026-04-17 07:47:33,none,10
+535,Form,Rajkot,21.668438,71.14188,Shelter,Food issue reported in Rajkot,75,Children,2026-04-17 03:47:33,none,2
+536,Mobile App,Rajkot,21.160979,71.596566,Water,Education issue reported in Rajkot,35,Children,2026-04-14 18:47:33,report.pdf,10
+537,Call,Ahmedabad,22.185543,71.91889,Medical,Water issue reported in Ahmedabad,97,Children,2026-04-15 17:47:33,none,7
+538,NGO Report,Ahmedabad,22.673522,70.458195,Water,Medical issue reported in Ahmedabad,48,Women,2026-04-17 08:47:33,report.pdf,2
+539,NGO Report,Rajkot,20.997019,72.83536,Water,Medical issue reported in Rajkot,44,Children,2026-04-15 06:47:33,none,10
+540,Mobile App,Vadodara,21.293153,71.555662,Education,Shelter issue reported in Vadodara,12,Disabled,2026-04-15 13:47:33,report.pdf,1
+541,NGO Report,Vadodara,22.259303,71.211668,Shelter,Water issue reported in Vadodara,23,Children,2026-04-14 23:47:33,none,8
+542,Mobile App,Surat,20.415856,70.267034,Shelter,Medical issue reported in Surat,64,Disabled,2026-04-14 21:47:33,none,8
+543,WhatsApp,Ahmedabad,21.314728,72.369056,Shelter,Shelter issue reported in Ahmedabad,22,Disabled,2026-04-16 12:47:33,report.pdf,9
+544,WhatsApp,Vadodara,22.827205,70.662792,Medical,Shelter issue reported in Vadodara,74,Elderly,2026-04-15 04:47:33,image.jpg,8
+545,WhatsApp,Surat,22.42148,72.890053,Shelter,Education issue reported in Surat,97,Disabled,2026-04-16 02:47:33,report.pdf,4
+546,Mobile App,Ahmedabad,22.161,70.322357,Water,Medical issue reported in Ahmedabad,94,Disabled,2026-04-16 00:47:33,none,4
+547,Call,Navsari,20.387161,71.033268,Education,Food issue reported in Navsari,78,Elderly,2026-04-15 10:47:33,image.jpg,4
+548,NGO Report,Vadodara,22.414316,72.865773,Water,Medical issue reported in Vadodara,79,Women,2026-04-17 04:47:33,image.jpg,10
+549,WhatsApp,Rajkot,22.664802,72.643348,Medical,Water issue reported in Rajkot,95,Disabled,2026-04-14 22:47:33,voice.mp3,6
+550,NGO Report,Vadodara,22.138364,72.246467,Shelter,Medical issue reported in Vadodara,22,Women,2026-04-16 06:47:33,voice.mp3,2
+551,NGO Report,Rajkot,21.98902,70.476695,Education,Medical issue reported in Rajkot,81,Disabled,2026-04-15 16:47:33,none,5
+552,Call,Navsari,20.40862,70.089433,Medical,Education issue reported in Navsari,49,Elderly,2026-04-16 12:47:33,none,10
+553,WhatsApp,Vadodara,20.407134,72.416494,Water,Education issue reported in Vadodara,66,Children,2026-04-16 18:47:33,report.pdf,2
+554,Form,Navsari,22.214739,72.541879,Education,Shelter issue reported in Navsari,31,Disabled,2026-04-14 17:47:33,report.pdf,5
+555,Form,Ahmedabad,21.100839,71.088107,Medical,Shelter issue reported in Ahmedabad,82,Children,2026-04-16 23:47:33,image.jpg,2
+556,Mobile App,Rajkot,21.772467,70.655113,Medical,Education issue reported in Rajkot,81,Elderly,2026-04-15 18:47:33,voice.mp3,8
+557,WhatsApp,Surat,20.71588,71.036484,Shelter,Water issue reported in Surat,27,Disabled,2026-04-15 09:47:33,voice.mp3,1
+558,Mobile App,Surat,21.223222,70.42197,Water,Shelter issue reported in Surat,56,Disabled,2026-04-16 14:47:33,none,5
+559,WhatsApp,Rajkot,22.413699,71.142119,Food,Medical issue reported in Rajkot,48,Children,2026-04-15 05:47:33,none,4
+560,Call,Ahmedabad,22.727575,71.70912,Food,Water issue reported in Ahmedabad,56,Women,2026-04-14 22:47:33,image.jpg,6
+561,Mobile App,Vadodara,20.851982,70.140837,Water,Medical issue reported in Vadodara,23,None,2026-04-15 14:47:33,voice.mp3,1
+562,WhatsApp,Ahmedabad,21.298962,72.010709,Food,Shelter issue reported in Ahmedabad,18,Elderly,2026-04-14 15:47:33,voice.mp3,7
+563,Form,Surat,20.767814,72.039252,Medical,Food issue reported in Surat,65,None,2026-04-16 06:47:33,voice.mp3,8
+564,WhatsApp,Vadodara,20.310772,72.834796,Medical,Shelter issue reported in Vadodara,76,Disabled,2026-04-16 00:47:33,voice.mp3,8
+565,NGO Report,Navsari,21.827211,70.50954,Water,Shelter issue reported in Navsari,44,Disabled,2026-04-15 10:47:33,none,1
+566,NGO Report,Ahmedabad,20.576753,70.223817,Water,Food issue reported in Ahmedabad,83,Disabled,2026-04-15 03:47:33,image.jpg,4
+567,Form,Vadodara,22.409353,71.100921,Food,Water issue reported in Vadodara,79,Women,2026-04-16 22:47:33,image.jpg,6
+568,Mobile App,Vadodara,20.633346,72.344117,Shelter,Water issue reported in Vadodara,37,None,2026-04-17 01:47:33,image.jpg,3
+569,Mobile App,Navsari,20.841973,70.020819,Shelter,Shelter issue reported in Navsari,78,None,2026-04-14 19:47:33,image.jpg,9
+570,Mobile App,Vadodara,22.793692,70.139292,Education,Water issue reported in Vadodara,56,Women,2026-04-15 16:47:33,none,1
+571,Mobile App,Vadodara,20.185274,71.249865,Shelter,Medical issue reported in Vadodara,78,Women,2026-04-16 13:47:33,voice.mp3,6
+572,Form,Rajkot,22.47119,71.308932,Education,Water issue reported in Rajkot,41,Children,2026-04-16 14:47:33,voice.mp3,2
+573,WhatsApp,Surat,20.155623,71.522145,Food,Education issue reported in Surat,13,Children,2026-04-15 18:47:33,voice.mp3,5
+574,Call,Vadodara,20.231865,71.916807,Medical,Medical issue reported in Vadodara,21,Disabled,2026-04-16 13:47:33,image.jpg,7
+575,NGO Report,Rajkot,22.118623,71.605394,Education,Water issue reported in Rajkot,98,Elderly,2026-04-15 09:47:33,report.pdf,1
+576,Call,Navsari,22.846318,70.776002,Medical,Education issue reported in Navsari,98,Disabled,2026-04-17 11:47:33,none,8
+577,Form,Vadodara,20.746614,70.992763,Education,Education issue reported in Vadodara,90,Elderly,2026-04-15 11:47:33,voice.mp3,7
+578,Mobile App,Surat,20.04456,72.893279,Water,Water issue reported in Surat,83,None,2026-04-14 16:47:33,voice.mp3,4
+579,Mobile App,Ahmedabad,21.127765,72.781153,Water,Food issue reported in Ahmedabad,30,None,2026-04-17 05:47:33,image.jpg,7
+580,Mobile App,Surat,20.414798,72.972326,Water,Medical issue reported in Surat,46,Disabled,2026-04-14 22:47:33,voice.mp3,5
+581,WhatsApp,Rajkot,20.354769,70.110243,Water,Food issue reported in Rajkot,88,Elderly,2026-04-17 14:47:33,none,10
+582,NGO Report,Rajkot,22.832083,70.208847,Shelter,Medical issue reported in Rajkot,72,Elderly,2026-04-16 00:47:33,image.jpg,5
+583,Call,Navsari,20.21862,70.014474,Shelter,Shelter issue reported in Navsari,59,Disabled,2026-04-14 19:47:33,report.pdf,8
+584,Form,Vadodara,20.260325,72.130697,Medical,Education issue reported in Vadodara,53,Elderly,2026-04-15 14:47:33,voice.mp3,4
+585,Mobile App,Rajkot,21.76122,71.798356,Food,Food issue reported in Rajkot,13,Children,2026-04-16 17:47:33,report.pdf,10
+586,Call,Vadodara,22.85956,72.114791,Education,Shelter issue reported in Vadodara,77,Children,2026-04-15 10:47:33,voice.mp3,7
+587,Mobile App,Rajkot,20.720735,70.692137,Food,Water issue reported in Rajkot,82,None,2026-04-15 06:47:33,report.pdf,9
+588,NGO Report,Vadodara,20.403852,70.308135,Medical,Water issue reported in Vadodara,98,None,2026-04-15 10:47:33,none,4
+589,NGO Report,Vadodara,21.517119,70.588216,Water,Medical issue reported in Vadodara,20,Elderly,2026-04-17 04:47:33,voice.mp3,3
+590,Call,Ahmedabad,20.270451,72.212151,Shelter,Food issue reported in Ahmedabad,50,Disabled,2026-04-17 04:47:33,image.jpg,5
+591,Form,Ahmedabad,22.976602,71.040987,Medical,Food issue reported in Ahmedabad,78,Elderly,2026-04-17 04:47:33,voice.mp3,7
+592,WhatsApp,Rajkot,21.116872,70.802244,Food,Medical issue reported in Rajkot,54,Disabled,2026-04-15 10:47:33,image.jpg,7
+593,NGO Report,Navsari,21.705257,72.740314,Water,Shelter issue reported in Navsari,76,Children,2026-04-15 06:47:33,voice.mp3,7
+594,Form,Vadodara,20.723892,71.693927,Water,Medical issue reported in Vadodara,28,Disabled,2026-04-15 21:47:33,image.jpg,6
+595,NGO Report,Vadodara,22.816224,70.880661,Medical,Water issue reported in Vadodara,67,Women,2026-04-16 09:47:33,image.jpg,4
+596,Form,Vadodara,22.922236,72.240337,Shelter,Food issue reported in Vadodara,91,Women,2026-04-17 14:47:33,image.jpg,9
+597,Form,Rajkot,20.626259,70.135126,Shelter,Medical issue reported in Rajkot,87,Disabled,2026-04-17 13:47:33,image.jpg,3
+598,Mobile App,Ahmedabad,21.548512,72.962511,Water,Water issue reported in Ahmedabad,97,None,2026-04-16 12:47:33,voice.mp3,9
+599,NGO Report,Ahmedabad,22.991264,71.932049,Food,Education issue reported in Ahmedabad,10,Children,2026-04-15 07:47:33,none,3
+600,Form,Rajkot,22.742207,71.611952,Education,Education issue reported in Rajkot,7,Elderly,2026-04-17 03:47:33,voice.mp3,5
+601,Mobile App,Ahmedabad,20.472552,72.271158,Food,Medical issue reported in Ahmedabad,36,Women,2026-04-15 13:47:33,report.pdf,10
+602,WhatsApp,Rajkot,21.741483,72.481046,Water,Medical issue reported in Rajkot,23,Disabled,2026-04-16 03:47:33,voice.mp3,1
+603,WhatsApp,Vadodara,21.07984,71.629983,Education,Education issue reported in Vadodara,97,Women,2026-04-16 21:47:33,voice.mp3,5
+604,WhatsApp,Ahmedabad,22.279503,71.04357,Food,Food issue reported in Ahmedabad,92,Disabled,2026-04-15 03:47:33,report.pdf,7
+605,WhatsApp,Surat,22.912863,71.499334,Medical,Water issue reported in Surat,90,Disabled,2026-04-16 12:47:33,image.jpg,4
+606,WhatsApp,Vadodara,21.552764,70.645514,Water,Shelter issue reported in Vadodara,14,Women,2026-04-16 01:47:33,none,8
+607,NGO Report,Vadodara,21.796576,70.253566,Education,Shelter issue reported in Vadodara,56,Children,2026-04-16 11:47:33,none,1
+608,WhatsApp,Surat,20.361997,70.572842,Shelter,Education issue reported in Surat,6,Elderly,2026-04-16 09:47:33,none,10
+609,Mobile App,Rajkot,22.416528,71.055023,Medical,Food issue reported in Rajkot,34,Elderly,2026-04-17 09:47:33,none,10
+610,NGO Report,Rajkot,21.705693,72.308413,Shelter,Water issue reported in Rajkot,36,Elderly,2026-04-14 16:47:33,voice.mp3,7
+611,Form,Ahmedabad,22.494633,70.530864,Medical,Water issue reported in Ahmedabad,18,Elderly,2026-04-15 03:47:33,image.jpg,7
+612,NGO Report,Vadodara,22.095003,72.081418,Shelter,Education issue reported in Vadodara,75,Disabled,2026-04-17 11:47:33,image.jpg,9
+613,Mobile App,Vadodara,22.577842,71.00412,Food,Medical issue reported in Vadodara,26,None,2026-04-16 07:47:33,voice.mp3,4
+614,WhatsApp,Rajkot,22.062885,72.116021,Water,Medical issue reported in Rajkot,40,Disabled,2026-04-14 17:47:33,image.jpg,3
+615,Call,Vadodara,21.75722,70.491221,Water,Food issue reported in Vadodara,57,Disabled,2026-04-14 19:47:33,image.jpg,6
+616,Mobile App,Surat,21.188891,72.969557,Food,Education issue reported in Surat,20,Women,2026-04-16 20:47:33,none,4
+617,Mobile App,Surat,22.250356,70.050677,Education,Food issue reported in Surat,87,Children,2026-04-15 17:47:33,image.jpg,7
+618,Form,Surat,20.006053,70.251965,Shelter,Water issue reported in Surat,30,Elderly,2026-04-17 06:47:33,voice.mp3,8
+619,Form,Surat,22.95642,72.948706,Education,Food issue reported in Surat,94,Women,2026-04-16 00:47:33,voice.mp3,10
+620,Form,Rajkot,22.338585,71.936661,Water,Shelter issue reported in Rajkot,68,Children,2026-04-15 18:47:33,voice.mp3,8
+621,Mobile App,Vadodara,21.078705,70.362443,Water,Education issue reported in Vadodara,39,Women,2026-04-14 17:47:33,image.jpg,4
+622,Call,Vadodara,21.298504,70.770688,Shelter,Water issue reported in Vadodara,36,Women,2026-04-15 05:47:33,none,9
+623,NGO Report,Surat,20.000593,70.053861,Education,Water issue reported in Surat,13,None,2026-04-14 16:47:33,image.jpg,6
+624,WhatsApp,Rajkot,20.195842,70.12307,Shelter,Medical issue reported in Rajkot,48,Disabled,2026-04-15 06:47:33,image.jpg,10
+625,NGO Report,Vadodara,21.344153,70.35335,Education,Shelter issue reported in Vadodara,61,None,2026-04-16 01:47:33,image.jpg,10
+626,Form,Navsari,20.659127,72.270887,Education,Shelter issue reported in Navsari,30,Elderly,2026-04-15 04:47:33,image.jpg,6
+627,Call,Navsari,21.31271,70.046887,Shelter,Shelter issue reported in Navsari,92,Women,2026-04-14 16:47:33,none,9
+628,Mobile App,Rajkot,21.263472,72.336693,Water,Water issue reported in Rajkot,90,Children,2026-04-15 00:47:33,image.jpg,9
+629,Form,Rajkot,21.322412,70.077212,Water,Food issue reported in Rajkot,22,Women,2026-04-17 06:47:33,image.jpg,6
+630,NGO Report,Surat,22.419172,70.586916,Medical,Education issue reported in Surat,54,Children,2026-04-16 23:47:33,report.pdf,3
+631,Mobile App,Vadodara,22.109813,70.684463,Food,Water issue reported in Vadodara,82,Disabled,2026-04-16 19:47:33,voice.mp3,9
+632,Mobile App,Surat,20.500342,70.200038,Medical,Medical issue reported in Surat,70,Disabled,2026-04-15 09:47:33,none,1
+633,WhatsApp,Surat,22.522152,72.826763,Shelter,Shelter issue reported in Surat,92,Elderly,2026-04-16 19:47:33,none,2
+634,Mobile App,Surat,21.739656,70.775477,Food,Water issue reported in Surat,97,Women,2026-04-15 12:47:33,report.pdf,2
+635,Form,Ahmedabad,20.198988,71.980479,Food,Education issue reported in Ahmedabad,48,None,2026-04-16 05:47:33,report.pdf,9
+636,WhatsApp,Navsari,21.500541,70.130293,Shelter,Shelter issue reported in Navsari,40,None,2026-04-15 07:47:33,none,6
+637,WhatsApp,Surat,21.461447,72.876563,Education,Water issue reported in Surat,35,Disabled,2026-04-17 11:47:33,voice.mp3,6
+638,Mobile App,Vadodara,20.444151,71.757864,Shelter,Medical issue reported in Vadodara,48,Children,2026-04-16 10:47:33,none,9
+639,NGO Report,Surat,21.247712,70.156687,Medical,Education issue reported in Surat,1,None,2026-04-16 09:47:33,image.jpg,3
+640,Mobile App,Surat,20.312472,71.67344,Shelter,Water issue reported in Surat,11,Women,2026-04-16 02:47:33,none,5
+641,Mobile App,Surat,20.194513,70.448698,Medical,Education issue reported in Surat,13,Women,2026-04-16 00:47:33,none,8
+642,Call,Vadodara,21.643725,71.879325,Shelter,Shelter issue reported in Vadodara,80,Disabled,2026-04-16 08:47:33,none,9
+643,Mobile App,Navsari,20.349999,71.26131,Water,Water issue reported in Navsari,34,Disabled,2026-04-15 06:47:33,report.pdf,1
+644,Mobile App,Ahmedabad,21.400934,72.17032,Water,Education issue reported in Ahmedabad,8,Women,2026-04-15 11:47:33,none,9
+645,WhatsApp,Ahmedabad,20.66222,70.587392,Medical,Shelter issue reported in Ahmedabad,25,Elderly,2026-04-17 09:47:33,none,1
+646,NGO Report,Ahmedabad,20.982307,72.454553,Food,Education issue reported in Ahmedabad,54,Children,2026-04-14 17:47:33,voice.mp3,7
+647,Form,Ahmedabad,20.271257,72.112306,Food,Water issue reported in Ahmedabad,49,None,2026-04-16 06:47:33,image.jpg,10
+648,Form,Vadodara,21.235688,71.206047,Medical,Education issue reported in Vadodara,68,Children,2026-04-16 19:47:33,none,9
+649,Mobile App,Rajkot,22.618465,72.521,Water,Food issue reported in Rajkot,52,None,2026-04-16 21:47:33,report.pdf,4
+650,Form,Vadodara,20.057736,72.439305,Food,Shelter issue reported in Vadodara,47,Elderly,2026-04-15 00:47:33,voice.mp3,3
+651,Call,Rajkot,21.203329,70.286614,Education,Water issue reported in Rajkot,29,Women,2026-04-16 10:47:33,voice.mp3,8
+652,Mobile App,Rajkot,22.207792,70.460419,Shelter,Shelter issue reported in Rajkot,7,Women,2026-04-16 13:47:33,report.pdf,2
+653,NGO Report,Rajkot,20.947714,70.230715,Water,Education issue reported in Rajkot,54,Elderly,2026-04-16 21:47:33,none,5
+654,Call,Vadodara,21.359623,70.381887,Medical,Education issue reported in Vadodara,81,Women,2026-04-16 15:47:33,report.pdf,8
+655,Form,Navsari,22.740179,70.948992,Education,Medical issue reported in Navsari,15,Elderly,2026-04-14 16:47:33,none,1
+656,WhatsApp,Surat,20.665465,71.826378,Education,Water issue reported in Surat,29,Children,2026-04-16 04:47:33,voice.mp3,4
+657,WhatsApp,Ahmedabad,20.451462,72.797551,Shelter,Water issue reported in Ahmedabad,8,Elderly,2026-04-16 15:47:33,voice.mp3,10
+658,WhatsApp,Vadodara,21.684474,72.70252,Food,Education issue reported in Vadodara,80,Disabled,2026-04-15 20:47:33,image.jpg,8
+659,NGO Report,Vadodara,21.03433,70.63568,Shelter,Medical issue reported in Vadodara,31,Children,2026-04-17 01:47:33,none,4
+660,WhatsApp,Rajkot,21.997841,72.469737,Water,Medical issue reported in Rajkot,2,Disabled,2026-04-15 11:47:33,voice.mp3,9
+661,NGO Report,Navsari,20.20156,72.901271,Education,Medical issue reported in Navsari,28,None,2026-04-16 22:47:33,none,10
+662,WhatsApp,Ahmedabad,20.760434,72.683618,Water,Education issue reported in Ahmedabad,67,None,2026-04-14 22:47:33,voice.mp3,7
+663,Form,Vadodara,21.25756,71.548391,Medical,Education issue reported in Vadodara,19,Women,2026-04-17 10:47:33,voice.mp3,7
+664,NGO Report,Vadodara,20.007826,70.288604,Medical,Education issue reported in Vadodara,50,Disabled,2026-04-17 10:47:33,voice.mp3,1
+665,Mobile App,Vadodara,21.740552,72.982091,Shelter,Food issue reported in Vadodara,56,Children,2026-04-15 14:47:33,voice.mp3,2
+666,WhatsApp,Vadodara,20.058259,70.894321,Food,Medical issue reported in Vadodara,46,Elderly,2026-04-17 01:47:33,report.pdf,7
+667,Mobile App,Rajkot,22.324998,70.965836,Education,Food issue reported in Rajkot,2,None,2026-04-15 08:47:33,image.jpg,2
+668,Mobile App,Surat,22.952438,71.942633,Water,Education issue reported in Surat,70,Elderly,2026-04-16 20:47:33,report.pdf,2
+669,Form,Vadodara,22.492713,72.46871,Medical,Water issue reported in Vadodara,80,Disabled,2026-04-16 00:47:33,voice.mp3,7
+670,Call,Surat,22.052441,71.350133,Shelter,Medical issue reported in Surat,55,None,2026-04-17 13:47:33,report.pdf,8
+671,NGO Report,Rajkot,21.617076,71.675747,Water,Water issue reported in Rajkot,88,Children,2026-04-15 22:47:33,voice.mp3,5
+672,Form,Vadodara,21.035289,71.331531,Education,Food issue reported in Vadodara,18,Women,2026-04-17 08:47:33,none,3
+673,WhatsApp,Ahmedabad,21.597663,70.406087,Food,Shelter issue reported in Ahmedabad,57,Children,2026-04-17 01:47:33,image.jpg,4
+674,Mobile App,Rajkot,20.232427,70.707257,Medical,Shelter issue reported in Rajkot,19,Elderly,2026-04-15 20:47:33,report.pdf,6
+675,Form,Navsari,22.820974,70.617048,Shelter,Education issue reported in Navsari,91,Children,2026-04-17 07:47:33,none,1
+676,WhatsApp,Rajkot,21.959874,71.781424,Water,Food issue reported in Rajkot,46,None,2026-04-17 04:47:33,voice.mp3,5
+677,Call,Ahmedabad,21.787958,71.085018,Water,Education issue reported in Ahmedabad,20,None,2026-04-14 23:47:33,voice.mp3,1
+678,Call,Ahmedabad,22.255561,70.100156,Shelter,Medical issue reported in Ahmedabad,63,Elderly,2026-04-17 06:47:33,voice.mp3,10
+679,Mobile App,Surat,22.484556,71.880005,Water,Education issue reported in Surat,46,Women,2026-04-16 17:47:33,image.jpg,10
+680,Mobile App,Vadodara,20.408633,70.14414,Food,Shelter issue reported in Vadodara,11,None,2026-04-16 19:47:33,voice.mp3,4
+681,Form,Vadodara,21.956034,72.063438,Medical,Shelter issue reported in Vadodara,97,Disabled,2026-04-17 02:47:33,voice.mp3,4
+682,NGO Report,Navsari,21.472865,71.405414,Medical,Education issue reported in Navsari,50,Elderly,2026-04-15 02:47:33,none,5
+683,Call,Navsari,22.937405,70.990351,Education,Education issue reported in Navsari,17,Women,2026-04-16 02:47:33,report.pdf,2
+684,Call,Rajkot,22.945791,72.966039,Water,Water issue reported in Rajkot,60,Women,2026-04-17 14:47:33,image.jpg,3
+685,Mobile App,Rajkot,21.094376,72.902039,Medical,Food issue reported in Rajkot,21,Women,2026-04-16 09:47:33,none,2
+686,WhatsApp,Ahmedabad,22.023476,70.867588,Education,Food issue reported in Ahmedabad,33,Children,2026-04-16 07:47:33,none,2
+687,NGO Report,Rajkot,20.794009,70.804019,Education,Education issue reported in Rajkot,93,None,2026-04-16 07:47:33,report.pdf,7
+688,NGO Report,Vadodara,22.68663,71.184867,Shelter,Shelter issue reported in Vadodara,63,Children,2026-04-17 01:47:33,none,10
+689,Form,Navsari,22.771237,70.591993,Medical,Education issue reported in Navsari,83,Elderly,2026-04-15 23:47:33,none,2
+690,NGO Report,Ahmedabad,22.542341,71.201055,Water,Food issue reported in Ahmedabad,3,None,2026-04-15 08:47:33,none,9
+691,NGO Report,Surat,21.064856,70.285878,Medical,Education issue reported in Surat,4,Women,2026-04-15 17:47:33,voice.mp3,5
+692,Form,Ahmedabad,21.150352,71.49235,Medical,Water issue reported in Ahmedabad,55,Women,2026-04-16 18:47:33,none,2
+693,WhatsApp,Navsari,21.732579,71.348478,Food,Food issue reported in Navsari,4,Women,2026-04-16 22:47:33,voice.mp3,8
+694,NGO Report,Surat,22.767063,71.299964,Water,Shelter issue reported in Surat,24,Disabled,2026-04-16 00:47:33,voice.mp3,4
+695,WhatsApp,Ahmedabad,22.15754,72.52165,Medical,Food issue reported in Ahmedabad,45,None,2026-04-17 00:47:33,image.jpg,2
+696,Call,Navsari,22.031535,72.097669,Education,Water issue reported in Navsari,23,Elderly,2026-04-17 01:47:33,report.pdf,3
+697,Form,Rajkot,21.13535,70.24835,Education,Food issue reported in Rajkot,7,None,2026-04-16 00:47:33,report.pdf,7
+698,NGO Report,Surat,22.745586,70.031812,Food,Medical issue reported in Surat,54,Women,2026-04-17 00:47:33,none,2
+699,Call,Navsari,22.883409,72.437113,Food,Water issue reported in Navsari,12,Children,2026-04-17 13:47:33,voice.mp3,3
+700,Form,Surat,21.647017,72.97422,Shelter,Medical issue reported in Surat,45,Women,2026-04-17 14:47:33,none,1
+701,Mobile App,Vadodara,20.064182,71.175289,Shelter,Education issue reported in Vadodara,44,Elderly,2026-04-17 03:47:33,voice.mp3,3
+702,Mobile App,Ahmedabad,22.68965,72.436322,Water,Medical issue reported in Ahmedabad,32,Children,2026-04-16 05:47:33,report.pdf,5
+703,Form,Surat,20.06596,70.214689,Medical,Food issue reported in Surat,72,Disabled,2026-04-15 05:47:33,report.pdf,7
+704,WhatsApp,Navsari,20.31731,70.78979,Shelter,Shelter issue reported in Navsari,82,Women,2026-04-17 00:47:33,none,10
+705,NGO Report,Vadodara,22.011294,72.810893,Education,Food issue reported in Vadodara,2,None,2026-04-17 06:47:33,voice.mp3,8
+706,Mobile App,Navsari,21.601293,71.379071,Education,Shelter issue reported in Navsari,53,Elderly,2026-04-17 01:47:33,voice.mp3,2
+707,Mobile App,Rajkot,20.107308,72.366252,Food,Food issue reported in Rajkot,94,Women,2026-04-14 23:47:33,report.pdf,5
+708,WhatsApp,Surat,20.28451,70.834463,Water,Water issue reported in Surat,19,Elderly,2026-04-15 04:47:33,none,3
+709,Call,Surat,22.813896,71.671497,Shelter,Water issue reported in Surat,8,None,2026-04-15 03:47:33,report.pdf,3
+710,NGO Report,Surat,22.879963,72.374338,Food,Water issue reported in Surat,42,Women,2026-04-14 22:47:33,voice.mp3,1
+711,WhatsApp,Rajkot,20.813431,70.082335,Shelter,Education issue reported in Rajkot,34,Women,2026-04-16 18:47:33,none,10
+712,Mobile App,Rajkot,21.59114,72.129925,Education,Food issue reported in Rajkot,31,Disabled,2026-04-17 05:47:33,report.pdf,3
+713,NGO Report,Surat,22.767127,72.764454,Education,Food issue reported in Surat,70,Disabled,2026-04-17 07:47:33,report.pdf,3
+714,Mobile App,Vadodara,20.69098,72.891025,Shelter,Water issue reported in Vadodara,63,None,2026-04-16 00:47:33,none,2
+715,WhatsApp,Surat,22.007145,70.797295,Shelter,Shelter issue reported in Surat,85,Children,2026-04-14 23:47:33,voice.mp3,6
+716,Call,Rajkot,22.429642,71.689453,Education,Medical issue reported in Rajkot,95,Children,2026-04-15 11:47:33,none,3
+717,Mobile App,Rajkot,20.252786,72.465274,Water,Shelter issue reported in Rajkot,73,Elderly,2026-04-15 21:47:33,image.jpg,10
+718,Mobile App,Rajkot,21.789741,71.438646,Medical,Medical issue reported in Rajkot,63,Disabled,2026-04-14 16:47:33,image.jpg,10
+719,Mobile App,Surat,20.679798,71.552492,Medical,Food issue reported in Surat,1,Disabled,2026-04-17 00:47:33,voice.mp3,5
+720,WhatsApp,Ahmedabad,21.723073,72.009194,Shelter,Shelter issue reported in Ahmedabad,25,None,2026-04-15 20:47:33,none,1
+721,NGO Report,Surat,20.265449,71.70938,Food,Shelter issue reported in Surat,69,Children,2026-04-14 23:47:33,none,1
+722,NGO Report,Navsari,21.168343,72.808409,Food,Water issue reported in Navsari,85,Children,2026-04-15 07:47:33,image.jpg,1
+723,NGO Report,Ahmedabad,20.164967,71.859471,Water,Water issue reported in Ahmedabad,18,Elderly,2026-04-15 09:47:33,report.pdf,9
+724,NGO Report,Ahmedabad,22.599869,72.916767,Education,Medical issue reported in Ahmedabad,61,None,2026-04-14 23:47:33,image.jpg,5
+725,WhatsApp,Vadodara,21.091229,71.293312,Water,Food issue reported in Vadodara,76,Women,2026-04-17 05:47:33,image.jpg,5
+726,WhatsApp,Ahmedabad,22.382219,72.656558,Food,Shelter issue reported in Ahmedabad,12,Women,2026-04-15 22:47:33,image.jpg,1
+727,Mobile App,Rajkot,20.529519,71.584747,Water,Education issue reported in Rajkot,17,Children,2026-04-15 07:47:33,image.jpg,1
+728,WhatsApp,Vadodara,21.279441,71.420844,Water,Water issue reported in Vadodara,57,None,2026-04-15 00:47:33,image.jpg,9
+729,WhatsApp,Navsari,22.691772,72.229836,Medical,Education issue reported in Navsari,14,Children,2026-04-14 23:47:33,report.pdf,2
+730,Form,Surat,20.962871,70.134153,Medical,Medical issue reported in Surat,60,Women,2026-04-16 10:47:33,voice.mp3,10
+731,Form,Rajkot,21.578589,72.162736,Food,Education issue reported in Rajkot,32,Children,2026-04-15 13:47:33,report.pdf,2
+732,WhatsApp,Navsari,21.069369,72.485198,Food,Food issue reported in Navsari,3,Children,2026-04-15 06:47:33,image.jpg,10
+733,NGO Report,Surat,22.727941,72.399875,Food,Shelter issue reported in Surat,29,Women,2026-04-16 01:47:33,image.jpg,10
+734,Mobile App,Navsari,21.211009,71.14015,Food,Water issue reported in Navsari,93,Children,2026-04-15 14:47:33,voice.mp3,3
+735,Form,Rajkot,21.780657,71.164394,Water,Education issue reported in Rajkot,74,Women,2026-04-16 17:47:33,report.pdf,7
+736,NGO Report,Rajkot,22.457034,71.514526,Food,Medical issue reported in Rajkot,64,Disabled,2026-04-15 09:47:33,report.pdf,8
+737,Mobile App,Rajkot,21.244634,70.415327,Medical,Shelter issue reported in Rajkot,50,Elderly,2026-04-16 23:47:33,report.pdf,8
+738,Mobile App,Navsari,21.148106,71.578083,Shelter,Education issue reported in Navsari,29,Children,2026-04-17 06:47:33,voice.mp3,7
+739,Form,Vadodara,21.46505,70.491614,Shelter,Shelter issue reported in Vadodara,39,Disabled,2026-04-15 17:47:33,report.pdf,2
+740,Mobile App,Surat,20.387343,71.795634,Medical,Education issue reported in Surat,96,Elderly,2026-04-17 01:47:33,none,10
+741,NGO Report,Surat,22.417739,71.376204,Food,Shelter issue reported in Surat,96,Disabled,2026-04-14 21:47:33,report.pdf,8
+742,NGO Report,Surat,21.184112,71.929774,Water,Shelter issue reported in Surat,10,Children,2026-04-17 03:47:33,report.pdf,4
+743,Form,Surat,20.091559,71.928396,Food,Education issue reported in Surat,11,Elderly,2026-04-16 02:47:33,report.pdf,8
+744,WhatsApp,Rajkot,21.899046,70.945662,Water,Water issue reported in Rajkot,42,Disabled,2026-04-15 14:47:33,image.jpg,8
+745,NGO Report,Surat,22.990187,70.8781,Food,Medical issue reported in Surat,33,None,2026-04-15 13:47:33,report.pdf,10
+746,Mobile App,Ahmedabad,21.338493,70.474943,Medical,Shelter issue reported in Ahmedabad,42,Children,2026-04-15 21:47:33,voice.mp3,9
+747,WhatsApp,Ahmedabad,20.945467,71.171757,Food,Food issue reported in Ahmedabad,66,Children,2026-04-17 14:47:33,report.pdf,4
+748,Form,Vadodara,21.192734,71.097347,Water,Education issue reported in Vadodara,63,Disabled,2026-04-17 14:47:33,image.jpg,9
+749,WhatsApp,Navsari,20.540798,71.896684,Food,Medical issue reported in Navsari,80,Children,2026-04-15 17:47:33,none,6
+750,Form,Rajkot,21.900968,71.671994,Education,Medical issue reported in Rajkot,86,None,2026-04-15 03:47:33,none,2
+751,Form,Navsari,22.287815,71.943895,Education,Medical issue reported in Navsari,22,Women,2026-04-14 17:47:33,voice.mp3,6
+752,Form,Vadodara,22.846259,72.926547,Shelter,Education issue reported in Vadodara,98,Disabled,2026-04-17 12:47:33,none,9
+753,Mobile App,Vadodara,20.376792,71.494844,Water,Education issue reported in Vadodara,80,Women,2026-04-16 08:47:33,image.jpg,9
+754,Mobile App,Vadodara,22.210685,70.534282,Education,Shelter issue reported in Vadodara,98,Disabled,2026-04-15 06:47:33,voice.mp3,2
+755,Call,Vadodara,22.907033,71.906983,Water,Food issue reported in Vadodara,74,None,2026-04-16 22:47:33,voice.mp3,4
+756,Mobile App,Surat,20.097066,71.351686,Food,Shelter issue reported in Surat,29,Women,2026-04-15 06:47:33,voice.mp3,6
+757,Mobile App,Navsari,20.517942,70.31436,Water,Shelter issue reported in Navsari,85,Women,2026-04-16 21:47:33,voice.mp3,3
+758,WhatsApp,Ahmedabad,20.118916,72.289069,Shelter,Water issue reported in Ahmedabad,93,Children,2026-04-16 07:47:33,report.pdf,10
+759,Form,Navsari,21.905468,71.985706,Education,Water issue reported in Navsari,77,None,2026-04-15 17:47:33,voice.mp3,10
+760,WhatsApp,Ahmedabad,22.190463,72.784523,Education,Food issue reported in Ahmedabad,16,Elderly,2026-04-17 03:47:33,voice.mp3,3
+761,Form,Rajkot,20.348988,72.780233,Medical,Food issue reported in Rajkot,44,Children,2026-04-16 19:47:33,none,10
+762,NGO Report,Vadodara,22.602899,70.92089,Water,Medical issue reported in Vadodara,52,Women,2026-04-14 23:47:33,report.pdf,2
+763,Call,Rajkot,20.423536,72.114704,Food,Water issue reported in Rajkot,24,Women,2026-04-17 00:47:33,none,7
+764,NGO Report,Surat,21.903643,72.600559,Medical,Education issue reported in Surat,62,None,2026-04-15 04:47:33,report.pdf,3
+765,NGO Report,Ahmedabad,21.80184,71.295828,Food,Food issue reported in Ahmedabad,49,Elderly,2026-04-16 03:47:33,none,8
+766,WhatsApp,Rajkot,20.418006,70.010026,Education,Medical issue reported in Rajkot,5,Disabled,2026-04-17 10:47:33,report.pdf,5
+767,NGO Report,Navsari,22.17475,70.300677,Food,Medical issue reported in Navsari,1,None,2026-04-17 01:47:33,report.pdf,2
+768,Mobile App,Surat,20.022774,71.211168,Water,Water issue reported in Surat,44,Women,2026-04-17 14:47:33,voice.mp3,6
+769,WhatsApp,Ahmedabad,22.27612,70.207122,Water,Medical issue reported in Ahmedabad,47,Women,2026-04-16 23:47:33,image.jpg,5
+770,Mobile App,Navsari,21.195156,70.467332,Shelter,Shelter issue reported in Navsari,23,Children,2026-04-15 00:47:33,voice.mp3,4
+771,Form,Ahmedabad,22.613715,70.474863,Education,Water issue reported in Ahmedabad,47,Women,2026-04-16 03:47:33,report.pdf,7
+772,Call,Surat,22.766517,70.923365,Water,Shelter issue reported in Surat,78,Children,2026-04-16 09:47:33,none,3
+773,Mobile App,Navsari,22.012115,70.5332,Medical,Education issue reported in Navsari,4,Children,2026-04-16 10:47:33,image.jpg,1
+774,Call,Surat,21.874778,71.075449,Medical,Education issue reported in Surat,12,None,2026-04-14 17:47:33,report.pdf,8
+775,Mobile App,Surat,20.201661,72.299159,Shelter,Education issue reported in Surat,90,None,2026-04-15 03:47:33,none,3
+776,WhatsApp,Ahmedabad,20.805856,72.105652,Medical,Shelter issue reported in Ahmedabad,50,Children,2026-04-17 00:47:33,image.jpg,1
+777,Form,Ahmedabad,21.250098,70.827166,Food,Education issue reported in Ahmedabad,72,Children,2026-04-16 07:47:33,report.pdf,5
+778,NGO Report,Ahmedabad,22.891241,72.962338,Shelter,Education issue reported in Ahmedabad,91,Elderly,2026-04-14 23:47:33,voice.mp3,9
+779,Form,Rajkot,22.60077,70.232437,Education,Medical issue reported in Rajkot,71,Disabled,2026-04-16 02:47:33,report.pdf,5
+780,WhatsApp,Navsari,22.046674,70.449557,Shelter,Education issue reported in Navsari,77,Disabled,2026-04-15 14:47:33,voice.mp3,6
+781,Form,Rajkot,20.840449,71.593267,Water,Medical issue reported in Rajkot,59,Elderly,2026-04-16 01:47:33,voice.mp3,4
+782,Form,Surat,20.621981,72.796977,Medical,Food issue reported in Surat,69,Disabled,2026-04-16 12:47:33,voice.mp3,9
+783,Form,Surat,21.037566,72.199357,Food,Education issue reported in Surat,12,None,2026-04-16 15:47:33,voice.mp3,5
+784,WhatsApp,Rajkot,21.393711,72.231786,Water,Medical issue reported in Rajkot,71,Disabled,2026-04-15 11:47:33,voice.mp3,7
+785,WhatsApp,Navsari,20.786625,71.361055,Medical,Water issue reported in Navsari,85,Children,2026-04-15 17:47:33,voice.mp3,2
+786,Form,Vadodara,22.905902,72.903564,Medical,Food issue reported in Vadodara,82,Women,2026-04-15 12:47:33,voice.mp3,7
+787,NGO Report,Ahmedabad,20.310171,70.450545,Food,Education issue reported in Ahmedabad,4,Disabled,2026-04-16 11:47:33,none,10
+788,Call,Vadodara,20.877405,70.505852,Education,Water issue reported in Vadodara,49,Elderly,2026-04-15 21:47:33,image.jpg,5
+789,WhatsApp,Ahmedabad,22.015819,70.539727,Education,Water issue reported in Ahmedabad,6,Women,2026-04-16 03:47:33,report.pdf,8
+790,Call,Ahmedabad,22.559856,71.496583,Food,Medical issue reported in Ahmedabad,30,Disabled,2026-04-15 10:47:33,none,5
+791,Mobile App,Ahmedabad,21.361919,71.198996,Food,Food issue reported in Ahmedabad,92,Disabled,2026-04-16 14:47:33,image.jpg,9
+792,Mobile App,Surat,21.155589,70.420172,Education,Water issue reported in Surat,4,Elderly,2026-04-16 06:47:33,report.pdf,4
+793,NGO Report,Ahmedabad,21.28086,70.763293,Shelter,Medical issue reported in Ahmedabad,99,None,2026-04-15 04:47:33,report.pdf,6
+794,Mobile App,Vadodara,22.367337,72.262307,Medical,Medical issue reported in Vadodara,74,Women,2026-04-15 20:47:33,image.jpg,6
+795,Mobile App,Ahmedabad,20.778363,70.554958,Food,Food issue reported in Ahmedabad,98,None,2026-04-16 21:47:33,none,6
+796,Call,Vadodara,21.991014,70.476038,Medical,Water issue reported in Vadodara,28,None,2026-04-16 20:47:33,report.pdf,9
+797,NGO Report,Vadodara,22.655385,72.977132,Education,Water issue reported in Vadodara,72,Children,2026-04-17 09:47:33,none,1
+798,Form,Rajkot,22.429823,70.502685,Medical,Food issue reported in Rajkot,7,Disabled,2026-04-17 02:47:33,none,10
+799,Mobile App,Ahmedabad,21.111351,72.418223,Medical,Medical issue reported in Ahmedabad,10,Disabled,2026-04-14 16:47:33,none,10
+800,Form,Surat,22.900985,72.321226,Water,Education issue reported in Surat,34,Disabled,2026-04-14 20:47:33,image.jpg,6
+801,Mobile App,Rajkot,22.408788,70.43471,Water,Education issue reported in Rajkot,82,Elderly,2026-04-14 17:47:33,none,9
+802,NGO Report,Ahmedabad,20.387614,72.660966,Education,Education issue reported in Ahmedabad,93,Women,2026-04-17 01:47:33,voice.mp3,9
+803,Call,Surat,21.936351,71.104386,Medical,Education issue reported in Surat,11,Women,2026-04-14 14:47:33,report.pdf,10
+804,NGO Report,Rajkot,22.123239,70.899921,Education,Medical issue reported in Rajkot,70,Women,2026-04-14 15:47:33,report.pdf,7
+805,WhatsApp,Rajkot,20.550169,71.513589,Education,Medical issue reported in Rajkot,42,Children,2026-04-17 05:47:33,none,5
+806,NGO Report,Vadodara,20.137505,70.51376,Water,Water issue reported in Vadodara,31,None,2026-04-15 14:47:33,none,2
+807,Form,Ahmedabad,21.792803,70.492623,Food,Education issue reported in Ahmedabad,72,Children,2026-04-15 11:47:33,voice.mp3,8
+808,Form,Rajkot,22.764795,70.550043,Food,Shelter issue reported in Rajkot,31,Children,2026-04-16 21:47:33,voice.mp3,4
+809,Form,Navsari,21.8465,72.993293,Water,Food issue reported in Navsari,54,Elderly,2026-04-15 05:47:33,report.pdf,8
+810,Mobile App,Navsari,21.354692,70.937739,Shelter,Water issue reported in Navsari,67,None,2026-04-15 22:47:33,none,7
+811,NGO Report,Vadodara,20.481221,71.871688,Medical,Education issue reported in Vadodara,45,Children,2026-04-16 09:47:33,image.jpg,1
+812,WhatsApp,Surat,21.058606,72.643585,Education,Shelter issue reported in Surat,93,Children,2026-04-15 13:47:33,image.jpg,4
+813,Call,Rajkot,20.570588,72.663048,Water,Shelter issue reported in Rajkot,70,Elderly,2026-04-16 00:47:33,voice.mp3,7
+814,WhatsApp,Surat,22.834205,72.108274,Education,Water issue reported in Surat,65,Disabled,2026-04-17 02:47:33,image.jpg,9
+815,Mobile App,Rajkot,20.497815,72.136713,Water,Education issue reported in Rajkot,40,Disabled,2026-04-15 04:47:33,report.pdf,8
+816,Call,Vadodara,21.794022,70.619201,Shelter,Water issue reported in Vadodara,66,Elderly,2026-04-16 21:47:33,none,8
+817,Mobile App,Navsari,21.195567,70.472309,Shelter,Education issue reported in Navsari,19,None,2026-04-15 07:47:33,voice.mp3,8
+818,Call,Rajkot,22.129593,70.343187,Water,Food issue reported in Rajkot,51,Women,2026-04-16 16:47:33,voice.mp3,6
+819,Form,Surat,21.818493,72.410073,Education,Food issue reported in Surat,90,Elderly,2026-04-17 10:47:33,report.pdf,2
+820,WhatsApp,Vadodara,21.647783,71.102261,Shelter,Shelter issue reported in Vadodara,1,Disabled,2026-04-16 16:47:33,report.pdf,6
+821,Call,Surat,22.538143,72.263912,Shelter,Medical issue reported in Surat,56,Women,2026-04-15 18:47:33,image.jpg,10
+822,Call,Rajkot,22.519478,72.002497,Shelter,Shelter issue reported in Rajkot,71,Women,2026-04-16 13:47:33,report.pdf,3
+823,WhatsApp,Ahmedabad,22.280964,71.504929,Education,Food issue reported in Ahmedabad,70,Women,2026-04-16 04:47:33,none,5
+824,WhatsApp,Navsari,20.138679,72.696659,Food,Shelter issue reported in Navsari,94,Children,2026-04-15 07:47:33,voice.mp3,7
+825,Form,Rajkot,22.919323,72.407962,Education,Water issue reported in Rajkot,26,Elderly,2026-04-15 16:47:33,report.pdf,3
+826,Call,Navsari,22.510595,71.681228,Medical,Food issue reported in Navsari,49,None,2026-04-14 23:47:33,none,9
+827,Form,Rajkot,22.468619,70.060497,Education,Food issue reported in Rajkot,94,Disabled,2026-04-15 14:47:33,none,4
+828,Call,Surat,22.848699,72.453699,Medical,Water issue reported in Surat,1,Disabled,2026-04-17 10:47:33,voice.mp3,6
+829,Call,Surat,21.597533,71.951954,Food,Food issue reported in Surat,21,Children,2026-04-14 16:47:33,none,1
+830,Call,Surat,22.73885,70.757921,Food,Food issue reported in Surat,38,Disabled,2026-04-16 14:47:33,none,4
+831,WhatsApp,Vadodara,22.93688,72.671232,Shelter,Water issue reported in Vadodara,69,Elderly,2026-04-16 17:47:33,none,8
+832,WhatsApp,Ahmedabad,22.059574,70.36872,Food,Food issue reported in Ahmedabad,21,Women,2026-04-15 01:47:33,voice.mp3,2
+833,Mobile App,Rajkot,22.999396,71.584463,Education,Food issue reported in Rajkot,19,Disabled,2026-04-15 22:47:33,report.pdf,8
+834,Call,Rajkot,21.881847,72.526035,Water,Water issue reported in Rajkot,35,Women,2026-04-15 23:47:33,report.pdf,3
+835,Call,Surat,21.541822,72.807525,Food,Water issue reported in Surat,87,Children,2026-04-15 15:47:33,none,4
+836,WhatsApp,Surat,20.333108,72.074814,Education,Shelter issue reported in Surat,55,None,2026-04-16 13:47:33,none,3
+837,Form,Surat,20.222333,70.618083,Shelter,Shelter issue reported in Surat,49,Children,2026-04-17 01:47:33,image.jpg,1
+838,Form,Vadodara,22.647575,70.437053,Shelter,Food issue reported in Vadodara,49,Disabled,2026-04-14 21:47:33,report.pdf,9
+839,Mobile App,Vadodara,22.660334,70.878428,Water,Education issue reported in Vadodara,65,Children,2026-04-15 05:47:33,voice.mp3,4
+840,NGO Report,Rajkot,20.198984,71.146205,Food,Education issue reported in Rajkot,4,None,2026-04-14 16:47:33,voice.mp3,10
+841,Form,Navsari,22.120939,72.470438,Education,Food issue reported in Navsari,68,Women,2026-04-15 21:47:33,voice.mp3,2
+842,Mobile App,Surat,21.488573,71.275292,Medical,Medical issue reported in Surat,50,Children,2026-04-16 11:47:33,image.jpg,6
+843,WhatsApp,Vadodara,22.420425,71.450149,Water,Food issue reported in Vadodara,49,None,2026-04-17 03:47:33,voice.mp3,4
+844,Call,Vadodara,22.552015,72.137735,Food,Education issue reported in Vadodara,24,Elderly,2026-04-15 06:47:33,none,4
+845,Call,Vadodara,22.147076,70.842201,Medical,Water issue reported in Vadodara,29,None,2026-04-15 05:47:33,voice.mp3,7
+846,Mobile App,Vadodara,22.678816,70.333668,Medical,Shelter issue reported in Vadodara,21,None,2026-04-16 20:47:33,report.pdf,10
+847,Call,Surat,22.914285,72.50706,Food,Food issue reported in Surat,99,Elderly,2026-04-15 16:47:33,none,2
+848,Call,Rajkot,21.619552,70.74032,Medical,Shelter issue reported in Rajkot,33,Children,2026-04-14 17:47:33,report.pdf,2
+849,Mobile App,Rajkot,20.134892,70.477216,Education,Education issue reported in Rajkot,51,Children,2026-04-15 20:47:33,report.pdf,5
+850,WhatsApp,Surat,20.175384,71.24455,Medical,Water issue reported in Surat,82,None,2026-04-16 02:47:33,none,2
+851,WhatsApp,Rajkot,20.408191,70.945246,Medical,Education issue reported in Rajkot,10,Elderly,2026-04-15 16:47:33,voice.mp3,10
+852,Call,Navsari,21.996826,72.015745,Shelter,Water issue reported in Navsari,32,Children,2026-04-16 16:47:33,none,1
+853,Mobile App,Ahmedabad,20.458127,71.961494,Food,Shelter issue reported in Ahmedabad,51,Elderly,2026-04-15 18:47:33,report.pdf,6
+854,Mobile App,Surat,22.874673,70.805931,Education,Shelter issue reported in Surat,3,Elderly,2026-04-16 10:47:33,voice.mp3,9
+855,NGO Report,Navsari,20.235504,71.979195,Medical,Water issue reported in Navsari,1,Elderly,2026-04-16 17:47:33,voice.mp3,5
+856,Form,Ahmedabad,22.069967,71.187058,Medical,Medical issue reported in Ahmedabad,95,Children,2026-04-16 03:47:33,none,8
+857,NGO Report,Navsari,22.140651,70.148368,Water,Water issue reported in Navsari,79,Women,2026-04-15 19:47:33,none,7
+858,Form,Vadodara,22.858301,72.923749,Shelter,Shelter issue reported in Vadodara,18,Disabled,2026-04-14 18:47:33,none,1
+859,WhatsApp,Surat,22.918849,71.720623,Education,Food issue reported in Surat,97,None,2026-04-15 00:47:33,voice.mp3,10
+860,WhatsApp,Surat,21.248334,70.204417,Education,Education issue reported in Surat,74,Elderly,2026-04-17 00:47:33,none,8
+861,WhatsApp,Surat,20.620708,71.855047,Water,Food issue reported in Surat,81,Children,2026-04-16 05:47:33,voice.mp3,10
+862,Call,Vadodara,22.166127,71.62434,Water,Water issue reported in Vadodara,40,Elderly,2026-04-16 14:47:33,report.pdf,6
+863,Form,Rajkot,22.836075,70.120431,Shelter,Education issue reported in Rajkot,74,Elderly,2026-04-17 07:47:33,report.pdf,5
+864,Mobile App,Ahmedabad,22.243663,70.056463,Shelter,Shelter issue reported in Ahmedabad,73,Elderly,2026-04-16 21:47:33,report.pdf,5
+865,Mobile App,Rajkot,21.176584,70.287144,Medical,Food issue reported in Rajkot,4,None,2026-04-15 08:47:33,none,3
+866,Call,Vadodara,20.783619,70.221085,Education,Food issue reported in Vadodara,17,Women,2026-04-15 15:47:33,report.pdf,8
+867,Call,Ahmedabad,22.519865,70.052389,Education,Education issue reported in Ahmedabad,37,Women,2026-04-15 22:47:33,voice.mp3,4
+868,WhatsApp,Ahmedabad,22.942826,70.100836,Medical,Food issue reported in Ahmedabad,55,Elderly,2026-04-15 12:47:33,image.jpg,4
+869,NGO Report,Ahmedabad,21.700927,71.017493,Medical,Medical issue reported in Ahmedabad,89,Elderly,2026-04-16 19:47:33,report.pdf,4
+870,Mobile App,Surat,20.931176,70.452589,Food,Medical issue reported in Surat,68,Women,2026-04-15 13:47:33,report.pdf,1
+871,Call,Surat,22.96359,71.539754,Education,Shelter issue reported in Surat,89,Disabled,2026-04-14 14:47:33,image.jpg,8
+872,Call,Vadodara,20.45314,72.437366,Water,Water issue reported in Vadodara,58,Children,2026-04-15 15:47:33,report.pdf,4
+873,Call,Vadodara,20.55362,72.296771,Education,Food issue reported in Vadodara,35,Elderly,2026-04-14 17:47:33,report.pdf,6
+874,Call,Vadodara,20.479503,71.007747,Shelter,Medical issue reported in Vadodara,4,None,2026-04-15 20:47:33,report.pdf,9
+875,Form,Rajkot,20.882582,70.436582,Medical,Medical issue reported in Rajkot,71,Disabled,2026-04-15 17:47:33,report.pdf,1
+876,WhatsApp,Ahmedabad,21.683542,72.108712,Water,Food issue reported in Ahmedabad,67,Disabled,2026-04-14 19:47:33,none,4
+877,Call,Rajkot,21.156061,70.338092,Education,Education issue reported in Rajkot,59,None,2026-04-16 22:47:33,report.pdf,1
+878,Mobile App,Vadodara,22.887724,72.009622,Water,Water issue reported in Vadodara,99,Elderly,2026-04-16 05:47:33,report.pdf,9
+879,Call,Surat,20.104584,72.627384,Water,Shelter issue reported in Surat,35,Children,2026-04-16 10:47:33,image.jpg,4
+880,Mobile App,Ahmedabad,21.49098,70.094172,Food,Food issue reported in Ahmedabad,13,Elderly,2026-04-16 20:47:33,voice.mp3,3
+881,Mobile App,Vadodara,20.494198,72.888641,Shelter,Medical issue reported in Vadodara,7,Elderly,2026-04-17 10:47:33,none,4
+882,Form,Ahmedabad,21.449576,72.385015,Medical,Food issue reported in Ahmedabad,81,None,2026-04-14 17:47:33,image.jpg,6
+883,NGO Report,Navsari,21.60727,70.638345,Food,Food issue reported in Navsari,36,Children,2026-04-15 13:47:33,none,4
+884,Form,Rajkot,20.849537,72.753207,Education,Water issue reported in Rajkot,94,None,2026-04-14 19:47:33,report.pdf,4
+885,Call,Rajkot,22.032849,72.263518,Shelter,Medical issue reported in Rajkot,17,None,2026-04-14 21:47:33,voice.mp3,2
+886,NGO Report,Rajkot,21.975067,72.540615,Water,Medical issue reported in Rajkot,43,Women,2026-04-15 17:47:33,report.pdf,10
+887,Form,Navsari,21.241144,72.185284,Water,Shelter issue reported in Navsari,79,Women,2026-04-17 02:47:33,image.jpg,10
+888,Mobile App,Vadodara,21.972891,70.581584,Medical,Water issue reported in Vadodara,21,None,2026-04-16 23:47:33,image.jpg,10
+889,Call,Rajkot,20.408065,70.114237,Food,Shelter issue reported in Rajkot,46,Children,2026-04-16 22:47:33,voice.mp3,10
+890,Call,Ahmedabad,20.277151,70.140331,Education,Water issue reported in Ahmedabad,60,Disabled,2026-04-17 03:47:33,voice.mp3,5
+891,Mobile App,Rajkot,22.028043,71.880781,Water,Shelter issue reported in Rajkot,44,Children,2026-04-15 08:47:33,image.jpg,1
+892,Mobile App,Ahmedabad,22.753875,71.768236,Medical,Education issue reported in Ahmedabad,86,Elderly,2026-04-16 16:47:33,none,2
+893,NGO Report,Ahmedabad,21.634775,72.05973,Education,Water issue reported in Ahmedabad,27,Disabled,2026-04-16 11:47:33,none,9
+894,WhatsApp,Vadodara,20.451269,72.137305,Education,Shelter issue reported in Vadodara,89,None,2026-04-15 05:47:33,image.jpg,3
+895,Form,Rajkot,20.951936,71.005319,Medical,Medical issue reported in Rajkot,79,None,2026-04-15 02:47:33,voice.mp3,3
+896,Form,Vadodara,22.111896,72.115578,Medical,Shelter issue reported in Vadodara,10,Disabled,2026-04-17 06:47:33,image.jpg,10
+897,Form,Ahmedabad,21.489595,71.287323,Medical,Food issue reported in Ahmedabad,15,None,2026-04-17 12:47:33,image.jpg,7
+898,Mobile App,Vadodara,22.561164,72.984315,Water,Food issue reported in Vadodara,30,Elderly,2026-04-14 22:47:33,voice.mp3,5
+899,WhatsApp,Vadodara,22.099194,70.349951,Food,Food issue reported in Vadodara,28,Children,2026-04-17 05:47:33,image.jpg,9
+900,Mobile App,Ahmedabad,20.841208,72.078416,Education,Education issue reported in Ahmedabad,85,Disabled,2026-04-14 16:47:33,report.pdf,2
+901,Form,Surat,20.083759,71.365714,Shelter,Water issue reported in Surat,48,Elderly,2026-04-16 12:47:33,none,9
+902,Call,Ahmedabad,20.635743,72.049824,Medical,Food issue reported in Ahmedabad,11,None,2026-04-16 11:47:33,voice.mp3,2
+903,Form,Vadodara,22.72191,70.852312,Medical,Water issue reported in Vadodara,71,None,2026-04-17 01:47:33,voice.mp3,6
+904,NGO Report,Rajkot,21.250783,71.352968,Shelter,Medical issue reported in Rajkot,28,Elderly,2026-04-15 14:47:33,none,7
+905,WhatsApp,Vadodara,22.614071,72.615648,Medical,Water issue reported in Vadodara,45,Disabled,2026-04-17 13:47:33,voice.mp3,5
+906,Form,Ahmedabad,22.107808,70.185922,Food,Education issue reported in Ahmedabad,96,Children,2026-04-14 20:47:33,image.jpg,4
+907,NGO Report,Navsari,21.111119,71.147987,Education,Shelter issue reported in Navsari,61,None,2026-04-14 18:47:33,image.jpg,10
+908,NGO Report,Surat,20.351682,72.476395,Medical,Medical issue reported in Surat,43,Disabled,2026-04-15 00:47:33,none,6
+909,Form,Ahmedabad,22.876877,70.025589,Shelter,Food issue reported in Ahmedabad,50,Disabled,2026-04-16 03:47:33,none,8
+910,NGO Report,Ahmedabad,22.899408,71.194317,Water,Food issue reported in Ahmedabad,17,Disabled,2026-04-15 01:47:33,none,3
+911,Mobile App,Vadodara,22.779664,70.62518,Shelter,Shelter issue reported in Vadodara,92,Women,2026-04-15 05:47:33,report.pdf,6
+912,Call,Vadodara,21.091065,70.281103,Food,Water issue reported in Vadodara,71,None,2026-04-15 07:47:33,image.jpg,6
+913,Mobile App,Vadodara,20.359785,71.25051,Shelter,Education issue reported in Vadodara,92,None,2026-04-15 03:47:33,none,6
+914,Form,Ahmedabad,20.446549,72.636562,Food,Water issue reported in Ahmedabad,65,Children,2026-04-14 22:47:33,voice.mp3,9
+915,WhatsApp,Ahmedabad,21.844509,71.420204,Medical,Education issue reported in Ahmedabad,37,Disabled,2026-04-17 09:47:33,image.jpg,6
+916,Form,Ahmedabad,20.3797,71.025078,Food,Food issue reported in Ahmedabad,37,Elderly,2026-04-15 04:47:33,voice.mp3,7
+917,NGO Report,Vadodara,21.694558,70.378911,Water,Water issue reported in Vadodara,79,Women,2026-04-14 17:47:33,none,10
+918,Mobile App,Rajkot,20.12864,72.246599,Education,Food issue reported in Rajkot,66,Elderly,2026-04-15 07:47:33,report.pdf,6
+919,Call,Ahmedabad,21.952768,70.502014,Medical,Food issue reported in Ahmedabad,26,Women,2026-04-16 03:47:33,image.jpg,3
+920,NGO Report,Ahmedabad,22.467006,71.922643,Food,Medical issue reported in Ahmedabad,85,Elderly,2026-04-16 12:47:33,none,1
+921,Form,Navsari,21.026467,72.252748,Shelter,Food issue reported in Navsari,38,None,2026-04-16 15:47:33,none,3
+922,NGO Report,Vadodara,22.639436,70.972443,Shelter,Education issue reported in Vadodara,40,Women,2026-04-16 09:47:33,image.jpg,3
+923,WhatsApp,Navsari,22.86646,72.99632,Education,Food issue reported in Navsari,23,None,2026-04-16 01:47:33,none,1
+924,WhatsApp,Navsari,22.742488,71.47794,Food,Food issue reported in Navsari,84,Elderly,2026-04-17 03:47:33,report.pdf,1
+925,Form,Surat,22.995505,71.612469,Food,Shelter issue reported in Surat,9,None,2026-04-15 07:47:33,image.jpg,10
+926,Call,Rajkot,20.956715,70.530173,Education,Medical issue reported in Rajkot,53,Disabled,2026-04-17 13:47:33,report.pdf,4
+927,NGO Report,Navsari,22.411658,71.796607,Education,Water issue reported in Navsari,5,Disabled,2026-04-17 05:47:33,none,4
+928,Mobile App,Vadodara,20.78087,70.215035,Water,Food issue reported in Vadodara,1,None,2026-04-17 13:47:33,voice.mp3,1
+929,Mobile App,Ahmedabad,21.528737,70.397923,Water,Medical issue reported in Ahmedabad,4,Children,2026-04-17 01:47:33,none,5
+930,WhatsApp,Vadodara,21.364774,71.642306,Shelter,Medical issue reported in Vadodara,25,Women,2026-04-15 01:47:33,report.pdf,4
+931,Form,Navsari,20.09092,70.663202,Food,Education issue reported in Navsari,36,Elderly,2026-04-16 10:47:33,voice.mp3,1
+932,Call,Navsari,22.278068,72.018645,Water,Water issue reported in Navsari,90,Women,2026-04-16 04:47:33,voice.mp3,10
+933,Form,Surat,21.060679,72.763105,Education,Food issue reported in Surat,92,Elderly,2026-04-16 14:47:33,report.pdf,3
+934,NGO Report,Surat,22.952552,72.539528,Water,Food issue reported in Surat,74,Children,2026-04-17 03:47:33,image.jpg,2
+935,Mobile App,Navsari,20.006749,70.335157,Shelter,Shelter issue reported in Navsari,52,Women,2026-04-15 08:47:33,none,7
+936,Call,Navsari,21.846671,70.340018,Water,Food issue reported in Navsari,84,Elderly,2026-04-15 03:47:33,image.jpg,10
+937,NGO Report,Vadodara,21.56926,72.659458,Shelter,Education issue reported in Vadodara,15,Children,2026-04-17 06:47:33,image.jpg,6
+938,NGO Report,Surat,20.615941,72.335968,Shelter,Education issue reported in Surat,93,Children,2026-04-17 12:47:33,image.jpg,2
+939,Mobile App,Vadodara,20.924325,71.447513,Water,Water issue reported in Vadodara,73,Disabled,2026-04-17 01:47:33,voice.mp3,9
+940,Call,Rajkot,22.341895,70.439975,Shelter,Shelter issue reported in Rajkot,54,Elderly,2026-04-17 14:47:33,report.pdf,8
+941,WhatsApp,Surat,22.435376,70.316428,Education,Medical issue reported in Surat,38,None,2026-04-16 06:47:33,voice.mp3,7
+942,Mobile App,Vadodara,22.831242,70.943968,Education,Water issue reported in Vadodara,63,Children,2026-04-15 08:47:33,voice.mp3,3
+943,Call,Vadodara,20.531904,70.373059,Education,Shelter issue reported in Vadodara,91,None,2026-04-17 07:47:33,none,2
+944,Mobile App,Navsari,20.019381,71.970853,Food,Food issue reported in Navsari,54,Children,2026-04-16 13:47:33,none,9
+945,Call,Ahmedabad,20.56605,72.260594,Medical,Medical issue reported in Ahmedabad,27,Elderly,2026-04-14 17:47:33,none,3
+946,Form,Navsari,21.55323,70.636728,Food,Food issue reported in Navsari,86,Women,2026-04-15 10:47:33,voice.mp3,4
+947,Call,Ahmedabad,22.479048,70.224083,Education,Food issue reported in Ahmedabad,88,None,2026-04-16 19:47:33,report.pdf,6
+948,WhatsApp,Vadodara,20.275962,71.873137,Water,Medical issue reported in Vadodara,2,Children,2026-04-15 21:47:33,image.jpg,6
+949,Form,Rajkot,20.015555,70.917001,Food,Medical issue reported in Rajkot,27,Elderly,2026-04-16 04:47:33,image.jpg,6
+950,Mobile App,Surat,20.258839,70.536865,Shelter,Medical issue reported in Surat,70,Women,2026-04-14 22:47:33,voice.mp3,2
+951,Call,Navsari,20.301496,70.980825,Water,Water issue reported in Navsari,98,Disabled,2026-04-16 08:47:33,report.pdf,9
+952,Form,Vadodara,21.32348,70.447409,Shelter,Shelter issue reported in Vadodara,55,Disabled,2026-04-14 16:47:33,voice.mp3,1
+953,WhatsApp,Surat,22.818989,70.009462,Education,Water issue reported in Surat,25,Disabled,2026-04-16 12:47:33,image.jpg,7
+954,WhatsApp,Vadodara,20.705561,72.972638,Shelter,Water issue reported in Vadodara,11,Disabled,2026-04-15 22:47:33,voice.mp3,2
+955,Form,Vadodara,21.457041,71.112342,Shelter,Shelter issue reported in Vadodara,57,Disabled,2026-04-17 09:47:33,image.jpg,5
+956,NGO Report,Rajkot,21.492881,70.185723,Water,Food issue reported in Rajkot,33,Women,2026-04-14 22:47:33,voice.mp3,8
+957,WhatsApp,Navsari,20.508834,71.896597,Food,Education issue reported in Navsari,21,Children,2026-04-16 13:47:33,report.pdf,8
+958,WhatsApp,Vadodara,22.856528,71.627309,Water,Shelter issue reported in Vadodara,13,Children,2026-04-16 01:47:33,voice.mp3,7
+959,Form,Navsari,21.137628,71.673104,Education,Education issue reported in Navsari,82,Elderly,2026-04-16 13:47:33,none,6
+960,Form,Ahmedabad,21.967884,72.630364,Food,Medical issue reported in Ahmedabad,14,Disabled,2026-04-16 13:47:33,none,7
+961,NGO Report,Navsari,22.708162,72.516271,Shelter,Education issue reported in Navsari,24,Children,2026-04-17 08:47:33,none,8
+962,Call,Vadodara,21.633785,70.185705,Water,Water issue reported in Vadodara,64,Elderly,2026-04-15 18:47:33,voice.mp3,6
+963,WhatsApp,Vadodara,22.802082,70.054312,Food,Food issue reported in Vadodara,9,Disabled,2026-04-16 22:47:33,none,10
+964,Call,Navsari,20.011317,72.24962,Water,Education issue reported in Navsari,90,Elderly,2026-04-15 02:47:33,none,6
+965,Mobile App,Navsari,22.514197,71.225186,Water,Food issue reported in Navsari,31,Women,2026-04-17 12:47:33,none,1
+966,Mobile App,Surat,22.947075,70.539197,Medical,Shelter issue reported in Surat,70,Women,2026-04-15 07:47:33,voice.mp3,10
+967,WhatsApp,Vadodara,20.829062,71.457752,Food,Shelter issue reported in Vadodara,60,Elderly,2026-04-14 17:47:33,none,9
+968,Call,Rajkot,20.902436,71.333096,Food,Shelter issue reported in Rajkot,84,Elderly,2026-04-15 13:47:33,none,1
+969,NGO Report,Ahmedabad,22.651021,72.426633,Food,Education issue reported in Ahmedabad,73,Elderly,2026-04-14 20:47:33,none,5
+970,Call,Vadodara,20.475426,72.892182,Education,Shelter issue reported in Vadodara,3,Children,2026-04-17 12:47:33,voice.mp3,4
+971,Call,Vadodara,20.597689,71.483934,Medical,Shelter issue reported in Vadodara,24,Disabled,2026-04-15 10:47:33,none,7
+972,WhatsApp,Navsari,20.109569,70.054547,Food,Education issue reported in Navsari,19,Children,2026-04-15 02:47:33,none,10
+973,NGO Report,Rajkot,22.466298,70.683705,Water,Water issue reported in Rajkot,12,Children,2026-04-15 22:47:33,none,5
+974,Form,Ahmedabad,20.067758,71.130628,Food,Medical issue reported in Ahmedabad,15,Women,2026-04-15 10:47:33,image.jpg,9
+975,Form,Ahmedabad,21.005056,71.938056,Shelter,Food issue reported in Ahmedabad,25,Children,2026-04-14 19:47:33,image.jpg,2
+976,Mobile App,Surat,21.119103,70.3378,Education,Food issue reported in Surat,30,Women,2026-04-16 04:47:33,voice.mp3,1
+977,Call,Vadodara,22.715909,71.402885,Medical,Shelter issue reported in Vadodara,25,Disabled,2026-04-15 04:47:33,none,9
+978,WhatsApp,Ahmedabad,21.777352,70.336046,Food,Medical issue reported in Ahmedabad,10,Women,2026-04-17 01:47:33,image.jpg,9
+979,WhatsApp,Surat,21.620067,72.722132,Medical,Education issue reported in Surat,85,None,2026-04-15 16:47:33,report.pdf,7
+980,NGO Report,Rajkot,22.350325,71.84536,Medical,Water issue reported in Rajkot,82,Elderly,2026-04-16 01:47:33,voice.mp3,2
+981,Form,Vadodara,21.267436,72.467497,Medical,Education issue reported in Vadodara,96,Women,2026-04-16 09:47:33,voice.mp3,8
+982,Form,Rajkot,22.000216,72.878324,Shelter,Food issue reported in Rajkot,47,Elderly,2026-04-17 04:47:33,report.pdf,10
+983,Mobile App,Navsari,20.251067,72.849837,Food,Food issue reported in Navsari,57,Women,2026-04-17 12:47:33,report.pdf,4
+984,Call,Ahmedabad,21.852447,70.561309,Medical,Medical issue reported in Ahmedabad,37,Children,2026-04-17 02:47:33,none,8
+985,Call,Vadodara,22.907112,72.210743,Education,Education issue reported in Vadodara,82,Children,2026-04-14 22:47:33,image.jpg,8
+986,NGO Report,Surat,21.863462,70.314183,Medical,Water issue reported in Surat,98,None,2026-04-17 08:47:33,none,7
+987,WhatsApp,Surat,21.125085,72.490559,Food,Water issue reported in Surat,50,Children,2026-04-16 08:47:33,image.jpg,9
+988,Mobile App,Vadodara,20.095696,70.705233,Shelter,Food issue reported in Vadodara,47,Disabled,2026-04-14 14:47:33,report.pdf,1
+989,Mobile App,Surat,21.202483,70.862655,Medical,Water issue reported in Surat,24,Disabled,2026-04-14 21:47:33,image.jpg,6
+990,WhatsApp,Rajkot,20.732524,72.556543,Education,Water issue reported in Rajkot,57,Women,2026-04-17 08:47:33,voice.mp3,9
+991,Form,Rajkot,22.293309,71.508401,Water,Food issue reported in Rajkot,9,None,2026-04-15 03:47:33,none,7
+992,Call,Vadodara,20.425687,70.675773,Education,Food issue reported in Vadodara,89,None,2026-04-16 08:47:33,report.pdf,10
+993,Call,Ahmedabad,21.297592,70.251452,Shelter,Shelter issue reported in Ahmedabad,69,None,2026-04-16 15:47:33,image.jpg,5
+994,Call,Navsari,21.921088,72.704279,Food,Food issue reported in Navsari,94,Elderly,2026-04-16 22:47:33,image.jpg,10
+995,Mobile App,Navsari,20.595107,71.421083,Medical,Medical issue reported in Navsari,84,Children,2026-04-17 09:47:33,image.jpg,4
+996,Mobile App,Ahmedabad,20.286819,70.302499,Shelter,Education issue reported in Ahmedabad,55,Women,2026-04-16 03:47:33,report.pdf,6
+997,NGO Report,Rajkot,21.922017,72.110076,Shelter,Education issue reported in Rajkot,69,Children,2026-04-16 01:47:33,report.pdf,3
+998,NGO Report,Ahmedabad,20.691355,71.523949,Medical,Food issue reported in Ahmedabad,44,Children,2026-04-16 15:47:33,image.jpg,9
+999,Mobile App,Navsari,20.597779,70.887512,Medical,Food issue reported in Navsari,98,Children,2026-04-16 05:47:33,report.pdf,10
+1000,Mobile App,Vadodara,22.931629,70.009948,Education,Medical issue reported in Vadodara,43,Elderly,2026-04-14 19:47:33,none,2
