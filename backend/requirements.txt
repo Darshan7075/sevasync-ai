@@ -7,3 +7,4 @@ passlib
 python-multipart
 jose
 bcrypt
+google-generativeai
