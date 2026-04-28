@@ -97,7 +97,10 @@ const Navbar = ({ toggleSidebar, isCrisisMode, toggleCrisisMode }) => {
 
         <div className={`h-8 w-[1px] mx-2 ${isCrisisMode ? 'bg-white/20' : 'bg-[#f0f0f0]'}`} />
 
-        <button className={`p-2 rounded-xl transition-colors relative ${isCrisisMode ? 'text-white hover:bg-white/10' : 'text-[#64748b] hover:bg-[#f8fafc]'}`}>
+        <button 
+          onClick={() => navigate('/alerts')}
+          className={`p-2 rounded-xl transition-colors relative ${isCrisisMode ? 'text-white hover:bg-white/10' : 'text-[#64748b] hover:bg-[#f8fafc]'}`}
+        >
           <Bell size={20} />
           <span className={`absolute top-2 right-2 w-2 h-2 rounded-full border-2 ${isCrisisMode ? 'bg-white border-[#c5221f]' : 'bg-[#ea4335] border-white'}`} />
         </button>
