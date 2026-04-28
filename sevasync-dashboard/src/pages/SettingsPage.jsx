@@ -55,6 +55,7 @@ const SettingsPage = ({ isCrisisMode, toggleCrisisMode }) => {
         settingsService.updateSetting('ipCloaking', settings.ipCloaking, 'Security'),
         settingsService.updateSetting('biometricOverride', settings.biometricOverride, 'Security')
       ]);
+      window.dispatchEvent(new CustomEvent('settingsUpdated', { detail: settings }));
       alert('SYSTEM INTELLIGENCE & SECURITY SYNCED SUCCESSFULLY');
     } catch (err) {
       alert('SYNC FAILED: Check backend connection');

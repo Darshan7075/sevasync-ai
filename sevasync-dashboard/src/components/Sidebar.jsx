@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { settingsService } from '../services/api';
 import { 
   LayoutDashboard, 
   Target, 
@@ -58,6 +59,32 @@ const menuSections = [
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const { user, logout } = useAuth();
+  const [platformName, setPlatformName] = useState('SevaSyncAI');
+
+  useEffect(() => {
+    const loadSettings = async () => {
+      try {
+        const res = await settingsService.getSettings();
+        const pNameSetting = res.data?.find(s => s.key === 'platformName');
+        if (pNameSetting && pNameSetting.value) {
+          setPlatformName(pNameSetting.value);
+        }
+      } catch (err) {
+        console.error("Failed to load settings in sidebar:", err);
+      }
+    };
+    loadSettings();
+
+    const handleSettingsUpdate = (e) => {
+      if (e && e.detail && e.detail.platformName) {
+        setPlatformName(e.detail.platformName);
+      } else {
+        loadSettings();
+      }
+    };
+    window.addEventListener('settingsUpdated', handleSettingsUpdate);
+    return () => window.removeEventListener('settingsUpdated', handleSettingsUpdate);
+  }, []);
 
   return (
     <>
@@ -73,7 +100,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               <Shield size={22} />
             </div>
             <div>
-              <h1 className="text-[19px] font-bold text-[#1e293b] tracking-tight leading-none">SevaSyncAI</h1>
+              <h1 className="text-[19px] font-bold text-[#1e293b] tracking-tight leading-none">{platformName}</h1>
               <p className="text-[10px] text-[#94a3b8] font-semibold tracking-widest mt-1">COMMAND CENTER</p>
             </div>
           </div>

@@ -52,7 +52,7 @@ const MapView = ({ reports, volunteers, selectedCity, cityCoordinates, isCrisisM
         
         <MapController center={center} zoom={zoom} />
 
-        {(reports || []).filter(r => r && !isNaN(r.lat) && !isNaN(r.lng)).map(r => (
+        {(reports || []).filter(r => r && !isNaN(r.lat) && !isNaN(r.lng)).slice(0, 100).map(r => (
            <Marker 
              key={r.id} 
              position={[parseFloat(r.lat), parseFloat(r.lng)]} 
@@ -71,7 +71,7 @@ const MapView = ({ reports, volunteers, selectedCity, cityCoordinates, isCrisisM
            </Marker>
         ))}
 
-        {(volunteers || []).filter(v => v).map(v => {
+        {(volunteers || []).filter(v => v).slice(0, 50).map(v => {
            const coords = v.lat && v.lng ? [v.lat, v.lng] : (cityCoordinates[v.city || v.location] || [22.3 + Math.random() * 0.1, 73.1 + Math.random() * 0.1]);
            return (
               <Marker 

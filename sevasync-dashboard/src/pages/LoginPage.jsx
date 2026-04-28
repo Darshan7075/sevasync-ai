@@ -106,7 +106,7 @@ const LoginPage = () => {
                      value={email}
                      onChange={(e) => setEmail(e.target.value)}
                      placeholder="EMAIL@COMMAND.CENTER"
-                     className="w-full bg-white/5 border border-white/10 text-white h-[64px] pl-14 pr-6 rounded-2xl outline-none focus:bg-white/10 focus:border-blue-500/50 focus:ring-4 ring-blue-500/5 transition-all text-[14px] font-bold placeholder:text-slate-600 uppercase"
+                     className="w-full bg-white/5 border border-white/10 text-white h-[64px] pl-14 pr-6 rounded-2xl outline-none focus:bg-white/10 focus:border-blue-500/50 focus:ring-4 ring-blue-500/5 transition-all text-[14px] font-bold placeholder:text-slate-600"
                    />
                  </div>
                </div>

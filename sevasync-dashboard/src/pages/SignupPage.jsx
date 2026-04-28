@@ -138,7 +138,7 @@ const SignupPage = () => {
                      value={formData.name}
                      onChange={handleChange}
                      placeholder="NAME SURNAME"
-                     className="w-full bg-white/5 border border-white/10 text-white h-[60px] pl-14 pr-6 rounded-2xl outline-none focus:bg-white/10 focus:border-blue-500/50 transition-all text-[14px] font-bold placeholder:text-slate-600 uppercase"
+                     className="w-full bg-white/5 border border-white/10 text-white h-[60px] pl-14 pr-6 rounded-2xl outline-none focus:bg-white/10 focus:border-blue-500/50 transition-all text-[14px] font-bold placeholder:text-slate-600"
                    />
                  </div>
                </div>
@@ -154,7 +154,7 @@ const SignupPage = () => {
                      value={formData.email}
                      onChange={handleChange}
                      placeholder="EMAIL@NODE.NET"
-                     className="w-full bg-white/5 border border-white/10 text-white h-[60px] pl-14 pr-6 rounded-2xl outline-none focus:bg-white/10 focus:border-blue-500/50 transition-all text-[14px] font-bold placeholder:text-slate-600 uppercase"
+                     className="w-full bg-white/5 border border-white/10 text-white h-[60px] pl-14 pr-6 rounded-2xl outline-none focus:bg-white/10 focus:border-blue-500/50 transition-all text-[14px] font-bold placeholder:text-slate-600"
                    />
                  </div>
                </div>
