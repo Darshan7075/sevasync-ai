@@ -173,7 +173,7 @@ const Navbar = ({ toggleSidebar, isCrisisMode, toggleCrisisMode }) => {
                     className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-rose-600 hover:bg-rose-50 transition-all text-[13px] font-bold"
                   >
                     <LogOut size={16} />
-                    Deauthorize System
+                    Log Out
                   </button>
                 </motion.div>
               </>
