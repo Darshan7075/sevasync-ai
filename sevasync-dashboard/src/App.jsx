@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom
 import Sidebar from './components/Sidebar.jsx';
 import Navbar from './components/Navbar.jsx';
 import Dashboard from './pages/Dashboard.jsx';
+import LandingPage from './pages/LandingPage.jsx';
 import ReportsPage from './pages/ReportsPage.jsx';
 import VolunteersPage from './pages/VolunteersPage.jsx';
 import NGOsPage from './pages/NGOsPage.jsx';
@@ -247,10 +248,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route element={<ProtectedRoute><Layout isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} isCrisisMode={isCrisisMode} toggleCrisisMode={toggleCrisisMode} /></ProtectedRoute>}>
-          <Route path="/" element={<Dashboard {...sharedProps} />} />
+          <Route path="/dashboard" element={<Dashboard {...sharedProps} />} />
           <Route path="/reports" element={<ReportsPage {...sharedProps} />} />
           <Route path="/tasks" element={<TasksPage {...sharedProps} />} />
           <Route path="/volunteers" element={<VolunteersPage {...sharedProps} />} />

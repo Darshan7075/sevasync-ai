@@ -45,13 +45,20 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginAsGuest = () => {
+    const guestUser = { id: 'guest', name: 'Demo Judge', email: 'judge@hackathon.com', role: 'admin' };
+    setUser(guestUser);
+    localStorage.setItem('sevasync_user', JSON.stringify(guestUser));
+    return guestUser;
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem('sevasync_user');
   };
 
   return (
-    <AuthContext.Provider value={{ user, signup, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, signup, login, loginAsGuest, logout, loading }}>
       {!loading && children}
     </AuthContext.Provider>
   );

@@ -374,11 +374,11 @@ const Dashboard = ({ reports, volunteers, resources, bloodDonors, cityCoordinate
               </div>
               <div className="space-y-6 font-mono max-h-[350px] overflow-y-auto pr-4 scrollbar-hide">
                  {[
-                   { time: '08:42:17 AM', user: 'MISSION', action: 'ACTIVITY RECORD #1: TACTICAL EVENT PROCESSED IN THE SYSTEM.' },
-                   { time: '08:41:05 AM', user: 'VOLUNTEER', action: 'ACTIVITY RECORD #2: LOGISTICAL UPDATE PROCESSED IN THE SYSTEM.' },
-                   { time: '08:35:22 AM', user: 'MISSION', action: 'ACTIVITY RECORD #3: TACTICAL EVENT PROCESSED IN THE SYSTEM.' },
-                   { time: '08:32:10 AM', user: 'MISSION', action: 'ACTIVITY RECORD #4: TACTICAL EVENT PROCESSED IN THE SYSTEM.' },
-                   { time: '08:28:45 AM', user: 'VOLUNTEER', action: 'ACTIVITY RECORD #5: LOGISTICAL UPDATE PROCESSED IN THE SYSTEM.' },
+                   { time: '08:42:17 AM', user: 'SYSTEM', action: 'ALERT: Water levels rising near Vishwamitri River. 15 units alerted.' },
+                   { time: '08:41:05 AM', user: 'VOLUNTEER', action: 'DISPATCH: Team Alpha en route to Makarpura with 50 food packets.' },
+                   { time: '08:35:22 AM', user: 'AI ENGINE', action: 'PREDICTION: Critical shortage of O- blood detected at SSG Hospital.' },
+                   { time: '08:32:10 AM', user: 'COMMAND', action: 'APPROVAL: 5 Rescue boats deployed to Sector 4.' },
+                   { time: '08:28:45 AM', user: 'VOLUNTEER', action: 'UPDATE: Medical camp setup complete at Gotri node.' },
                  ].map((log, i) => (
                    <div key={i} className="space-y-1 opacity-70 hover:opacity-100 transition-opacity">
                       <div className="flex items-center gap-3">

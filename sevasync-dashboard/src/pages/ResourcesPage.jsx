@@ -46,17 +46,29 @@ const ResourceCard = memo(({ resource, onSend, onRestock }) => {
              <MapPin size={14} className="text-blue-500" />
              <span className="text-[12px] font-bold uppercase tracking-widest">{resource.location} Tactical Hub</span>
           </div>
+          
+          <div className="mt-4 flex items-start gap-2 bg-gradient-to-r from-blue-50 to-transparent p-3 rounded-xl border-l-2 border-blue-400">
+             <Zap size={14} className="text-blue-500 mt-0.5 shrink-0" />
+             <div>
+                <span className="text-[9px] font-black text-blue-600 uppercase tracking-[0.2em] block mb-0.5">AI Forecast</span>
+                <span className="text-[11px] font-bold text-slate-600 leading-tight">
+                  {isCritical ? 'CRITICAL SHORTAGE. 98% CHANCE OF DEPLETION IN 2H.' : isLow ? 'HIGH DEMAND EXPECTED FROM NEARBY SECTORS.' : 'STOCK SUFFICIENT FOR PROJECTED 48H DEMAND.'}
+                </span>
+             </div>
+          </div>
        </div>
 
-       <div className="bg-slate-50 rounded-[32px] p-6 mb-8 border border-slate-100">
+       <div className="bg-slate-50 rounded-[32px] p-6 mb-8 border border-slate-100 relative">
           <div className="flex justify-between items-end mb-4">
              <div>
                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Stock Level</p>
                 <h2 className="text-[36px] font-black text-slate-900 leading-none">{resource.quantity}</h2>
              </div>
              <div className="text-right">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Unit</p>
-                <p className="text-[14px] font-black text-slate-600 uppercase">{resource.type?.includes('Water') ? 'Liters' : 'Units'}</p>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Condition</p>
+                <div className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-[10px] font-black text-slate-600 shadow-sm uppercase">
+                  {resource.expiry || 'Optimal'}
+                </div>
              </div>
           </div>
           <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
@@ -136,12 +148,20 @@ const ResourcesPage = ({ resources, setResources, cityCoordinates }) => {
 
   const totalPages = Math.ceil(filteredResources.length / itemsPerPage);
 
-  const stats = useMemo(() => ({
-    total: resources.length,
-    low: resources.filter(r => r.quantity < 100 && r.quantity >= 20).length,
-    critical: resources.filter(r => r.quantity < 20).length,
-    efficiency: 94
-  }), [resources]);
+  const stats = useMemo(() => {
+    const totalCount = resources.length || 1;
+    const criticalCount = resources.filter(r => r.quantity < 20).length;
+    const lowCount = resources.filter(r => r.quantity < 100 && r.quantity >= 20).length;
+    // Efficiency is 100% minus the percentage of items that are low or critical
+    const calculatedEfficiency = Math.round(100 - ((criticalCount * 2 + lowCount) / (totalCount * 2)) * 100);
+    
+    return {
+      total: resources.length,
+      low: lowCount,
+      critical: criticalCount,
+      efficiency: Math.min(Math.max(calculatedEfficiency, 0), 100) // Keep between 0-100
+    };
+  }, [resources]);
 
   return (
     <div className="p-8 space-y-10 animate-fade-in max-w-[1800px] mx-auto pb-24 relative">

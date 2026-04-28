@@ -29,7 +29,7 @@ const menuSections = [
   {
     title: 'MAIN',
     items: [
-      { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
+      { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
       { icon: FileText, label: 'Cases', path: '/reports' },
       { icon: Target, label: 'Tasks', path: '/tasks' },
     ]
