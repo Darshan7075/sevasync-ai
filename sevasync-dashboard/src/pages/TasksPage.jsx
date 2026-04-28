@@ -220,7 +220,21 @@ const TasksPage = ({ reports, volunteers, resources, isCrisisMode, setReports, s
                      <p className="text-[12px] text-slate-400 leading-relaxed font-medium mb-8 uppercase">
                         "IDENTIFIED 3 MISSIONS IN <span className="text-indigo-400">BHOPAL</span> WITH SYNERGISTIC RESOURCE REQUIREMENTS. RECOMMEND BATCH DISPATCH."
                      </p>
-                     <button className="w-full py-4 bg-indigo-600 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition-all">
+                     <button 
+                        onClick={(e) => {
+                          const btn = e.currentTarget;
+                          btn.innerHTML = '<span class="animate-pulse">ENGAGING AI UNITS...</span>';
+                          btn.style.opacity = '0.8';
+                          btn.style.pointerEvents = 'none';
+                          setTimeout(() => {
+                            btn.innerHTML = 'SMART DISPATCH COMPLETE';
+                            btn.style.backgroundColor = '#10b981';
+                            btn.style.opacity = '1';
+                            alert('AI BATCH DISPATCH SUCCESS: 3 Missions in Bhopal synchronized and assigned.');
+                          }, 1500);
+                        }}
+                        className="w-full py-4 bg-indigo-600 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition-all active:scale-95"
+                     >
                         Engage Smart Dispatch
                      </button>
                   </div>
@@ -248,6 +262,7 @@ const TasksPage = ({ reports, volunteers, resources, isCrisisMode, setReports, s
                               <div>
                                  <div className="flex items-center gap-3 mb-2">
                                     <span className="text-[11px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-lg">ID: SS-{task.id}</span>
+                                    <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-md ${task.status === 'In Progress' ? 'bg-emerald-100 text-emerald-600' : task.status === 'Resolved' ? 'bg-blue-100 text-blue-600' : 'bg-slate-100 text-slate-500'}`}>{task.status || 'Pending'}</span>
                                     <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">• Sector {task.area?.split(',')[0]}</span>
                                  </div>
                                  <h3 className="text-[24px] font-black text-slate-900 uppercase tracking-tight">{task.issue} Support</h3>
@@ -308,17 +323,23 @@ const TasksPage = ({ reports, volunteers, resources, isCrisisMode, setReports, s
                            <div className="flex flex-wrap gap-3 pt-8 border-t border-slate-50">
                               <button 
                                 onClick={() => handleUpdateStatus(task.id, 'In Progress')}
-                                className="px-6 py-3 bg-indigo-600 text-white rounded-2xl text-[11px] font-black uppercase tracking-widest shadow-lg shadow-indigo-500/20 hover:bg-indigo-700 transition-all flex items-center gap-2"
+                                disabled={task.status === 'In Progress'}
+                                className={`px-6 py-3 text-white rounded-2xl text-[11px] font-black uppercase tracking-widest shadow-lg transition-all flex items-center gap-2 ${
+                                   task.status === 'In Progress' ? 'bg-emerald-500 shadow-emerald-500/20 cursor-not-allowed' : 'bg-indigo-600 shadow-indigo-500/20 hover:bg-indigo-700 active:scale-95'
+                                }`}
                               >
-                                 <Zap size={16} /> Engage Mission
+                                 <Zap size={16} /> {task.status === 'In Progress' ? 'Mission Engaged' : 'Engage Mission'}
                               </button>
                               <button 
                                 onClick={() => setSelectedTaskChat(task)}
-                                className="px-6 py-3 bg-white border border-slate-100 text-slate-600 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center gap-2"
+                                className="px-6 py-3 bg-white border border-slate-100 text-slate-600 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center gap-2 active:scale-95"
                               >
                                  <MessageSquare size={16} /> Comms Node
                               </button>
-                              <button className="px-6 py-3 bg-white border border-slate-100 text-slate-600 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center gap-2">
+                              <button 
+                                onClick={() => alert('SYNCHRONIZING LOGISTICS... AI is calculating optimal resource paths.')}
+                                className="px-6 py-3 bg-white border border-slate-100 text-slate-600 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center gap-2 active:scale-95"
+                              >
                                  <Truck size={16} /> Logistics Sync
                               </button>
                               <div className="flex-1" />

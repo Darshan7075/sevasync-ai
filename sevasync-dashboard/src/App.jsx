@@ -159,10 +159,10 @@ function App() {
         const [parsedBlood, parsedReports, parsedVolunteers, parsedResources, parsedNGOs] = await Promise.all([
           parseCSV(bloodData, (row, idx) => ({
             id: (idx + 1).toString(),
-            name: row.donor_name || 'Anonymous',
-            bloodGroup: row.blood_group,
-            city: row.city,
-            available: row.availability === 'Available',
+            name: (row.donor_name || 'Anonymous').trim(),
+            bloodGroup: (row.blood_group || '').trim(),
+            city: (row.city || '').trim(),
+            available: (row.availability || '').trim() === 'Available',
             lastDonation: row.last_donation_date
           })),
           parseCSV(reportsData, (row, idx) => {

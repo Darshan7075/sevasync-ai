@@ -211,8 +211,10 @@ const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates }) => {
     return (volunteers || []).filter(v => {
       const name = v.name || '';
       const role = v.role || v.skill || '';
+      const loc = v.city || v.location || '';
       const matchSearch = name.toLowerCase().includes(debouncedSearch.toLowerCase()) || 
-                          role.toLowerCase().includes(debouncedSearch.toLowerCase());
+                          role.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+                          loc.toLowerCase().includes(debouncedSearch.toLowerCase());
       const matchCity = selectedCity === 'All' || v.city === selectedCity || v.location === selectedCity;
       const matchStatus = selectedStatus === 'All' || v.status === selectedStatus;
       return matchSearch && matchCity && matchStatus;
