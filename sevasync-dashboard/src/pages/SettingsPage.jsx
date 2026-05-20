@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { settingsService } from '../services/api';
 
-const SettingsPage = ({ isCrisisMode, toggleCrisisMode }) => {
+const SettingsPage = () => {
   const [activeTab, setActiveTab] = useState('General');
   const [isSaving, setIsSaving] = useState(false);
   const [isLoading, setIsLoading] = useState(true);

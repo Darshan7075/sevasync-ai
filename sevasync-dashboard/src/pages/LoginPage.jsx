@@ -14,7 +14,7 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { login } = useAuth();
+  const { login, loginAsGuest } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -23,9 +23,14 @@ const LoginPage = () => {
     setIsSubmitting(true);
 
     try {
-      await login(email, password);
-      navigate('/dashboard');
+      const loggedInUser = await login(email, password);
+      if (loggedInUser && loggedInUser.role === 'Volunteer') {
+        navigate('/volunteer-dashboard');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (err) {
+
       setError(err.message || 'AUTHORIZATION FAILED: INVALID CREDENTIALS.');
     } finally {
       setIsSubmitting(false);
@@ -149,6 +154,33 @@ const LoginPage = () => {
                   </>
                 )}
               </button>
+
+              <div className="grid grid-cols-2 gap-4">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    try {
+                      const user = await login('volunteer@sevasync.com', 'demo123');
+                      if (user) navigate('/volunteer-dashboard');
+                    } catch (err) {
+                      setError('Demo Login Failed');
+                    }
+                  }}
+                  className="p-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-400 hover:bg-blue-600/20 hover:border-blue-500/50 hover:text-white transition-all flex flex-col items-center gap-2"
+                >
+                  <Radio size={16} /> Demo Volunteer
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    loginAsGuest();
+                    navigate('/dashboard');
+                  }}
+                  className="p-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-400 hover:bg-indigo-600/20 hover:border-indigo-500/50 hover:text-white transition-all flex flex-col items-center gap-2"
+                >
+                  <ShieldCheck size={16} /> Demo Admin
+                </button>
+              </div>
 
               <div className="flex items-center justify-between">
                  <Link to="/signup" className="text-blue-400 text-[11px] font-black uppercase tracking-widest hover:text-white transition-colors flex items-center gap-2">

@@ -89,18 +89,18 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   return (
     <>
       <div className={`
-        fixed inset-y-0 left-0 z-[40] w-[260px] bg-white border-r border-[#f0f0f0] transition-all duration-300 transform
+        fixed inset-y-0 left-0 z-[40] w-[260px] bg-white border-[#f0f0f0] border-r transition-all duration-300 transform
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0 lg:static'}
         flex flex-col h-full
       `}>
         {/* Logo Section */}
         <div className="h-20 flex items-center px-7 mb-2">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#1a73e8] flex items-center justify-center text-white shadow-lg shadow-blue-100">
+            <div className="w-9 h-9 rounded-xl bg-[#1a73e8] shadow-blue-100 flex items-center justify-center text-white shadow-lg">
               <Shield size={22} />
             </div>
             <div>
-              <h1 className="text-[19px] font-bold text-[#1e293b] tracking-tight leading-none">{platformName}</h1>
+              <h1 className="text-[19px] font-bold tracking-tight leading-none text-[#1e293b]">{platformName}</h1>
               <p className="text-[10px] text-[#94a3b8] font-semibold tracking-widest mt-1">COMMAND CENTER</p>
             </div>
           </div>
@@ -139,9 +139,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </div>
 
         {/* User Profile */}
-        <div className="mx-4 mb-6 p-4 rounded-2xl bg-[#f8fafc] border border-[#f1f5f9] group hover:bg-white transition-all cursor-pointer">
+        <div className="mx-4 mb-6 p-4 rounded-2xl bg-[#f8fafc] border-[#f1f5f9] hover:bg-white border group transition-all cursor-pointer">
            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white border border-[#e2e8f0] flex items-center justify-center text-[#1a73e8] font-bold shadow-sm uppercase">
+              <div className="w-10 h-10 rounded-xl bg-white border-[#e2e8f0] text-[#1a73e8] border flex items-center justify-center font-bold shadow-sm uppercase">
                  {user?.name?.[0] || 'U'}
               </div>
               <div className="flex-1 overflow-hidden">

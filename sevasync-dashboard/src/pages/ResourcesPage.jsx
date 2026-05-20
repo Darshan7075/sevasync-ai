@@ -6,11 +6,14 @@ import {
   Settings, ChevronRight, Sparkles, Filter, MoreHorizontal,
   History, Info, CheckCircle2, Zap, ArrowUpRight, Boxes,
   BarChart3, MousePointer2, ExternalLink, Globe, ShieldCheck,
-  ChevronLeft, ChevronRight as ChevronRightIcon
+  ChevronLeft, ChevronRight as ChevronRightIcon, Download, Compass
 } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { resourceService } from '../services/api';
 
-// Memoized Resource Card for Grid View (New)
+// Memoized Resource Card for Grid View
 const ResourceCard = memo(({ resource, onSend, onRestock }) => {
   const isCritical = resource.quantity < 20;
   const isLow = resource.quantity < 100 && resource.quantity >= 20;
@@ -98,7 +101,8 @@ const ResourceCard = memo(({ resource, onSend, onRestock }) => {
   );
 });
 
-const ResourcesPage = ({ resources, setResources, cityCoordinates }) => {
+const ResourcesPage = ({ resources, setResources, supplyOrders, setSupplyOrders, cityCoordinates, setNotifications }) => {
+
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -115,6 +119,84 @@ const ResourcesPage = ({ resources, setResources, cityCoordinates }) => {
   const categories = ['All', 'Food', 'Water', 'Medical', 'Shelter', 'Logistics'];
   const statuses = ['All', 'Stable', 'Low', 'Critical'];
 
+  const handleAcceptOrder = (orderId) => {
+    if (setSupplyOrders && setResources) {
+      setSupplyOrders(prev => {
+        const order = prev.find(o => o.id === orderId);
+        if (!order) return prev;
+
+        const updated = prev.map(o => o.id === orderId ? { ...o, status: 'Transit', time: 'Just Now' } : o);
+        localStorage.setItem('supplyOrders', JSON.stringify(updated));
+
+        // Deduct from resources
+        // Example item format: "22x Food, 7x Medical"
+        const items = order.item.split(', ');
+        items.forEach(itemStr => {
+           const match = itemStr.match(/(\d+)x\s+(.+)/);
+           if (match) {
+              const qty = parseInt(match[1]);
+              const type = match[2].toLowerCase();
+              
+              setResources(resPrev => resPrev.map(r => {
+                 if (r.location === order.location && r.type.toLowerCase().includes(type)) {
+                    return { ...r, quantity: Math.max(0, r.quantity - qty) };
+                 }
+                 return r;
+              }));
+           }
+        });
+
+        return updated;
+      });
+      showNotification("ORDER DISPATCHED", "Supplies are in transit. Stock levels updated.");
+      if (setNotifications) {
+        setNotifications(prev => [
+          {
+            id: Date.now(),
+            type: 'SUCCESS',
+            category: 'Logistics',
+            title: 'Resource Order Dispatched',
+            message: `Order ${orderId} is dispatched and currently in transit to destination hub.`,
+            time: 'Just Now',
+            iconName: 'Truck',
+            color: 'text-emerald-500',
+            bg: 'bg-emerald-50'
+          },
+          ...prev
+        ]);
+      }
+    }
+  };
+
+  const handleDeliverOrder = (orderId) => {
+    if (setSupplyOrders) {
+      setSupplyOrders(prev => {
+        const updated = prev.map(o => o.id === orderId ? { ...o, status: 'Delivered', time: 'Just Now' } : o);
+        localStorage.setItem('supplyOrders', JSON.stringify(updated));
+        return updated;
+      });
+      showNotification("ORDER DELIVERED", "Inventory node received deployment packages.");
+      if (setNotifications) {
+        setNotifications(prev => [
+          {
+            id: Date.now(),
+            type: 'SUCCESS',
+            category: 'Logistics',
+            title: 'Resource Order Delivered',
+            message: `Order ${orderId} has been successfully delivered and logged into local stocks.`,
+            time: 'Just Now',
+            iconName: 'CheckCircle2',
+            color: 'text-emerald-500',
+            bg: 'bg-emerald-50'
+          },
+          ...prev
+        ]);
+      }
+    }
+  };
+
+
+
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearch(searchTerm), 300);
     return () => clearTimeout(timer);
@@ -124,6 +206,39 @@ const ResourcesPage = ({ resources, setResources, cityCoordinates }) => {
     setNotification({ message, type });
     setTimeout(() => setNotification(null), 3000);
   };
+
+  // FEATURE 3: CSV Export Logic
+  const exportToCSV = () => {
+    const headers = ['Type', 'Quantity', 'Location', 'Expiry/Condition'];
+    const rows = (resources || []).map(r => [r.type, r.quantity, r.location, r.expiry || 'Optimal']);
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "sevasync_logistics_report.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showNotification("EXPORT COMPLETE", "CSV logistics manifest downloaded.");
+  };
+
+  // FEATURE 1: Stock Analytics SVG Data
+  const categoryStock = useMemo(() => {
+    const totals = { Food: 0, Water: 0, Medical: 0, Shelter: 0, Logistics: 0 };
+    (resources || []).forEach(r => {
+      const type = (r.type || '').toLowerCase();
+      if (type.includes('food')) totals.Food += r.quantity;
+      else if (type.includes('water')) totals.Water += r.quantity;
+      else if (type.includes('med')) totals.Medical += r.quantity;
+      else if (type.includes('shelter')) totals.Shelter += r.quantity;
+      else totals.Logistics += r.quantity;
+    });
+    return Object.entries(totals);
+  }, [resources]);
+
+  const maxStock = useMemo(() => {
+     return Math.max(...categoryStock.map(([_, qty]) => qty), 100);
+  }, [categoryStock]);
 
   const filteredResources = useMemo(() => {
     return (resources || []).filter(r => {
@@ -152,16 +267,24 @@ const ResourcesPage = ({ resources, setResources, cityCoordinates }) => {
     const totalCount = resources.length || 1;
     const criticalCount = resources.filter(r => r.quantity < 20).length;
     const lowCount = resources.filter(r => r.quantity < 100 && r.quantity >= 20).length;
-    // Efficiency is 100% minus the percentage of items that are low or critical
     const calculatedEfficiency = Math.round(100 - ((criticalCount * 2 + lowCount) / (totalCount * 2)) * 100);
     
     return {
       total: resources.length,
       low: lowCount,
       critical: criticalCount,
-      efficiency: Math.min(Math.max(calculatedEfficiency, 0), 100) // Keep between 0-100
+      efficiency: Math.min(Math.max(calculatedEfficiency, 0), 100)
     };
   }, [resources]);
+
+  const createHubIcon = (color) => new L.divIcon({
+    html: `<div class="relative flex items-center justify-center">
+             <div class="absolute inset-0 w-8 h-8 bg-${color}-500/20 rounded-full blur-md animate-ping"></div>
+             <div class="w-4 h-4 bg-${color}-600 rounded-full border-2 border-white"></div>
+           </div>`,
+    className: 'hub-leaflet-icon',
+    iconSize: [16, 16]
+  });
 
   return (
     <div className="p-8 space-y-10 animate-fade-in max-w-[1800px] mx-auto pb-24 relative">
@@ -212,6 +335,12 @@ const ResourcesPage = ({ resources, setResources, cityCoordinates }) => {
 
             <div className="flex items-center gap-4">
                <button 
+                  onClick={exportToCSV}
+                  className="px-6 py-5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-[24px] font-black text-[13px] tracking-[0.1em] uppercase transition-all flex items-center gap-3 active:scale-95"
+               >
+                  <Download size={18} /> Export CSV
+               </button>
+               <button 
                   onClick={() => setIsAddModalOpen(true)}
                   className="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-[24px] font-black text-[13px] tracking-[0.1em] uppercase transition-all shadow-2xl shadow-blue-600/30 flex items-center gap-3 group active:scale-95"
                >
@@ -243,7 +372,39 @@ const ResourcesPage = ({ resources, setResources, cityCoordinates }) => {
          ))}
       </div>
 
+      {/* FEATURE 1: Stock Analytics Chart (Visual SVG) */}
+      <div className="bg-white border border-slate-100 rounded-[40px] p-8 shadow-sm">
+         <h3 className="text-[16px] font-black uppercase tracking-widest text-slate-800 mb-6 flex items-center gap-2">
+           <BarChart3 size={20} className="text-blue-600" /> Supply Distribution Analytics
+         </h3>
+         <div className="grid grid-cols-1 md:grid-cols-5 gap-6 pt-4">
+           {categoryStock.map(([cat, qty]) => {
+             const percentage = Math.round((qty / maxStock) * 100);
+             return (
+               <div key={cat} className="bg-slate-50 rounded-3xl p-6 border border-slate-100 flex flex-col justify-between h-[160px] relative group hover:border-blue-200 transition-all">
+                 <div>
+                   <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{cat} Supply</span>
+                   <p className="text-[24px] font-black text-slate-900 mt-1">{qty}</p>
+                 </div>
+                 <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden mt-4">
+                   <motion.div 
+                      initial={{ width: 0 }} 
+                      animate={{ width: `${percentage}%` }} 
+                      className="h-full bg-blue-600 rounded-full shadow-md" 
+                   />
+                 </div>
+                 <span className="absolute right-6 top-6 text-[12px] font-black text-slate-300 group-hover:text-blue-500 transition-colors">{percentage}%</span>
+               </div>
+             );
+           })}
+         </div>
+      </div>
+
+
+
+
       {/* 3. Control Center: Search & Filter */}
+
       <div className="flex flex-col xl:flex-row gap-6 items-center">
          <div className="relative flex-1 group w-full">
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-500 transition-colors" size={22} />
@@ -326,8 +487,26 @@ const ResourcesPage = ({ resources, setResources, cityCoordinates }) => {
             )}
          </div>
 
-         {/* Right Panel: Smart Logistics */}
+         {/* Right Panel: Smart Logistics & Hub Map */}
          <div className="lg:col-span-4 space-y-10">
+            
+            {/* FEATURE 2: Hub Visualizer Map */}
+            <div className="bg-white border border-slate-100 rounded-[48px] p-8 shadow-sm overflow-hidden space-y-4">
+               <h3 className="text-[16px] font-black uppercase tracking-tight text-slate-900 flex items-center gap-2">
+                  <Compass size={20} className="text-blue-600" /> Tactical Hub Visualizer
+               </h3>
+               <div className="h-[220px] rounded-[32px] overflow-hidden relative border border-slate-100">
+                  <MapContainer center={[22.3072, 73.1812]} zoom={8} style={{ height: '100%', width: '100%' }} zoomControl={false}>
+                     <TileLayer attribution='&copy; CARTO' url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
+                     {cityCoordinates && Object.entries(cityCoordinates).map(([city, coords]) => (
+                        <Marker key={city} position={coords} icon={createHubIcon('blue')}>
+                           <Popup><span className="font-sans font-bold text-[12px]">{city} Sector</span></Popup>
+                        </Marker>
+                     ))}
+                  </MapContainer>
+               </div>
+            </div>
+
             <div className="bg-slate-900 rounded-[48px] p-10 text-white shadow-2xl relative overflow-hidden">
                <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl" />
                <div className="relative z-10">
@@ -339,38 +518,151 @@ const ResourcesPage = ({ resources, setResources, cityCoordinates }) => {
                   </div>
 
                   <div className="space-y-8">
-                      {[
-                        { title: 'Stock Surplus detected', hub: 'Surat Hub', action: 'Move 500 Food Packs', target: 'Vadodara Crisis Zone' },
-                        { title: 'Critical Shortage predicted', hub: 'Bhopal Sector', action: 'Divert Water Supply', target: 'Route B-04' },
-                      ].map((item, i) => (
-                        <div 
-                          key={i} 
-                          onClick={() => showNotification("LOGISTICS DIVERTED", `Rerouting supplies from ${item.hub} to ${item.target} initiated.`)}
-                          className="p-6 rounded-[32px] bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer group"
-                        >
-                           <div className="flex justify-between items-start mb-4">
-                              <div>
-                                 <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-1">{item.title}</p>
-                                 <h4 className="text-[16px] font-black">{item.hub}</h4>
-                              </div>
-                              <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                 <ArrowUpRight size={14} />
-                              </div>
-                           </div>
-                           <div className="flex items-center gap-3 text-[13px] font-bold text-slate-300">
-                              <Truck size={14} /> {item.action} 
-                              <span className="text-white">→ {item.target}</span>
-                           </div>
-                        </div>
-                      ))}
+                      {useMemo(() => {
+                        const insights = [];
+                        
+                        // Find a surplus
+                        const surplus = resources.find(r => r.quantity > 300);
+                        if (surplus) {
+                          insights.push({ 
+                            title: 'Stock Surplus Detected', 
+                            hub: `${surplus.location} Hub`, 
+                            action: `Reallocate ${surplus.type}`, 
+                            target: 'Deficit Zones',
+                            type: 'surplus',
+                            resourceId: surplus.id
+                          });
+                        }
+
+                        // Find a critical shortage
+                        const shortage = resources.find(r => r.quantity < 20);
+                        if (shortage) {
+                          insights.push({ 
+                            title: 'Critical Shortage Predicted', 
+                            hub: `${shortage.location} Sector`, 
+                            action: `Divert ${shortage.type} Supply`, 
+                            target: 'Emergency Route A-1',
+                            type: 'shortage',
+                            resourceId: shortage.id
+                          });
+                        }
+
+                        // Default if nothing found
+                        if (insights.length === 0) {
+                          insights.push({ title: 'System Optimized', hub: 'All Hubs', action: 'Monitoring Consumption', target: 'Real-time', type: 'stable' });
+                        }
+
+                        return insights.map((item, i) => (
+                          <div 
+                            key={i} 
+                            onClick={() => {
+                              if (item.type !== 'stable' && item.resourceId) {
+                                showNotification("AI OPTIMIZATION ENGAGED", `Auto-balancing ${item.hub} for maximum mission efficiency.`);
+                                setResources(prev => prev.map(r => {
+                                  if (r.id === item.resourceId) {
+                                    return { ...r, quantity: item.type === 'surplus' ? Math.max(50, r.quantity - 150) : r.quantity + 100 };
+                                  }
+                                  return r;
+                                }));
+                              } else {
+                                showNotification("SYSTEM STABLE", "No critical imbalances detected.");
+                              }
+                            }}
+                            className={`p-6 rounded-[32px] bg-white/5 border transition-all cursor-pointer group ${item.type === 'shortage' ? 'border-rose-500/30 hover:bg-rose-500/10' : item.type === 'surplus' ? 'border-blue-500/30 hover:bg-blue-500/10' : 'border-emerald-500/30 hover:bg-emerald-500/10'}`}
+                          >
+                             <div className="flex justify-between items-start mb-4">
+                                <div>
+                                   <p className={`text-[10px] font-black uppercase tracking-widest mb-1 ${item.type === 'shortage' ? 'text-rose-400' : item.type === 'surplus' ? 'text-blue-400' : 'text-emerald-400'}`}>{item.title}</p>
+                                   <h4 className="text-[16px] font-black">{item.hub}</h4>
+                                </div>
+                                <div className={`w-8 h-8 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform ${item.type === 'shortage' ? 'bg-rose-600' : item.type === 'surplus' ? 'bg-blue-600' : 'bg-emerald-600'}`}>
+                                   {item.type === 'stable' ? <CheckCircle2 size={14} /> : <ArrowUpRight size={14} />}
+                                </div>
+                             </div>
+                             <div className="flex items-center gap-3 text-[13px] font-bold text-slate-300">
+                                <Truck size={14} /> {item.action} 
+                                <span className="text-white">→ {item.target}</span>
+                             </div>
+                          </div>
+                        ));
+                      }, [resources])}
 
                      <button 
-                        onClick={() => showNotification("LOGISTICS OPTIMIZED", "AI has recalculated all delivery vectors for 98% efficiency.")}
-                        className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-3xl font-black uppercase tracking-[0.2em] text-[12px] shadow-xl shadow-blue-600/20 transition-all active:scale-95"
+                        onClick={() => {
+                          let optimized = false;
+                          const pendingOrders = supplyOrders ? supplyOrders.filter(o => o.status === 'Pending') : [];
+                          
+                          if (pendingOrders.length > 0) {
+                            pendingOrders.forEach(order => handleAcceptOrder(order.id));
+                            optimized = true;
+                          }
+
+                          const hasImbalance = resources.some(r => r.quantity > 300 || r.quantity < 20);
+                          if (hasImbalance) {
+                             setResources(prev => prev.map(r => {
+                                if (r.quantity > 300) return { ...r, quantity: Math.max(50, r.quantity - 150) };
+                                if (r.quantity < 20) return { ...r, quantity: r.quantity + 100 };
+                                return r;
+                             }));
+                             optimized = true;
+                          }
+
+                          if (optimized) {
+                            showNotification("LOGISTICS OPTIMIZED", "AI has auto-balanced all hubs and approved pending dispatches.");
+                          } else {
+                            showNotification("SYSTEM STABLE", "All delivery vectors are currently at peak efficiency.");
+                          }
+                        }}
+                        className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-3xl font-black uppercase tracking-[0.2em] text-[12px] shadow-xl shadow-blue-600/20 transition-all active:scale-95 flex justify-center items-center gap-2"
                       >
-                         Optimize All Routes
+                         <Zap size={16} /> Optimize All Routes
                       </button>
                   </div>
+               </div>
+            </div>
+
+            {/* Ground Operative Supply Requests (Side Insert) */}
+            <div className="bg-white rounded-[48px] p-10 border border-slate-100 shadow-sm overflow-hidden">
+               <div className="flex items-center justify-between mb-10">
+                  <h3 className="text-[18px] font-black uppercase tracking-tight text-slate-900 flex items-center gap-2">
+                     <Truck size={20} className="text-blue-600 animate-pulse" /> Field Requests
+                  </h3>
+                  <span className="text-[10px] font-black px-2.5 py-1 rounded-md bg-blue-50 text-blue-600 border border-blue-100">
+                     {supplyOrders ? supplyOrders.filter(o => o.status === 'Pending').length : 0} Queued
+                  </span>
+               </div>
+               <div className="space-y-6 max-h-[400px] overflow-y-auto scrollbar-hide pr-2">
+                  {!supplyOrders || supplyOrders.filter(o => o.status === 'Pending').length === 0 ? (
+                     <p className="text-[11px] font-black uppercase tracking-widest text-slate-400 text-center py-4">No active deployment requests.</p>
+                  ) : (
+                     supplyOrders.filter(o => o.status === 'Pending').map(order => (
+                       <div key={order.id} className="bg-slate-50 border border-slate-100 rounded-[28px] p-5 space-y-3 hover:shadow-sm transition-all relative">
+                          <div className="flex justify-between items-center">
+                             <span className="text-[9px] font-black px-2 py-0.5 rounded bg-slate-200 text-slate-600 tracking-wider">{order.id}</span>
+                             <span className={`text-[8px] font-black px-1.5 py-0.5 rounded border uppercase ${order.urgency === 'High' ? 'bg-rose-50 text-rose-600 border-rose-100' : order.urgency === 'Medium' ? 'bg-amber-50 text-amber-600 border-amber-100' : 'bg-slate-100 text-slate-500'}`}>{order.urgency}</span>
+                          </div>
+                          <div>
+                             <h4 className="text-[15px] font-black text-slate-900 leading-tight">{order.volunteer}</h4>
+                             <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest flex items-center gap-1 mt-0.5"><MapPin size={12} /> {order.location || 'Base'}</p>
+                          </div>
+                          <div className="bg-white p-3 rounded-xl border border-slate-100 text-[11px] font-bold text-slate-700">
+                             <span className="block text-[8px] text-slate-400 font-black uppercase tracking-[0.15em] mb-1">Request Breakdown</span>
+                             {order.item}
+                          </div>
+                          {order.remarks && (
+                             <p className="text-[10px] italic text-slate-500 bg-slate-100/50 px-3 py-2 rounded-lg border border-slate-100/80">"{order.remarks}"</p>
+                          )}
+                          <div className="flex gap-2 pt-2">
+                             <button 
+                                onClick={() => handleAcceptOrder(order.id)}
+                                className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-md shadow-blue-600/20 transition-all active:scale-95"
+                             >
+                                Approve Dispatch
+                             </button>
+                          </div>
+                       </div>
+                     ))
+                  )}
                </div>
             </div>
 
@@ -379,6 +671,7 @@ const ResourcesPage = ({ resources, setResources, cityCoordinates }) => {
                   <h3 className="text-[18px] font-black uppercase tracking-tight text-slate-900">Recent Dispatches</h3>
                   <History size={20} className="text-slate-300" />
                </div>
+
                <div className="space-y-8">
                   {[
                     { label: 'Medical Kits', to: 'Sector 4', time: '2m ago', status: 'In Transit' },
@@ -404,153 +697,148 @@ const ResourcesPage = ({ resources, setResources, cityCoordinates }) => {
       {/* Modals */}
       <AnimatePresence>
          {isAddModalOpen && (
-           <Modal title="INTELLIGENT RESOURCE ENTRY" onClose={() => setIsAddModalOpen(false)}>
-              <form onSubmit={async (e) => {
-                 e.preventDefault();
-                 const formData = new FormData(e.target);
-                 const data = {
-                    type: formData.get('type'),
-                    quantity: parseInt(formData.get('quantity')),
-                    location: formData.get('location'),
-                    status: 'Available'
-                 };
-                 try {
-                    const res = await resourceService.create(data);
-                    setResources(prev => [...prev, res.data]);
-                    showNotification("SUPPLY AUTHORIZED", "New resource entry has been synchronized globally.");
-                    setIsAddModalOpen(false);
-                 } catch (err) {
-                    showNotification("ENTRY FAILED", "Unable to synchronize new resource with command center.", "error");
-                 }
-              }} className="space-y-6">
-                 <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Resource Name</label>
-                    <input name="type" required type="text" placeholder="e.g. Oxygen Cylinders" className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:border-blue-500/20 focus:bg-white transition-all outline-none font-bold" />
-                 </div>
-                 <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Category</label>
-                       <select className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:border-blue-500/20 transition-all outline-none font-bold">
-                          {categories.filter(c => c !== 'All').map(c => <option key={c}>{c}</option>)}
-                       </select>
-                    </div>
-                    <div className="space-y-2">
-                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Storage Hub</label>
-                       <select name="location" className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:border-blue-500/20 transition-all outline-none font-bold">
-                          {Object.keys(cityCoordinates || {}).map(c => <option key={c} value={c}>{c}</option>)}
-                       </select>
-                    </div>
-                 </div>
-                 <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Initial Quantity</label>
-                    <input name="quantity" required type="number" placeholder="Enter amount" className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:border-blue-500/20 transition-all outline-none font-bold" />
-                 </div>
-                 <button type="submit" className="w-full py-6 bg-blue-600 text-white rounded-[32px] font-black uppercase tracking-[0.2em] text-[13px] shadow-2xl shadow-blue-600/30 hover:bg-blue-700 transition-all active:scale-[0.98]">
-                    Authorize Supply Entry
-                 </button>
-              </form>
-           </Modal>
+            <Modal title="INTELLIGENT RESOURCE ENTRY" onClose={() => setIsAddModalOpen(false)}>
+               <form onSubmit={async (e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.target);
+                  const data = {
+                     type: formData.get('type'),
+                     quantity: parseInt(formData.get('quantity')),
+                     location: formData.get('location'),
+                     status: 'Available'
+                  };
+                  try {
+                     const res = await resourceService.create(data);
+                     setResources(prev => [...prev, res.data]);
+                     showNotification("SUPPLY AUTHORIZED", "New resource entry has been synchronized globally.");
+                     setIsAddModalOpen(false);
+                  } catch (err) {
+                     showNotification("ENTRY FAILED", "Unable to synchronize new resource with command center.", "error");
+                  }
+               }} className="space-y-6">
+                  <div className="space-y-2">
+                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Resource Name</label>
+                     <input name="type" required type="text" placeholder="e.g. Oxygen Cylinders" className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:border-blue-500/20 focus:bg-white transition-all outline-none font-bold" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                     <div className="space-y-2">
+                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Category</label>
+                        <select className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:border-blue-500/20 transition-all outline-none font-bold">
+                           {categories.filter(c => c !== 'All').map(c => <option key={c}>{c}</option>)}
+                        </select>
+                     </div>
+                     <div className="space-y-2">
+                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Storage Hub</label>
+                        <select name="location" className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:border-blue-500/20 transition-all outline-none font-bold">
+                           {Object.keys(cityCoordinates || {}).map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                     </div>
+                  </div>
+                  <div className="space-y-2">
+                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Initial Quantity</label>
+                     <input name="quantity" required type="number" placeholder="Enter amount" className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:border-blue-500/20 transition-all outline-none font-bold" />
+                  </div>
+                  <button type="submit" className="w-full py-6 bg-blue-600 text-white rounded-[32px] font-black uppercase tracking-[0.2em] text-[13px] shadow-2xl shadow-blue-600/30 hover:bg-blue-700 transition-all active:scale-[0.98]">
+                     Authorize Supply Entry
+                  </button>
+               </form>
+            </Modal>
          )}
 
          {isSendModalOpen && (
-           <Modal title="AUTHORIZE RESOURCE DISPATCH" onClose={() => setIsSendModalOpen(false)}>
-              <div className="space-y-8">
-                 <div className="p-6 bg-slate-50 rounded-[32px] border border-slate-100 flex items-center gap-6">
-                    <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center text-blue-600 shadow-sm">
-                       <Package size={32} />
-                    </div>
-                    <div>
-                       <p className="text-[18px] font-black text-slate-900">{activeResource?.type}</p>
-                       <p className="text-[11px] font-black text-blue-500 uppercase tracking-widest">{activeResource?.quantity} Units Available</p>
-                    </div>
-                 </div>
-                 <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Target Mission</label>
-                    <select className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:border-blue-500/20 transition-all outline-none font-bold">
-                       <option>Mission SS-1045 Relief</option>
-                       <option>Vadodara Emergency Case #442</option>
-                       <option>Ahmedabad Flood Response</option>
-                    </select>
-                 </div>
-                 <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Dispatch Quantity</label>
-                    <input id="dispatchQty" type="number" placeholder="Enter units to send" className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:border-blue-500/20 transition-all outline-none font-bold" />
-                 </div>
-                 <button 
-                    onClick={async () => { 
-                       const qtyInput = document.getElementById('dispatchQty');
-                       const qty = parseInt(qtyInput.value);
-                       if (!qty || qty <= 0) return;
-                       
-                       // Tactical Logic: Try backend, fallback to local for CSV items
-                       try {
-                          // Check if ID is numeric (real backend record)
-                          const isNumericId = !isNaN(activeResource.id);
-                          if (isNumericId) {
-                             await resourceService.dispatch(activeResource.id, qty);
-                          }
-                          
-                          setResources(prev => prev.map(r => r.id === activeResource.id ? { ...r, quantity: r.quantity - qty } : r));
-                          showNotification("DISPATCH AUTHORIZED", "Resources are now in transit to the target sector."); 
-                          setIsSendModalOpen(false); 
-                       } catch (err) {
-                          // If it failed but we have it locally, still update for demo purposes
-                          setResources(prev => prev.map(r => r.id === activeResource.id ? { ...r, quantity: r.quantity - qty } : r));
-                          showNotification("LOCAL DISPATCH", "Resource moved locally. Server sync pending for this unit.", "info");
-                          setIsSendModalOpen(false);
-                       }
-                    }}
-                    className="w-full py-6 bg-blue-600 text-white rounded-[32px] font-black uppercase tracking-[0.2em] text-[13px] shadow-2xl shadow-blue-600/30 hover:bg-blue-700 transition-all active:scale-[0.98]"
-                 >
-                    Confirm Dispatch
-                 </button>
-              </div>
-           </Modal>
+            <Modal title="AUTHORIZE RESOURCE DISPATCH" onClose={() => setIsSendModalOpen(false)}>
+               <div className="space-y-8">
+                  <div className="p-6 bg-slate-50 rounded-[32px] border border-slate-100 flex items-center gap-6">
+                     <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center text-blue-600 shadow-sm">
+                        <Package size={32} />
+                     </div>
+                     <div>
+                        <p className="text-[18px] font-black text-slate-900">{activeResource?.type}</p>
+                        <p className="text-[11px] font-black text-blue-500 uppercase tracking-widest">{activeResource?.quantity} Units Available</p>
+                     </div>
+                  </div>
+                  <div className="space-y-2">
+                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Target Mission</label>
+                     <select className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:border-blue-500/20 transition-all outline-none font-bold">
+                        <option>Mission SS-1045 Relief</option>
+                        <option>Vadodara Emergency Case #442</option>
+                        <option>Ahmedabad Flood Response</option>
+                     </select>
+                  </div>
+                  <div className="space-y-2">
+                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Dispatch Quantity</label>
+                     <input id="dispatchQty" type="number" placeholder="Enter units to send" className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:border-blue-500/20 transition-all outline-none font-bold" />
+                  </div>
+                  <button 
+                     onClick={async () => { 
+                        const qtyInput = document.getElementById('dispatchQty');
+                        const qty = parseInt(qtyInput.value);
+                        if (!qty || qty <= 0) return;
+                        
+                        try {
+                           const isNumericId = !isNaN(activeResource.id);
+                           if (isNumericId) {
+                              await resourceService.dispatch(activeResource.id, qty);
+                           }
+                           setResources(prev => prev.map(r => r.id === activeResource.id ? { ...r, quantity: r.quantity - qty } : r));
+                           showNotification("DISPATCH AUTHORIZED", "Resources are now in transit to the target sector."); 
+                           setIsSendModalOpen(false); 
+                        } catch (err) {
+                           setResources(prev => prev.map(r => r.id === activeResource.id ? { ...r, quantity: r.quantity - qty } : r));
+                           showNotification("LOCAL DISPATCH", "Resource moved locally.", "info");
+                           setIsSendModalOpen(false);
+                        }
+                     }}
+                     className="w-full py-6 bg-blue-600 text-white rounded-[32px] font-black uppercase tracking-[0.2em] text-[13px] shadow-2xl shadow-blue-600/30 hover:bg-blue-700 transition-all active:scale-[0.98]"
+                  >
+                     Confirm Dispatch
+                  </button>
+               </div>
+            </Modal>
          )}
 
          {isRestockModalOpen && (
-           <Modal title="SUPPLY REPLENISHMENT" onClose={() => setIsRestockModalOpen(false)}>
-              <div className="space-y-8">
-                 <div className="p-6 bg-slate-50 rounded-[32px] border border-slate-100 flex items-center gap-6">
-                    <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center text-emerald-600 shadow-sm">
-                       <RefreshCcw size={32} />
-                    </div>
-                    <div>
-                       <p className="text-[18px] font-black text-slate-900">{activeResource?.type}</p>
-                       <p className="text-[11px] font-black text-emerald-500 uppercase tracking-widest">Current Stock: {activeResource?.quantity}</p>
-                    </div>
-                 </div>
-                 <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Restock Quantity</label>
-                    <input id="restockQty" type="number" placeholder="Enter quantity received" className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:border-blue-500/20 transition-all outline-none font-bold" />
-                 </div>
-                 <button 
-                    onClick={async () => { 
-                       const qtyInput = document.getElementById('restockQty');
-                       const qty = parseInt(qtyInput.value);
-                       if (!qty || qty <= 0) return;
-                       
-                       try {
-                          const isNumericId = !isNaN(activeResource.id);
-                          if (isNumericId) {
-                             await resourceService.restock(activeResource.id, qty);
-                          }
-                          
-                          setResources(prev => prev.map(r => r.id === activeResource.id ? { ...r, quantity: r.quantity + qty } : r));
-                          showNotification("STOCK REPLENISHED", "Inventory levels have been updated globally."); 
-                          setIsRestockModalOpen(false); 
-                       } catch (err) {
-                          setResources(prev => prev.map(r => r.id === activeResource.id ? { ...r, quantity: r.quantity + qty } : r));
-                          showNotification("LOCAL RESTOCK", "Inventory updated locally. Server sync pending.", "info");
-                          setIsRestockModalOpen(false);
-                       }
-                    }}
-                    className="w-full py-6 bg-emerald-600 text-white rounded-[32px] font-black uppercase tracking-[0.2em] text-[13px] shadow-2xl shadow-emerald-600/30 hover:bg-emerald-700 transition-all active:scale-[0.98]"
-                 >
-                    Finalize Restock
-                 </button>
-              </div>
-           </Modal>
+            <Modal title="SUPPLY REPLENISHMENT" onClose={() => setIsRestockModalOpen(false)}>
+               <div className="space-y-8">
+                  <div className="p-6 bg-slate-50 rounded-[32px] border border-slate-100 flex items-center gap-6">
+                     <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center text-emerald-600 shadow-sm">
+                        <RefreshCcw size={32} />
+                     </div>
+                     <div>
+                        <p className="text-[18px] font-black text-slate-900">{activeResource?.type}</p>
+                        <p className="text-[11px] font-black text-emerald-500 uppercase tracking-widest">Current Stock: {activeResource?.quantity}</p>
+                     </div>
+                  </div>
+                  <div className="space-y-2">
+                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Restock Quantity</label>
+                     <input id="restockQty" type="number" placeholder="Enter quantity received" className="w-full p-5 bg-slate-50 border-2 border-transparent rounded-[24px] focus:border-blue-500/20 transition-all outline-none font-bold" />
+                  </div>
+                  <button 
+                     onClick={async () => { 
+                        const qtyInput = document.getElementById('restockQty');
+                        const qty = parseInt(qtyInput.value);
+                        if (!qty || qty <= 0) return;
+                        
+                        try {
+                           const isNumericId = !isNaN(activeResource.id);
+                           if (isNumericId) {
+                              await resourceService.restock(activeResource.id, qty);
+                           }
+                           setResources(prev => prev.map(r => r.id === activeResource.id ? { ...r, quantity: r.quantity + qty } : r));
+                           showNotification("STOCK REPLENISHED", "Inventory levels updated."); 
+                           setIsRestockModalOpen(false); 
+                        } catch (err) {
+                           setResources(prev => prev.map(r => r.id === activeResource.id ? { ...r, quantity: r.quantity + qty } : r));
+                           showNotification("LOCAL RESTOCK", "Inventory updated locally.", "info");
+                           setIsRestockModalOpen(false);
+                        }
+                     }}
+                     className="w-full py-6 bg-emerald-600 text-white rounded-[32px] font-black uppercase tracking-[0.2em] text-[13px] shadow-2xl shadow-emerald-600/30 hover:bg-emerald-700 transition-all active:scale-[0.98]"
+                  >
+                     Finalize Restock
+                  </button>
+               </div>
+            </Modal>
          )}
       </AnimatePresence>
     </div>

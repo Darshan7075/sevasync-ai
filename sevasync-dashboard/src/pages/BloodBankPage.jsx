@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Droplet, AlertTriangle, Users, History, Plus, Search, 
@@ -8,12 +8,101 @@ import {
 } from 'lucide-react';
 import { bloodService } from '../services/api';
 
-const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backendInventory = [], setBloodInventory }) => {
+const citiesData = {
+  AHMEDABAD: [
+    'AHMEDABAD CIVIL HOSPITAL',
+    'AHMEDABAD GENERAL HOSPITAL',
+    'SVP INSTITUTE OF MEDICAL SCIENCES',
+    'APOLLO HOSPITALS AHMEDABAD',
+    'ZYDUS HOSPITAL AHMEDABAD',
+    'KD HOSPITAL AHMEDABAD',
+    'STERLING HOSPITALS AHMEDABAD',
+    'CIMS HOSPITAL AHMEDABAD'
+  ],
+  VADODARA: [
+    'VADODARA CIVIL HOSPITAL',
+    'SSG HOSPITAL VADODARA',
+    'STERLING HOSPITALS VADODARA',
+    'BHAILAL AMIN GENERAL HOSPITAL',
+    'BANKERS HEART HOSPITAL VADODARA',
+    'METRO HOSPITAL VADODARA',
+    'TRICOLOUR HOSPITAL VADODARA'
+  ],
+  SURAT: [
+    'SURAT TRAUMA CENTER',
+    'NEW CIVIL HOSPITAL SURAT',
+    'KIRAN SUPER SPECIALITY HOSPITAL',
+    'SMIMER HOSPITAL SURAT',
+    'SUNSHINE GLOBAL HOSPITAL SURAT',
+    'UNITY HOSPITAL SURAT',
+    'APPLE HOSPITAL SURAT'
+  ],
+  RAJKOT: [
+    'RAJKOT EMERGENCY WARD',
+    'PDU MEDICAL COLLEGE & HOSPITAL RAJKOT',
+    'WOCKHARDT HOSPITAL RAJKOT',
+    'CHRIST HOSPITAL RAJKOT',
+    'H.J. DOSHI HOSPITAL RAJKOT',
+    'SYNERGY HOSPITAL RAJKOT',
+    'GIRIRAJ HOSPITAL RAJKOT'
+  ],
+  GANDHINAGAR: [
+    'GANDHINAGAR CIVIL HOSPITAL',
+    'GMERS MEDICAL COLLEGE GANDHINAGAR',
+    'APOLLO HOSPITALS GANDHINAGAR',
+    'HCG CANCER CENTRE GANDHINAGAR',
+    'KAIZEN HOSPITAL GANDHINAGAR'
+  ],
+  BHAVNAGAR: [
+    'SIR T. GENERAL HOSPITAL BHAVNAGAR',
+    'GMERS MEDICAL COLLEGE BHAVNAGAR',
+    'BIMS HOSPITAL BHAVNAGAR',
+    'BAJRANGBALI HOSPITAL BHAVNAGAR',
+    'H.N. HOSPITAL BHAVNAGAR'
+  ],
+  JAMNAGAR: [
+    'G.G. HOSPITAL JAMNAGAR',
+    'SAMARPAN GENERAL HOSPITAL JAMNAGAR',
+    'OSHWAL HOSPITAL JAMNAGAR',
+    'GURU GOBIND SINGH HOSPITAL JAMNAGAR'
+  ],
+  JUNAGADH: [
+    'CIVIL HOSPITAL JUNAGADH',
+    'GMERS MEDICAL COLLEGE JUNAGADH',
+    'JUNAGADH GENERAL HOSPITAL',
+    'STAR HOSPITAL JUNAGADH'
+  ],
+  ANAND: [
+    'KARAMSAD MEDICAL COLLEGE ANAND',
+    'SHREE KRISHNA HOSPITAL ANAND',
+    'ZYDUS HOSPITAL ANAND',
+    'ANAND GENERAL HOSPITAL'
+  ],
+  NADIAD: [
+    'MULJIBHAI PATEL UROLOGICAL HOSPITAL NADIAD',
+    'CIVIL HOSPITAL NADIAD',
+    'NADIAD HEART INSTITUTE',
+    'METHODIST HOSPITAL NADIAD'
+  ]
+};
+
+const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backendInventory = [], setBloodInventory, setNotifications, emergencyRequests = [], setEmergencyRequests }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('Dashboard');
   const [selectedGroup, setSelectedGroup] = useState('AB+');
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [activeNotification, setActiveNotification] = useState(null);
+  const [showAllLogs, setShowAllLogs] = useState(false);
+  const [isDispatchModalOpen, setIsDispatchModalOpen] = useState(false);
+  const [modalData, setModalData] = useState({
+    type: 'AB+',
+    volume: '5',
+    urgency: 'CRITICAL',
+    city: 'AHMEDABAD',
+    target: 'AHMEDABAD CIVIL HOSPITAL',
+    sector: 'SECTOR 1 • DISPATCH NODE'
+  });
+  const donorsSectionRef = useRef(null);
 
   // Blood compatibility logic
   const compatibility = {
@@ -51,17 +140,14 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
     });
   }, [bloodDonors, backendInventory]);
 
-  const emergencyRequests = [
-    { type: 'AB+', volume: '5 Units', urgency: 'CRITICAL', target: 'VADODARA CIVIL HOSPITAL', sector: 'SECTOR 7 • DISPATCH NODE' },
-    { type: 'O-', volume: '3 Units', urgency: 'CRITICAL', target: 'SURAT TRAUMA CENTER', sector: 'SECTOR 2 • DISPATCH NODE' },
-    { type: 'O+', volume: '8 Units', urgency: 'HIGH', target: 'RAJKOT EMERGENCY WARD', sector: 'SECTOR 4 • DISPATCH NODE' },
-    { type: 'B+', volume: '6 Units', urgency: 'MEDIUM', target: 'AHMEDABAD GENERAL HOSPITAL', sector: 'SECTOR 1 • DISPATCH NODE' },
-  ];
+  const pendingRequests = useMemo(() => {
+    return (emergencyRequests || []).filter(r => r.status === 'Pending' || !r.status);
+  }, [emergencyRequests]);
 
   const nearbyDonors = useMemo(() => {
     return bloodDonors
       .filter(d => d.available && d.bloodGroup === selectedGroup)
-      .slice(0, 4)
+      .slice(0, 20)
       .map(d => ({
         id: d.id,
         name: d.name,
@@ -94,20 +180,153 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
     setTimeout(() => setActiveNotification(null), 4000);
   };
 
-  const handleDispatch = (target) => {
-    showNotification("DISPATCH INITIATED", `Tactical routing established for ${target}. Units are in transit.`, "success");
+  const handleCreateRequest = (e) => {
+    e.preventDefault();
+    if (!modalData.target) {
+      showNotification("VALIDATION ERROR", "Hospital target location is required.", "error");
+      return;
+    }
+    const newReq = {
+      id: Date.now(),
+      type: modalData.type,
+      volume: `${modalData.volume} Units`,
+      urgency: modalData.urgency,
+      target: modalData.target.toUpperCase(),
+      sector: modalData.sector
+    };
+    setEmergencyRequests(prev => [newReq, ...prev]);
+    setIsDispatchModalOpen(false);
+    setModalData({
+      type: 'AB+',
+      volume: '5',
+      urgency: 'CRITICAL',
+      city: 'AHMEDABAD',
+      target: 'AHMEDABAD CIVIL HOSPITAL',
+      sector: 'SECTOR 1 • DISPATCH NODE'
+    });
+    showNotification("REQUEST LOGGED", `Emergency request for ${newReq.type} at ${newReq.target} created!`, "success");
+    if (setNotifications) {
+      setNotifications(prev => [
+        {
+          id: Date.now(),
+          type: 'CRITICAL',
+          category: 'Mission',
+          title: 'Emergency Blood Request',
+          message: `Required ${newReq.volume} of ${newReq.type} at ${newReq.target} (${newReq.sector}).`,
+          time: 'Just Now',
+          iconName: 'AlertTriangle',
+          color: 'text-rose-500',
+          bg: 'bg-rose-50'
+        },
+        ...prev
+      ]);
+    }
+  };
+
+  const handleDispatch = (req) => {
+    const unitsToDeduct = parseInt(req.volume.split(' ')[0]) || 0;
+    
+    setBloodInventory(prev => {
+      let currentInv = [...prev];
+      if (currentInv.length === 0) {
+        const groups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
+        currentInv = groups.map(g => ({
+          blood_group: g,
+          units_available: bloodDonors.filter(d => d.bloodGroup === g && d.available).length
+        }));
+      }
+      const item = currentInv.find(i => i.blood_group === req.type);
+      if (item) item.units_available = Math.max(0, item.units_available - unitsToDeduct);
+      return currentInv;
+    });
+
+    setEmergencyRequests(prev => prev.map(r => r.id === req.id ? { ...r, status: 'Dispatched' } : r));
+    showNotification("DISPATCH CONFIRMED", `Routed ${unitsToDeduct} units of ${req.type} to ${req.target}.`, "success");
+    if (setNotifications) {
+      setNotifications(prev => [
+        {
+          id: Date.now(),
+          type: 'SUCCESS',
+          category: 'Logistics',
+          title: 'Blood Units Dispatched',
+          message: `Successfully routed ${unitsToDeduct} units of ${req.type} blood to ${req.target}.`,
+          time: 'Just Now',
+          iconName: 'Send',
+          color: 'text-emerald-500',
+          bg: 'bg-emerald-50'
+        },
+        ...prev
+      ]);
+    }
   };
 
   const handleDonate = async (donorId) => {
     const unitsStr = prompt("Enter units donated:", "1");
     if (!unitsStr) return;
     const units = parseInt(unitsStr);
+    
+    const updateLocal = () => {
+      const donor = bloodDonors.find(d => d.id === donorId);
+      if (!donor) return;
+      setBloodInventory(prev => {
+        let currentInv = [...prev];
+        if (currentInv.length === 0) {
+          const groups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
+          currentInv = groups.map(g => ({
+            blood_group: g,
+            units_available: bloodDonors.filter(d => d.bloodGroup === g && d.available).length
+          }));
+        }
+        const item = currentInv.find(i => i.blood_group === donor.bloodGroup);
+        if (item) item.units_available += units;
+        return currentInv;
+      });
+      showNotification("DONATION RECORDED", `Added ${units} units locally.`, "success");
+      if (setNotifications) {
+        setNotifications(prev => [
+          {
+            id: Date.now(),
+            type: 'SUCCESS',
+            category: 'Resources',
+            title: 'Blood Stock Added',
+            message: `Donor ${donor.name} successfully donated ${units} units of ${donor.bloodGroup} blood in ${donor.city}.`,
+            time: 'Just Now',
+            iconName: 'Droplet',
+            color: 'text-emerald-500',
+            bg: 'bg-emerald-50'
+          },
+          ...prev
+        ]);
+      }
+    };
+
     try {
       const res = await bloodService.recordDonation(donorId, units);
-      showNotification("DONATION RECORDED", `Added ${units} units to stock. New total: ${res.data.new_total}`, "success");
-      handleRefresh();
+      if (res.data && res.data.new_total) {
+        showNotification("DONATION RECORDED", `Added ${units} units to stock. New total: ${res.data.new_total}`, "success");
+        const donor = bloodDonors.find(d => d.id === donorId);
+        if (setNotifications && donor) {
+          setNotifications(prev => [
+            {
+              id: Date.now(),
+              type: 'SUCCESS',
+              category: 'Resources',
+              title: 'Blood Stock Added',
+              message: `Donor ${donor.name} successfully donated ${units} units of ${donor.bloodGroup} blood in ${donor.city}.`,
+              time: 'Just Now',
+              iconName: 'Droplet',
+              color: 'text-emerald-500',
+              bg: 'bg-emerald-50'
+            },
+            ...prev
+          ]);
+        }
+        handleRefresh();
+      } else {
+        updateLocal();
+      }
     } catch (error) {
-      showNotification("ERROR", "Failed to record donation in tactical database.", "error");
+      updateLocal();
     }
   };
 
@@ -162,10 +381,10 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
               <RefreshCw size={18} />
             </button>
             <button 
-              onClick={() => showNotification("SOS BROADCAST", "Sent emergency notification to all registered O- and AB+ donors.", "success")}
-              className="bg-[#F87171] text-white text-[10px] font-black px-5 py-2 rounded-full hover:bg-red-500 transition-all uppercase tracking-widest shadow-sm active:scale-95"
+              onClick={() => setIsDispatchModalOpen(true)}
+              className="bg-[#F87171] text-white text-[10px] font-black px-5 py-2 rounded-full hover:bg-red-500 transition-all uppercase tracking-widest shadow-sm active:scale-95 flex items-center gap-2"
             >
-              Dispatch Request
+              <Send size={12} /> Dispatch Request
             </button>
           </div>
         </motion.div>
@@ -196,24 +415,44 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="relative z-10 flex bg-white/5 p-2 rounded-[24px] backdrop-blur-xl border border-white/10 shadow-inner">
-            {['Dashboard', 'Tactical Hub', 'Responders'].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => {
-                  setActiveTab(tab);
-                  showNotification("VIEW SWITCH", `Switching to ${tab} interface...`, "info");
-                }}
-                className={`px-8 py-3.5 rounded-[18px] text-[11px] font-black uppercase tracking-widest transition-all duration-300 ${
-                  activeTab === tab 
-                    ? 'bg-red-500 text-white shadow-[0_10px_20px_rgba(239,68,68,0.3)]' 
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
+        {/* QUICK STATS BANNER */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-100 flex items-center gap-4 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-red-500">
+               <Activity size={24} />
+            </div>
+            <div>
+               <p className="text-[10px] font-black tracking-widest text-slate-400 uppercase">Total Emergency Requests</p>
+               <p className="text-2xl font-black text-slate-900">{emergencyRequests.length}</p>
+            </div>
+          </div>
+          <div className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-100 flex items-center gap-4 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-500">
+               <MapPin size={24} />
+            </div>
+            <div className="flex-1 overflow-hidden">
+               <p className="text-[10px] font-black tracking-widest text-slate-400 uppercase">Location & Units Required</p>
+               <p className="text-[13px] font-bold text-slate-900 truncate" title={emergencyRequests.map(r => `${r.target}: ${r.volume}`).join('\n')}>
+                 {emergencyRequests.length > 0 ? emergencyRequests.map(r => {
+                    const city = r.target.split(' ')[0];
+                    const units = parseInt(r.volume.split(' ')[0]) || 0;
+                    return `${city} (${units})`;
+                 }).join(' • ') : 'No Active Locations'}
+               </p>
+            </div>
+          </div>
+          <div className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-100 flex items-center gap-4 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-500">
+               <Droplet size={24} />
+            </div>
+            <div>
+               <p className="text-[10px] font-black tracking-widest text-slate-400 uppercase">Total Units Needed</p>
+               <p className="text-2xl font-black text-slate-900">
+                 {emergencyRequests.reduce((sum, req) => sum + (parseInt(req.volume.split(' ')[0]) || 0), 0)}
+               </p>
+            </div>
           </div>
         </div>
 
@@ -351,7 +590,7 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
               </div>
               <div className="relative group cursor-help">
                  <div className="bg-slate-50 px-4 py-2 rounded-xl text-[11px] font-bold text-slate-500 uppercase tracking-widest border border-slate-100 flex items-center gap-2">
-                   LIVE QUEUE: 4 TOTAL <Info size={12} />
+                   LIVE QUEUE: {pendingRequests.length} TOTAL <Info size={12} />
                  </div>
                  <div className="absolute right-0 top-full mt-2 w-48 p-3 bg-slate-900 text-white text-[10px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity z-10 font-medium">
                    Current pending requests from priority hospitals in the region.
@@ -371,7 +610,7 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-50">
-                  {emergencyRequests.map((req, i) => (
+                  {pendingRequests.length > 0 ? pendingRequests.map((req, i) => (
                     <tr key={i} className="group hover:bg-slate-50/50 transition-all">
                       <td className="py-8">
                         <div className="w-14 h-14 bg-slate-900 rounded-[18px] flex items-center justify-center text-white font-black text-base shadow-lg shadow-slate-200">
@@ -405,7 +644,7 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
                       <td className="py-8">
                         <div className="flex items-center justify-end gap-3">
                           <button 
-                            onClick={() => handleDispatch(req.target)}
+                            onClick={() => handleDispatch(req)}
                             className="bg-slate-900 text-white px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition-all active:scale-95 shadow-md flex items-center gap-2"
                           >
                             <Send size={14} /> DISPATCH
@@ -413,7 +652,10 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
                           <button 
                             onClick={() => {
                               setSelectedGroup(req.type);
-                              showNotification("LOCATING DONORS", `Filtering database for ${req.type} donors near ${req.target}...`, "info");
+                              showNotification("DONORS LOCATED", `Filtering database for ${req.type} donors...`, "info");
+                              if (donorsSectionRef.current) {
+                                donorsSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                              }
                             }}
                             className="bg-white border border-slate-200 text-slate-600 px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all active:scale-95 flex items-center gap-2"
                           >
@@ -422,7 +664,13 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
                         </div>
                       </td>
                     </tr>
-                  ))}
+                  )) : (
+                    <tr>
+                      <td colSpan="5" className="py-12 text-center">
+                        <div className="text-[12px] font-black text-slate-400 uppercase tracking-widest">NO ACTIVE EMERGENCY REQUESTS</div>
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -439,46 +687,52 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
 
             <div className="space-y-10 relative">
               <div className="absolute left-7 top-2 bottom-2 w-0.5 bg-slate-50" />
-              {[
-                { type: 'match', title: 'DONOR MATCHED FOR O- REQUEST', time: '2M AGO', icon: Heart, color: 'red' },
-                { type: 'dispatch', title: 'DISPATCH STARTED FOR CITY GENERAL', time: '10M AGO', icon: Send, color: 'blue' },
-                { type: 'emergency', title: 'NEW EMERGENCY REQUEST: AB+', time: '15M AGO', icon: AlertTriangle, color: 'orange' },
-                { type: 'sync', title: 'BLOOD STOCK SYNCED WITH GUJARAT BASE', time: '1H AGO', icon: RefreshCw, color: 'green' },
-              ].map((item, i) => (
-                <div 
-                  key={i} 
-                  className="flex gap-8 relative group cursor-pointer"
-                  onClick={() => showNotification("LOG ENTRY", `Viewing details for: ${item.title}`, "info")}
-                >
-                  <div className={`w-14 h-14 rounded-[20px] flex items-center justify-center relative z-10 shrink-0 transition-all group-hover:scale-110 shadow-sm ${
-                    item.color === 'red' ? 'bg-red-50 text-red-500' :
-                    item.color === 'blue' ? 'bg-blue-50 text-blue-500' :
-                    item.color === 'orange' ? 'bg-orange-50 text-orange-500' : 'bg-green-50 text-green-500'
-                  }`}>
-                    <item.icon size={22} />
+              {(() => {
+                const logs = [
+                  { type: 'match', title: 'DONOR MATCHED FOR O- REQUEST', time: '2M AGO', icon: Heart, color: 'red' },
+                  { type: 'dispatch', title: 'DISPATCH STARTED FOR CITY GENERAL', time: '10M AGO', icon: Send, color: 'blue' },
+                  { type: 'emergency', title: 'NEW EMERGENCY REQUEST: AB+', time: '15M AGO', icon: AlertTriangle, color: 'orange' },
+                  { type: 'sync', title: 'BLOOD STOCK SYNCED WITH GUJARAT BASE', time: '1H AGO', icon: RefreshCw, color: 'green' },
+                  { type: 'match', title: 'DONOR MATCHED FOR B+ REQUEST', time: '1.5H AGO', icon: Heart, color: 'red' },
+                  { type: 'inventory', title: 'INVENTORY CRITICAL ALERT: O-', time: '2H AGO', icon: AlertTriangle, color: 'orange' },
+                  { type: 'dispatch', title: 'DISPATCH COMPLETED FOR APOLLO', time: '3H AGO', icon: CheckCircle2, color: 'green' },
+                  { type: 'donor', title: 'NEW DONOR REGISTERED: VADODARA', time: '4H AGO', icon: Users, color: 'blue' },
+                ];
+                const displayedLogs = showAllLogs ? logs : logs.slice(0, 4);
+                return displayedLogs.map((item, i) => (
+                  <div 
+                    key={i} 
+                    className="flex gap-8 relative group cursor-pointer"
+                    onClick={() => showNotification("LOG ENTRY", `Viewing details for: ${item.title}`, "info")}
+                  >
+                    <div className={`w-14 h-14 rounded-[20px] flex items-center justify-center relative z-10 shrink-0 transition-all group-hover:scale-110 shadow-sm ${
+                      item.color === 'red' ? 'bg-red-50 text-red-500' :
+                      item.color === 'blue' ? 'bg-blue-50 text-blue-500' :
+                      item.color === 'orange' ? 'bg-orange-50 text-orange-500' : 'bg-green-50 text-green-500'
+                    }`}>
+                      <item.icon size={22} />
+                    </div>
+                    <div className="pt-3">
+                      <h4 className="text-xs font-black text-slate-900 tracking-tight uppercase group-hover:text-blue-600 transition-colors">{item.title}</h4>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase mt-2 block tracking-widest">{item.time}</span>
+                    </div>
                   </div>
-                  <div className="pt-3">
-                    <h4 className="text-xs font-black text-slate-900 tracking-tight uppercase group-hover:text-blue-600 transition-colors">{item.title}</h4>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase mt-2 block tracking-widest">{item.time}</span>
-                  </div>
-                </div>
-              ))}
+                ));
+              })()}
               <button 
-                onClick={() => showNotification("AUDIT LOGS", "Loading full system audit logs...", "info")}
+                onClick={() => setShowAllLogs(!showAllLogs)}
                 className="w-full mt-6 py-4 bg-slate-50 text-slate-500 rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-slate-100 transition-all border border-slate-100 flex items-center justify-center gap-2"
               >
-                <Eye size={14} /> VIEW ALL LOGS
+                {showAllLogs ? <ChevronRight size={14} className="rotate-90" /> : <Eye size={14} />} 
+                {showAllLogs ? 'COLLAPSE LOGS' : 'VIEW ALL LOGS'}
               </button>
             </div>
           </div>
-
         </div>
-
-        {/* THIRD ROW GRID */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           
           {/* AVAILABLE DONORS */}
-          <div className="bg-white rounded-[40px] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+          <div ref={donorsSectionRef} className="bg-white rounded-[40px] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
             <div className="flex items-center gap-4 mb-10">
               <div className="p-2 bg-blue-50 rounded-xl">
                 <Users size={20} className="text-blue-600" />
@@ -486,7 +740,7 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
               <h2 className="text-lg font-black tracking-widest uppercase font-outfit">AVAILABLE DONORS ({selectedGroup})</h2>
             </div>
 
-            <div className="space-y-5">
+            <div className="space-y-5 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
               {nearbyDonors.length > 0 ? nearbyDonors.map((donor, i) => (
                 <div key={i} className="flex items-center justify-between p-5 rounded-[24px] bg-slate-50/50 hover:bg-white hover:shadow-lg transition-all border border-transparent hover:border-slate-100 group">
                   <div className="flex items-center gap-5">
@@ -608,33 +862,30 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
             </div>
 
             <div className="space-y-10">
-              {bloodInventory.filter(item => item.units < 100).length > 0 ? (
-                bloodInventory.filter(item => item.units < 100).slice(0, 4).map((item, i) => (
-                  <div key={i} className="space-y-3 group cursor-help" onClick={() => showNotification("FORECAST DETAIL", `Inventory for ${item.group} is decreasing due to local hospital demand.`, "info")}>
+              {bloodInventory.slice().sort((a, b) => a.units - b.units).slice(0, 4).map((item, i) => {
+                const riskPercent = Math.min(95, Math.max(15, 100 - Math.floor(item.units * 0.3) + (i * 5)));
+                const hours = 24 + (i * 12);
+                return (
+                  <div key={i} className="space-y-3 group cursor-help hover:bg-slate-50/50 p-2 -mx-2 rounded-xl transition-all" onClick={() => showNotification("FORECAST DETAIL", `Inventory for ${item.group} is projected to decrease due to upcoming trauma requirements.`, "info")}>
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest">{item.group} SHORTAGE</h4>
-                        <span className="text-[10px] font-bold text-slate-400 uppercase mt-1.5 block tracking-widest">PREDICTED IN {item.units < 50 ? '24H' : '72H'}</span>
+                        <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest">{item.group} SHORTAGE RISK</h4>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase mt-1.5 block tracking-widest">CRITICAL IN {hours}H</span>
                       </div>
                       <div className="flex flex-col items-end">
-                        <span className="text-[10px] font-black text-slate-900">{Math.min(100, 100 - item.units)}% RISK</span>
+                        <span className={`text-[10px] font-black ${i === 0 ? 'text-red-600' : i === 1 ? 'text-orange-600' : 'text-slate-900'}`}>{riskPercent}% PROBABILITY</span>
                       </div>
                     </div>
                     <div className="w-full h-2 bg-slate-50 rounded-full overflow-hidden p-0.5 border border-slate-100">
                       <motion.div 
                         initial={{ width: 0 }}
-                        animate={{ width: `${Math.min(100, 100 - item.units)}%` }}
-                        className={`h-full rounded-full ${item.units < 50 ? 'bg-red-600' : 'bg-orange-500'} shadow-sm`} 
+                        animate={{ width: `${riskPercent}%` }}
+                        className={`h-full rounded-full ${i === 0 ? 'bg-red-600' : i === 1 ? 'bg-orange-500' : 'bg-yellow-400'} shadow-sm`} 
                       />
                     </div>
                   </div>
-                ))
-              ) : (
-                <div className="py-20 text-center">
-                  <CheckCircle2 size={40} className="text-green-500 mx-auto mb-4" />
-                  <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest">All stocks above safety threshold.</p>
-                </div>
-              )}
+                );
+              })}
             </div>
             <p className="mt-10 text-[10px] font-bold text-slate-400 uppercase italic text-center leading-relaxed opacity-60">
               * ALGORITHMIC PREDICTION BASED ON HISTORICAL TRENDS.
@@ -644,6 +895,148 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
         </div>
 
       </div>
+
+      {/* DISPATCH EMERGENCY REQUEST MODAL */}
+      <AnimatePresence>
+        {isDispatchModalOpen && (
+          <div className="fixed inset-0 z-[1100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md">
+            <motion.div 
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-white rounded-[32px] w-full max-w-lg p-10 shadow-2xl border border-slate-100 overflow-hidden relative"
+            >
+              <div className="flex justify-between items-center mb-8">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-red-50 rounded-xl text-red-600">
+                    <AlertTriangle size={20} />
+                  </div>
+                  <h3 className="text-lg font-black tracking-widest uppercase font-outfit text-slate-900">NEW DISPATCH REQUEST</h3>
+                </div>
+                <button 
+                  onClick={() => setIsDispatchModalOpen(false)}
+                  className="text-slate-400 hover:text-slate-600 text-sm font-black uppercase tracking-wider p-2"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <form onSubmit={handleCreateRequest} className="space-y-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Select City</label>
+                    <select 
+                      value={modalData.city}
+                      onChange={(e) => {
+                        const selectedCity = e.target.value;
+                        setModalData({
+                          ...modalData, 
+                          city: selectedCity, 
+                          target: citiesData[selectedCity][0]
+                        });
+                      }}
+                      className="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:border-red-500 text-sm font-bold uppercase bg-white transition-all"
+                    >
+                      {Object.keys(citiesData).map(c => (
+                        <option key={c} value={c}>{c}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Select Hospital</label>
+                    <select 
+                      value={modalData.target}
+                      onChange={(e) => setModalData({...modalData, target: e.target.value})}
+                      className="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:border-red-500 text-sm font-bold uppercase bg-white transition-all"
+                    >
+                      {citiesData[modalData.city || 'AHMEDABAD'].map(h => (
+                        <option key={h} value={h}>{h}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Blood Type Required</label>
+                    <select 
+                      value={modalData.type}
+                      onChange={(e) => setModalData({...modalData, type: e.target.value})}
+                      className="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:border-red-500 text-sm font-bold uppercase bg-white transition-all"
+                    >
+                      {['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'].map(g => (
+                        <option key={g} value={g}>{g}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Volume Required (Units)</label>
+                    <input 
+                      type="number" 
+                      min="1" 
+                      max="500" 
+                      value={modalData.volume}
+                      onChange={(e) => {
+                        const parsed = parseInt(e.target.value);
+                        let val = parsed;
+                        if (!isNaN(parsed)) {
+                          if (parsed > 500) val = 500;
+                          if (parsed < 1) val = 1;
+                        }
+                        setModalData({...modalData, volume: isNaN(val) ? '' : val.toString()});
+                      }}
+                      className="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:border-red-500 text-sm font-bold transition-all"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Urgency Level</label>
+                    <select 
+                      value={modalData.urgency}
+                      onChange={(e) => setModalData({...modalData, urgency: e.target.value})}
+                      className="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:border-red-500 text-sm font-bold uppercase bg-white transition-all"
+                    >
+                      {['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'].map(u => (
+                        <option key={u} value={u}>{u}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Strategic Sector</label>
+                    <select 
+                      value={modalData.sector}
+                      onChange={(e) => setModalData({...modalData, sector: e.target.value})}
+                      className="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:outline-none focus:border-red-500 text-sm font-bold uppercase bg-white transition-all"
+                    >
+                      {['SECTOR 1 • DISPATCH NODE', 'SECTOR 2 • DISPATCH NODE', 'SECTOR 4 • DISPATCH NODE', 'SECTOR 7 • DISPATCH NODE'].map(s => (
+                        <option key={s} value={s}>{s}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="pt-4 flex gap-4">
+                  <button 
+                    type="button" 
+                    onClick={() => setIsDispatchModalOpen(false)}
+                    className="flex-1 py-4 border border-slate-200 hover:bg-slate-50 text-slate-500 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit" 
+                    className="flex-1 py-4 bg-red-600 hover:bg-red-700 text-white rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all shadow-lg shadow-red-200"
+                  >
+                    Create Request
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

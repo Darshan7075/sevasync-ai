@@ -18,7 +18,7 @@ import {
 import { useAuth } from '../context/AuthContext';
 import MapView from '../components/MapView.jsx';
 
-const Dashboard = ({ reports, volunteers, resources, bloodDonors, cityCoordinates, isCrisisMode, toggleCrisisMode }) => {
+const Dashboard = ({ reports, volunteers, resources, bloodDonors, cityCoordinates }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -58,46 +58,24 @@ const Dashboard = ({ reports, volunteers, resources, bloodDonors, cityCoordinate
   ];
 
   return (
-    <div className={`min-h-screen transition-colors duration-700 pb-20 ${isCrisisMode ? 'bg-rose-50/50' : 'bg-[#f8fafc]'}`}>
-      
-      {/* Crisis Overlay */}
-      <AnimatePresence>
-         {isCrisisMode && (
-           <motion.div 
-             initial={{ opacity: 0 }}
-             animate={{ opacity: [0.05, 0.15, 0.05] }}
-             exit={{ opacity: 0 }}
-             transition={{ duration: 2, repeat: Infinity }}
-             className="fixed inset-0 pointer-events-none z-[100] bg-rose-600 mix-blend-overlay"
-           />
-         )}
-      </AnimatePresence>
+    <div className="min-h-screen transition-colors duration-700 pb-20 bg-[#f8fafc]">
 
       <div className="max-w-[1700px] mx-auto p-6 space-y-6 relative z-10">
         
         {/* Header Section */}
-        <div className={`flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-8 rounded-[32px] border transition-all duration-500 shadow-sm relative overflow-hidden ${isCrisisMode ? 'border-rose-200 shadow-rose-100' : 'border-slate-100'}`}>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-8 rounded-[32px] border transition-all duration-500 shadow-sm relative overflow-hidden border-slate-100">
            <div className="flex items-center gap-6 relative z-10">
-              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-lg transition-colors duration-500 ${isCrisisMode ? 'bg-rose-600' : 'bg-blue-600'}`}>
+              <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-lg transition-colors duration-500 bg-blue-600">
                 {user?.name?.[0] || 'D'}
               </div>
               <div>
-                <h1 className="text-[28px] font-bold text-slate-900 tracking-tight leading-none mb-2">Welcome back, <span className={isCrisisMode ? 'text-rose-600' : 'text-blue-600'}>{user?.name?.split(' ')[0] || 'Agent'}</span></h1>
+                <h1 className="text-[28px] font-bold text-slate-900 tracking-tight leading-none mb-2">Welcome back, <span className="text-blue-600">{user?.name?.split(' ')[0] || 'Agent'}</span></h1>
                 <p className="text-slate-400 text-[14px] font-medium flex items-center gap-2 uppercase tracking-wide">
                    YOU HAVE <span className="text-rose-500 font-black">35 ACTIVE CASES</span> AND <span className="text-rose-500 font-black">9 CRITICAL ALERTS</span> NEEDING ATTENTION.
                 </p>
               </div>
            </div>
             <div className="flex items-center gap-4 mt-6 md:mt-0">
-              <button 
-                onClick={toggleCrisisMode}
-                className={`px-6 py-3 rounded-xl font-black text-[11px] uppercase tracking-widest flex items-center gap-2 transition-all shadow-xl ${
-                  isCrisisMode ? 'bg-rose-600 text-white animate-pulse shadow-rose-500/20' : 'bg-slate-900 text-white'
-                }`}
-              >
-                <ShieldAlert size={18} />
-                {isCrisisMode ? 'Deactivate Red Alert' : 'Trigger Crisis'}
-              </button>
               <button 
                 onClick={() => navigate('/tasks')}
                 className="px-6 py-3 bg-blue-600 text-white rounded-xl font-black text-[11px] uppercase tracking-widest flex items-center gap-2 shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all"

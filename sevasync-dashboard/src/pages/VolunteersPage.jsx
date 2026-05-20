@@ -12,9 +12,74 @@ import {
 import { volunteerService } from '../services/api';
 
 // Memoized Agent Card for performance
-const AgentCard = memo(({ agent, index, onAssign, onTrack, onSelect, matchScore }) => {
+const AgentCard = memo(({ agent, index, onAssign, onTrack, onSelect, matchScore, viewMode }) => {
   const isTopMatch = index === 0 && matchScore >= 95;
   
+  if (viewMode === 'compact') {
+     return (
+       <motion.div
+         initial={{ opacity: 0, y: 10 }}
+         animate={{ opacity: 1, y: 0 }}
+         transition={{ delay: (index % 12) * 0.03 }}
+         className="relative bg-white rounded-3xl border border-slate-100 hover:border-blue-500 hover:shadow-lg transition-all p-5 flex items-center justify-between gap-6"
+       >
+          <div className="flex items-center gap-4 flex-1">
+             <div className="relative flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl overflow-hidden bg-slate-100">
+                   <img 
+                      src={`https://ui-avatars.com/api/?name=${agent.name}&background=6366f1&color=fff&size=128&bold=true`} 
+                      alt={agent.name} 
+                      className="w-full h-full object-cover"
+                   />
+                </div>
+                <div className={`absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-white ${
+                   agent.status === 'Active' || !agent.status ? 'bg-emerald-500' : 'bg-blue-500'
+                }`} />
+             </div>
+             <div>
+                <h4 className="text-[16px] font-black text-slate-900 leading-tight flex items-center gap-2">
+                  {agent.name}
+                  <span className="text-[10px] font-black bg-blue-50 text-blue-600 px-2 py-0.5 rounded-md">{matchScore}% Match</span>
+                </h4>
+                <div className="flex items-center gap-4 mt-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                   <span className="flex items-center gap-1">
+                      <MapPin size={12} className="text-blue-500" />
+                      {agent.city || agent.location}
+                   </span>
+                   <span className="flex items-center gap-1">
+                      <Truck size={12} className="text-blue-500" />
+                      {agent.transport || 'Bike'}
+                   </span>
+                </div>
+             </div>
+          </div>
+          
+          <div className="flex items-center gap-2 flex-shrink-0">
+             <button 
+               onClick={() => onAssign(agent)}
+               className="px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-[11px] uppercase tracking-widest transition-all active:scale-95 flex items-center gap-1.5"
+             >
+                <MousePointer2 size={13} /> Assign
+             </button>
+             <button 
+               onClick={() => onTrack(agent)}
+               className="p-3 bg-slate-50 hover:bg-slate-100 border border-slate-100 text-slate-500 rounded-xl transition-all"
+               title="Track Agent"
+             >
+                <Activity size={15} />
+             </button>
+             <button 
+               onClick={() => onSelect(agent)}
+               className="p-3 bg-slate-50 hover:bg-slate-100 border border-slate-100 text-slate-400 rounded-xl transition-all"
+               title="Details"
+             >
+                <ExternalLink size={15} />
+             </button>
+          </div>
+       </motion.div>
+     );
+  }
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -143,7 +208,7 @@ const AgentCard = memo(({ agent, index, onAssign, onTrack, onSelect, matchScore 
   );
 });
 
-const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates }) => {
+const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates, setNotifications }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [selectedCity, setSelectedCity] = useState('All');
@@ -155,7 +220,8 @@ const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notification, setNotification] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const agentsPerPage = 12;
+  const [viewMode, setViewMode] = useState('detail');
+  const agentsPerPage = viewMode === 'compact' ? 24 : 12;
 
   // Debounce search term to prevent lag while typing
   useEffect(() => {
@@ -186,6 +252,25 @@ const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates }) => {
       setIsRecruitModalOpen(false);
       setNewVolunteer({ name: '', skill: 'Generalist', location: 'Vadodara', availability: 'Full', contact: '', rating: 5.0 });
       showNotification("VOLUNTEER REGISTERED", "Agent successfully added to the SevaSync network.");
+      if (setNotifications) {
+        const addedName = res.data?.name || newVolunteer.name;
+        const addedLoc = res.data?.location || newVolunteer.location;
+        const addedSkill = res.data?.skill || newVolunteer.skill;
+        setNotifications(prev => [
+          {
+            id: Date.now(),
+            type: 'INFO',
+            category: 'Personnel',
+            title: 'New Volunteer Recruited',
+            message: `Agent ${addedName} successfully registered in ${addedLoc} as a ${addedSkill}.`,
+            time: 'Just Now',
+            iconName: 'UserPlus',
+            color: 'text-indigo-500',
+            bg: 'bg-indigo-50'
+          },
+          ...prev
+        ]);
+      }
     } catch (error) {
       console.error("Failed to register volunteer:", error);
       showNotification("REGISTRATION FAILED", "error");
@@ -198,6 +283,22 @@ const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates }) => {
     showNotification(`ASSIGNING ${agent.name.toUpperCase()}...`, "info");
     setTimeout(() => {
       showNotification("ASSIGNMENT SUCCESSFUL", "Agent dispatched to nearest high-priority sector.");
+      if (setNotifications) {
+        setNotifications(prev => [
+          {
+            id: Date.now(),
+            type: 'SUCCESS',
+            category: 'Personnel',
+            title: 'Volunteer Deployed',
+            message: `Agent ${agent.name} has been successfully assigned and deployed to tactical operations.`,
+            time: 'Just Now',
+            iconName: 'Users',
+            color: 'text-blue-500',
+            bg: 'bg-blue-50'
+          },
+          ...prev
+        ]);
+      }
     }, 1500);
   };
 
@@ -341,12 +442,37 @@ const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates }) => {
                <option value="All">All Sectors</option>
                {Object.keys(cityCoordinates).map(c => <option key={c} value={c}>{c}</option>)}
             </select>
+
+             <div className="flex bg-white p-2 rounded-[28px] border border-slate-100 shadow-sm gap-2">
+                <button
+                   onClick={() => setViewMode('detail')}
+                   type="button"
+                   className={`px-6 py-3 rounded-[20px] text-[11px] font-black uppercase tracking-widest transition-all ${
+                      viewMode === 'detail' 
+                      ? 'bg-blue-600 text-white shadow-xl shadow-blue-500/20' 
+                      : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'
+                   }`}
+                >
+                   Grid
+                </button>
+                <button
+                   onClick={() => setViewMode('compact')}
+                   type="button"
+                   className={`px-6 py-3 rounded-[20px] text-[11px] font-black uppercase tracking-widest transition-all ${
+                      viewMode === 'compact' 
+                      ? 'bg-blue-600 text-white shadow-xl shadow-blue-500/20' 
+                      : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'
+                   }`}
+                >
+                   Compact
+                </button>
+             </div>
          </div>
       </div>
 
       {/* Agent Roster Grid - Tactical Layout with Pagination */}
       <div className="space-y-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div className={viewMode === 'compact' ? "grid grid-cols-1 xl:grid-cols-2 gap-4" : "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"}>
            <AnimatePresence mode="popLayout">
               {paginatedVolunteers.map((agent, i) => (
                 <AgentCard 
@@ -357,6 +483,7 @@ const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates }) => {
                   onAssign={handleAssign}
                   onTrack={setTrackingAgent}
                   onSelect={setSelectedAgent}
+                   viewMode={viewMode}
                 />
               ))}
            </AnimatePresence>

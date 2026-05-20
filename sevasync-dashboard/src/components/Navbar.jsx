@@ -17,7 +17,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import { useNavigate } from 'react-router-dom';
 
-const Navbar = ({ toggleSidebar, isCrisisMode, toggleCrisisMode }) => {
+const Navbar = ({ toggleSidebar }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [isProfileOpen, setIsProfileOpen] = React.useState(false);
@@ -34,9 +34,7 @@ const Navbar = ({ toggleSidebar, isCrisisMode, toggleCrisisMode }) => {
   };
 
   return (
-    <nav className={`h-16 border-b flex items-center justify-between px-6 sticky top-0 z-[30] transition-all duration-500 ${
-      isCrisisMode ? 'bg-[#c5221f] border-transparent' : 'bg-white border-[#f0f0f0]'
-    }`}>
+    <nav className="h-16 border-b flex items-center justify-between px-6 sticky top-0 z-[30] transition-all duration-500 bg-white border-[#f0f0f0]">
       
       {/* Tactical Notification Overlay */}
       <AnimatePresence>
@@ -61,20 +59,16 @@ const Navbar = ({ toggleSidebar, isCrisisMode, toggleCrisisMode }) => {
       <div className="flex items-center gap-4 flex-1">
         <button 
           onClick={toggleSidebar}
-          className={`lg:hidden p-2 rounded-lg ${isCrisisMode ? 'text-white hover:bg-white/10' : 'text-[#64748b] hover:bg-[#f8fafc]'}`}
+          className="lg:hidden p-2 rounded-lg text-[#64748b] hover:bg-[#f8fafc]"
         >
           <Menu size={20} />
         </button>
         <div className="relative max-w-md w-full hidden md:block">
-          <Search className={`absolute left-3 top-1/2 -translate-y-1/2 ${isCrisisMode ? 'text-white/60' : 'text-[#94a3b8]'}`} size={16} />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#94a3b8]" size={16} />
           <input 
             type="text" 
             placeholder="Quick search (⌘+K)" 
-            className={`w-full py-2 pl-10 pr-4 text-[13px] rounded-xl outline-none transition-all ${
-              isCrisisMode 
-                ? 'bg-white/10 text-white placeholder:text-white/40 focus:bg-white/20' 
-                : 'bg-[#f8fafc] text-[#1e293b] placeholder:text-[#94a3b8] focus:bg-white focus:ring-1 ring-[#e2e8f0]'
-            }`}
+            className="w-full py-2 pl-10 pr-4 text-[13px] rounded-xl outline-none transition-all bg-[#f8fafc] text-[#1e293b] placeholder:text-[#94a3b8] focus:bg-white focus:ring-1 ring-[#e2e8f0]"
           />
         </div>
       </div>
@@ -82,48 +76,33 @@ const Navbar = ({ toggleSidebar, isCrisisMode, toggleCrisisMode }) => {
       {/* Right: Actions */}
       <div className="flex items-center gap-3">
         
-        {/* CRISIS MODE SWITCH */}
-        <button 
-          onClick={toggleCrisisMode}
-          className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-widest transition-all ${
-            isCrisisMode 
-              ? 'bg-white text-[#c5221f] shadow-lg shadow-white/20' 
-              : 'bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-100'
-          }`}
-        >
-          <ShieldAlert size={14} className={isCrisisMode ? 'animate-pulse' : ''} />
-          {isCrisisMode ? 'CRISIS MODE ACTIVE' : 'ACTIVATE CRISIS MODE'}
-        </button>
-
-        <div className={`h-8 w-[1px] mx-2 ${isCrisisMode ? 'bg-white/20' : 'bg-[#f0f0f0]'}`} />
+        <div className="h-8 w-[1px] mx-2 bg-[#f0f0f0]" />
 
         <button 
           onClick={() => navigate('/alerts')}
-          className={`p-2 rounded-xl transition-colors relative ${isCrisisMode ? 'text-white hover:bg-white/10' : 'text-[#64748b] hover:bg-[#f8fafc]'}`}
+          className="p-2 rounded-xl transition-colors relative text-[#64748b] hover:bg-[#f8fafc]"
         >
           <Bell size={20} />
-          <span className={`absolute top-2 right-2 w-2 h-2 rounded-full border-2 ${isCrisisMode ? 'bg-white border-[#c5221f]' : 'bg-[#ea4335] border-white'}`} />
+          <span className="absolute top-2 right-2 w-2 h-2 rounded-full border-2 bg-[#ea4335] border-white" />
         </button>
         
-        <button className={`p-2 rounded-xl transition-colors ${isCrisisMode ? 'text-white hover:bg-white/10' : 'text-[#64748b] hover:bg-[#f8fafc]'}`}>
+        <button className="p-2 rounded-xl transition-colors text-[#64748b] hover:bg-[#f8fafc]">
           <Globe size={20} />
         </button>
 
         <div className="relative">
           <div 
             onClick={() => setIsProfileOpen(!isProfileOpen)}
-            className={`flex items-center gap-3 ml-2 p-1 rounded-xl transition-all ${isCrisisMode ? 'hover:bg-white/10' : 'hover:bg-[#f8fafc]'} cursor-pointer group`}
+            className="flex items-center gap-3 ml-2 p-1 rounded-xl transition-all hover:bg-[#f8fafc] cursor-pointer group"
           >
-            <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-[12px] shadow-sm ${
-              isCrisisMode ? 'bg-white text-[#c5221f]' : 'bg-[#1a73e8] text-white'
-            }`}>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-[12px] shadow-sm bg-[#1a73e8] text-white">
               {user?.name?.[0] || 'D'}
             </div>
             <div className="hidden sm:block text-left pr-2">
-              <p className={`text-[12px] font-bold leading-none ${isCrisisMode ? 'text-white' : 'text-[#1e293b]'}`}>{user?.name || 'Authorized Agent'}</p>
-              <p className={`text-[10px] font-medium mt-1 ${isCrisisMode ? 'text-white/60' : 'text-[#94a3b8]'}`}>Admin</p>
+              <p className="text-[12px] font-bold leading-none text-[#1e293b]">{user?.name || 'Authorized Agent'}</p>
+              <p className="text-[10px] font-medium mt-1 text-[#94a3b8]">Admin</p>
             </div>
-            <ChevronDown size={14} className={`${isCrisisMode ? 'text-white/40' : 'text-[#94a3b8]'}`} />
+            <ChevronDown size={14} className="text-[#94a3b8]" />
           </div>
 
           <AnimatePresence>

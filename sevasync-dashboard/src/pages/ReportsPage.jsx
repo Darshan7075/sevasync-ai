@@ -15,7 +15,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 import { reportService } from '../services/api';
 
-const ReportsPage = ({ reports, setReports, isLoading, cityCoordinates, isCrisisMode }) => {
+const ReportsPage = ({ reports, setReports, isLoading, cityCoordinates }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [areaFilter, setAreaFilter] = useState('All');
@@ -81,7 +81,6 @@ const ReportsPage = ({ reports, setReports, isLoading, cityCoordinates, isCrisis
 
   const filteredReports = useMemo(() => {
     return (reports || []).filter(r => {
-      if (isCrisisMode && r.urgency !== 'High') return false;
       const matchSearch = (r.area || '').toLowerCase().includes(searchTerm.toLowerCase()) || 
                           (r.issue || '').toLowerCase().includes(searchTerm.toLowerCase());
       const matchArea = areaFilter === 'All' || r.area === areaFilter;
@@ -89,7 +88,7 @@ const ReportsPage = ({ reports, setReports, isLoading, cityCoordinates, isCrisis
       const matchStatus = statusFilter === 'All' || r.status === statusFilter;
       return matchSearch && matchArea && matchUrgency && matchStatus;
     });
-  }, [reports, searchTerm, areaFilter, urgencyFilter, statusFilter, isCrisisMode]);
+  }, [reports, searchTerm, areaFilter, urgencyFilter, statusFilter]);
 
   const stats = useMemo(() => {
     const total = filteredReports.length;

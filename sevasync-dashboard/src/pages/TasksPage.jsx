@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { reportService, volunteerService } from '../services/api';
 
-const TasksPage = ({ reports, volunteers, resources, isCrisisMode, setReports, setVolunteers }) => {
+const TasksPage = ({ reports, volunteers, resources, setReports, setVolunteers }) => {
   const [activeTab, setActiveTab] = useState('active');
   const [searchTerm, setSearchTerm] = useState('');
   const [priorityFilter, setPriorityFilter] = useState('All');

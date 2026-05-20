@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, WebSocket, WebSocketDisconnect
+
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
@@ -20,9 +21,50 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+class ConnectionManager:
+    def __init__(self):
+        self.active_connections: list[WebSocket] = []
+
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections.append(websocket)
+
+    def disconnect(self, websocket: WebSocket):
+        self.active_connections.remove(websocket)
+
+    async def broadcast(self, message: dict):
+        import json
+        for connection in self.active_connections:
+            try:
+                await connection.send_text(json.dumps(message))
+            except Exception:
+                pass
+
+manager = ConnectionManager()
+
+@app.websocket("/ws/{client_id}")
+async def websocket_endpoint(websocket: WebSocket, client_id: str):
+    await manager.connect(websocket)
+    try:
+        while True:
+            data = await websocket.receive_text()
+            await manager.broadcast({
+                "sender": client_id,
+                "event": "notification",
+                "message": data
+            })
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+
 @app.get("/")
 def read_root():
+
     return {"message": "SevaSync AI Backend Active"}
+
+@app.post("/chat", response_model=schemas.ChatResponse)
+def chat_with_command(req: schemas.ChatRequest):
+    reply = ai_engine.AIEngine.chat_response(req.message)
+    return {"reply": reply}
 
 @app.get("/reports", response_model=List[schemas.Report])
 def get_reports(db: Session = Depends(get_db)):
@@ -176,3 +218,5 @@ def update_setting(setting: schemas.SystemSettingBase, db: Session = Depends(get
     db.commit()
     db.refresh(db_setting)
     return db_setting
+
+# Trigger reload

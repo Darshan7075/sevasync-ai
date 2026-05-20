@@ -9,7 +9,7 @@ import {
   Terminal, Globe, Crosshair, Search, Sparkles, MapPin, ChevronRight, Map, MessageCircle
 } from 'lucide-react';
 
-const NGOCommandCenter = ({ reports, volunteers, resources, cityCoordinates, isCrisisMode, setReports }) => {
+const NGOCommandCenter = ({ reports, volunteers, resources, cityCoordinates, setReports }) => {
   const [selectedRegion, setSelectedRegion] = useState('All Cities');
   const [mapViewMode, setMapViewMode] = useState('cluster');
   const [focusedLocation, setFocusedLocation] = useState(null);
@@ -43,9 +43,9 @@ const NGOCommandCenter = ({ reports, volunteers, resources, cityCoordinates, isC
   }, [reports]);
 
   return (
-    <div className={`flex flex-col h-screen overflow-hidden transition-all duration-700 ${isCrisisMode ? 'bg-[#1a0b0b]' : 'bg-[#f1f3f4]'}`}>
+    <div className="flex flex-col h-screen overflow-hidden transition-all duration-700 bg-[#f1f3f4]">
       {/* Tactical Header */}
-      <div className={`px-6 py-3 border-b flex items-center justify-between sticky top-0 z-[40] shadow-sm transition-all duration-500 ${isCrisisMode ? 'bg-[#c5221f] text-white border-transparent' : 'bg-white border-[#dadce0]'}`}>
+      <div className="px-6 py-3 border-b flex items-center justify-between sticky top-0 z-[40] shadow-sm transition-all duration-500 bg-white border-[#dadce0]">
         <div className="flex items-center gap-4">
           <div className="p-2 bg-[#e8f0fe] rounded-xl text-[#1a73e8]">
             <Shield size={24} />

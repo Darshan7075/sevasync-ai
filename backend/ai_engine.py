@@ -7,7 +7,8 @@ try:
     import google.generativeai as genai
     genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
     model = genai.GenerativeModel('gemini-1.5-flash')
-except ImportError:
+except Exception as e:
+    print(f"Failed to load google.generativeai: {e}")
     model = None
 
 class AIEngine:
@@ -96,6 +97,79 @@ Respond ONLY in valid JSON format with exactly three keys:
         explanation = "Priority marked because: " + ", ".join(reasons) if reasons else "Based on standard community report metrics."
         
         return level, score, explanation
+
+    @staticmethod
+    def chat_response(message: str):
+        """
+        AI logic to reply to volunteer's chat messages.
+        """
+        api_key = os.getenv("GEMINI_API_KEY")
+        if model and api_key and api_key != "your_gemini_api_key_here":
+            try:
+                prompt = f"You are a Tactical Command AI for a disaster management system named SevaSync. A field volunteer says: '{message}'. Give a brief, professional, and tactical response (max 2 sentences)."
+                response = model.generate_content(prompt)
+                return response.text.strip()
+            except Exception as e:
+                print(f"Gemini Chat API failed: {e}")
+                pass
+        
+        # Local fallback chatbot logic
+        import random
+        msg_lower = message.lower()
+        
+        # Greetings
+        if any(w in msg_lower for w in ["hi", "hy", "hello", "hey", "namaste"]):
+            responses = [
+                "Hello! Main SevaSync AI Assistant hoon. Main aapki field me kaise madad kar sakta hoon?",
+                "Namaste! Main Rescue AI hoon. Kisi specific supply ya emergency ke liye help chahiye aapko?",
+                "Hi! Boliye, aapko dashboard se related ya field deployment me koi technical help chahiye?"
+            ]
+            return random.choice(responses)
+            
+        # Emergency/Help
+        elif any(w in msg_lower for w in ["help", "emergency", "sos", "urgent", "madad"]):
+            responses = [
+                "Aapki emergency alert maine note kar li hai. Main turant nearest Command Center ko notify kar raha hoon. Please safe rahiye!",
+                "Ghabraiye mat, maine priority SOS system me update kar diya hai. Kya aap mujhe exact situation ki details de sakte hain?",
+                "Alert received. Maine Logistics dashboard par 'High Urgency' trigger kar diya hai. Backup raaste me hai."
+            ]
+            return random.choice(responses)
+            
+        # Status/Updates
+        elif any(w in msg_lower for w in ["status", "update", "report"]):
+            responses = [
+                "Abhi tak sabhi Hubs me supplies stable hain. Vadodara base se 2 trucks already dispatch ho chuke hain.",
+                "Main real-time data track kar raha hoon. Sab kuch control me lag raha hai. Aapko koi specific sector ka data chahiye?",
+                "System parameters normal hain. Maine Predictive AI check kiya hai, abhi aane wale 6 ghante tak koi critical shortage nahi hai."
+            ]
+            return random.choice(responses)
+            
+        # Supplies
+        elif any(w in msg_lower for w in ["water", "food", "medical", "supply", "supplies", "kit", "khana", "pani"]):
+            responses = [
+                "Bilkul, maine aapke area ke liye supplies ka estimation laga liya hai. Aap 'Field Deployment Form' se sidhe truck dispatch karwa sakte hain.",
+                "Main dekh pa raha hoon ki Medical kits aur Water ki requirement badh rahi hai. Aap order form use karke directly request bhej dijiye.",
+                "Zaroor, supplies request karne ke liye please form submit karein, main backend me payload capacity manage kar lunga."
+            ]
+            return random.choice(responses)
+            
+        # Acknowledgment
+        elif any(w in msg_lower for w in ["ok", "okay", "copy", "roger", "understood", "thik", "theek", "ji", "thanks", "thank"]):
+            responses = [
+                "You're welcome! Aur kuch help chahiye toh batana.",
+                "No problem! Main yahi hoon agar aapko koi aur analysis chahiye toh.",
+                "Perfect. Good luck with the rescue operations!"
+            ]
+            return random.choice(responses)
+        
+        # Default (ChatGPT Style)
+        defaults = [
+            "Main samajh nahi paya. Kya aap isko thoda detail me samjha sakte hain?",
+            "As an AI Rescue Assistant, main field data aur logistics me aapki madad kar sakta hoon. Boliye, exactly kya detail chahiye aapko?",
+            "Accha, kya aap chahte hain ki main aapko current supply chain ki report doon ya koi naya task assign karun?",
+            "Maine ye query command server par log kar di hai. Me aur kaise aapki help kar sakta hoon?"
+        ]
+        return random.choice(defaults)
 
     @staticmethod
     def detect_duplicates(new_report: str, existing_reports: list):

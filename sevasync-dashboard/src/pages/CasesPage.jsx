@@ -9,7 +9,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { reportService } from '../services/api';
 
-const CasesPage = ({ reports, setReports, volunteers, isCrisisMode, isLoading }) => {
+const CasesPage = ({ reports, setReports, volunteers, isLoading }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('All');
   const [selectedCase, setSelectedCase] = useState(null);

@@ -16,6 +16,8 @@ import AlertsPage from './pages/AlertsPage.jsx';
 import SettingsPage from './pages/SettingsPage.jsx';
 import UsersPage from './pages/UsersPage.jsx';
 import GenericModule from './pages/GenericModule.jsx';
+import VolunteerDashboard from './pages/VolunteerDashboard.jsx';
+
 import { reportService, volunteerService, bloodService, resourceService } from './services/api.js';
 import { useAuth } from './context/AuthContext';
 import { 
@@ -49,25 +51,15 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-const Layout = ({ isSidebarOpen, toggleSidebar, isCrisisMode, toggleCrisisMode }) => {
+const Layout = ({ isSidebarOpen, toggleSidebar }) => {
   return (
-    <div className={`flex h-screen overflow-hidden font-sans antialiased transition-colors duration-500 ${isCrisisMode ? 'bg-[#1a0b0b]' : 'bg-[#f8fafc]'}`}>
+    <div className="flex h-screen overflow-hidden font-sans antialiased bg-[#f8fafc]">
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
-        <Navbar toggleSidebar={toggleSidebar} isCrisisMode={isCrisisMode} toggleCrisisMode={toggleCrisisMode} />
+        <Navbar toggleSidebar={toggleSidebar} />
         <main className="flex-1 overflow-y-auto scroll-smooth">
           <Outlet />
         </main>
-      </div>
-
-      {/* FLOATING TACTICAL CHAT */}
-      <div className="fixed bottom-8 right-8 z-[100]">
-         <button 
-           onClick={() => alert('ESTABLISHING ENCRYPTED COMMS LINK... Mission Frequency: 442.8MHz Secure.')}
-           className={`w-16 h-16 rounded-full flex items-center justify-center text-white shadow-2xl transition-all hover:scale-110 active:scale-95 ${isCrisisMode ? 'bg-red-600' : 'bg-blue-600'}`}
-         >
-            <MessageSquare size={28} />
-         </button>
       </div>
     </div>
   );
@@ -75,18 +67,95 @@ const Layout = ({ isSidebarOpen, toggleSidebar, isCrisisMode, toggleCrisisMode }
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isCrisisMode, setIsCrisisMode] = useState(false);
-  const [reports, setReports] = useState([]);
+  const [reports, setReports] = useState(() => {
+    const saved = localStorage.getItem('reports');
+    if (saved) return JSON.parse(saved);
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('reports', JSON.stringify(reports));
+  }, [reports]);
+
+  useEffect(() => {
+    const handleReportsStorage = (e) => {
+      if (e.key === 'reports' && e.newValue) {
+        setReports(JSON.parse(e.newValue));
+      }
+    };
+    window.addEventListener('storage', handleReportsStorage);
+    return () => window.removeEventListener('storage', handleReportsStorage);
+  }, []);
   const [volunteers, setVolunteers] = useState([]);
   const [resources, setResources] = useState([]);
   const [ngos, setNgos] = useState([]);
   const [bloodDonors, setBloodDonors] = useState([]);
   const [bloodInventory, setBloodInventory] = useState([]);
+  const [supplyOrders, setSupplyOrders] = useState(() => {
+    const saved = localStorage.getItem('supplyOrders');
+    if (saved) return JSON.parse(saved);
+    return [
+      { id: 'REQ-9912', volunteer: 'Active Agent', item: '50x Food Packages', status: 'Delivered', time: '2h ago', urgency: 'Low', location: 'Vadodara' },
+      { id: 'REQ-9943', volunteer: 'Active Agent', item: '10x Medical Kits', status: 'Transit', time: '15m ago', urgency: 'High', location: 'Surat' }
+    ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('supplyOrders', JSON.stringify(supplyOrders));
+  }, [supplyOrders]);
+
   const [isLoading, setIsLoading] = useState(true);
+  const [notifications, setNotifications] = useState(() => {
+    const saved = localStorage.getItem('tactical_alerts');
+    if (saved) return JSON.parse(saved);
+    return [
+      { id: 1, type: 'CRITICAL', category: 'Mission', title: 'New Emergency Report', message: 'Medical emergency reported in Sector-07. Urgent triage required.', time: '2m ago', iconName: 'ShieldAlert', color: 'text-rose-500', bg: 'bg-rose-50' },
+      { id: 2, type: 'SUCCESS', category: 'Logistics', title: 'Resource Dispatched', message: '120 units of Food Packs successfully dispatched to Ahmedabad Hub.', time: '14m ago', iconName: 'Truck', color: 'text-emerald-500', bg: 'bg-emerald-50' },
+      { id: 3, type: 'INFO', category: 'Personnel', title: 'Task Completed', message: 'Agent Rahul Sharma finished the debris clearance mission in Bhopal.', time: '1h ago', iconName: 'CheckCircle2', color: 'text-blue-500', bg: 'bg-blue-50' },
+      { id: 4, type: 'WARNING', category: 'Resources', title: 'Low Stock Alert', message: 'Oxygen Cylinders in Surat storage falling below 15% threshold.', time: '3h ago', iconName: 'AlertTriangle', color: 'text-amber-500', bg: 'bg-amber-50' },
+      { id: 5, type: 'SUCCESS', category: 'Resources', title: 'Inventory Restored', message: 'Blood Bank Inventory updated. 50 units of O+ added to central stock.', time: '5h ago', iconName: 'RefreshCw', color: 'text-emerald-500', bg: 'bg-emerald-50' },
+      { id: 6, type: 'INFO', category: 'Mission', title: 'New Volunteer Request', message: 'Devansh Panchal applied for Field Lead role in Sector-02.', time: '6h ago', iconName: 'UserPlus', color: 'text-indigo-500', bg: 'bg-indigo-50' },
+    ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('tactical_alerts', JSON.stringify(notifications));
+  }, [notifications]);
+
+  const [emergencyRequests, setEmergencyRequests] = useState(() => {
+    const saved = localStorage.getItem('blood_emergency_requests');
+    if (saved) return JSON.parse(saved);
+    return [
+      { id: 1, type: 'AB+', volume: '5 Units', urgency: 'CRITICAL', target: 'VADODARA CIVIL HOSPITAL', sector: 'SECTOR 7 • DISPATCH NODE', status: 'Pending' },
+      { id: 2, type: 'O-', volume: '8 Units', urgency: 'HIGH', target: 'AHMEDABAD CIVIL HOSPITAL', sector: 'SECTOR 2 • DISPATCH NODE', status: 'Pending' },
+      { id: 3, type: 'B+', volume: '12 Units', urgency: 'MEDIUM', target: 'SURAT EMERGENCY CLINIC', sector: 'SECTOR 4 • SUPPLY NODE', status: 'Pending' },
+      { id: 4, type: 'A+', volume: '3 Units', urgency: 'LOW', target: 'RAJKOT METRO HOSPITAL', sector: 'SECTOR 9 • REGIONAL NODE', status: 'Pending' }
+    ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('blood_emergency_requests', JSON.stringify(emergencyRequests));
+  }, [emergencyRequests]);
+
+  useEffect(() => {
+    const handleStorage = (e) => {
+      if (e.key === 'supplyOrders' && e.newValue) {
+        setSupplyOrders(JSON.parse(e.newValue));
+      }
+      if (e.key === 'tactical_alerts' && e.newValue) {
+        setNotifications(JSON.parse(e.newValue));
+      }
+      if (e.key === 'blood_emergency_requests' && e.newValue) {
+        setEmergencyRequests(JSON.parse(e.newValue));
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
+
   const { user } = useAuth();
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-  const toggleCrisisMode = () => setIsCrisisMode(!isCrisisMode);
 
   const fetchBackendData = async () => {
     try {
@@ -100,15 +169,35 @@ function App() {
       
       let hasData = false;
       if (reportsRes.data && reportsRes.data.length > 0) {
-        setReports(reportsRes.data);
+        setReports(prev => {
+           const prevMap = new Map(prev.map(r => [r.id.toString(), r]));
+           reportsRes.data.forEach(r => prevMap.set(r.id.toString(), r));
+           return Array.from(prevMap.values());
+        });
         hasData = true;
       }
       if (volunteersRes.data && volunteersRes.data.length > 0) {
-        setVolunteers(volunteersRes.data);
+        setVolunteers(volunteersRes.data.map(v => ({
+          id: v.id,
+          name: v.name,
+          role: v.skill,
+          city: v.location,
+          status: v.availability,
+          rating: v.rating,
+          history: v.tasks_completed
+        })));
         hasData = true;
       }
       if (bloodRes.data && bloodRes.data.length > 0) {
-        setBloodDonors(bloodRes.data);
+        setBloodDonors(bloodRes.data.map(d => ({
+          id: d.id,
+          name: d.name,
+          bloodGroup: d.blood_group,
+          city: d.city,
+          available: d.availability === 'Available',
+          lastDonation: d.last_donation_date,
+          contact: d.contact
+        })));
         hasData = true;
       }
       if (inventoryRes.data && inventoryRes.data.length > 0) {
@@ -223,7 +312,11 @@ function App() {
           return [...prev, ...newCsvVolunteers];
         });
 
-        setBloodDonors(prev => prev.length > 0 ? prev : parsedBlood);
+        setBloodDonors(prev => {
+          const backendIds = new Set(prev.map(d => d.id.toString()));
+          const newCsvDonors = parsedBlood.filter(d => !backendIds.has(d.id.toString()) && d.name);
+          return [...prev, ...newCsvDonors];
+        });
         setResources(parsedResources.filter(res => res.type));
         setNgos(parsedNGOs.filter(n => n.name));
       } catch (error) {
@@ -235,6 +328,57 @@ function App() {
     load();
   }, []);
 
+  useEffect(() => {
+    const ws = new WebSocket('ws://localhost:8000/ws/global_app');
+    ws.onmessage = (event) => {
+      try {
+        const payload = JSON.parse(event.data);
+        if (payload.event === 'notification') {
+          const actionData = JSON.parse(payload.message);
+          if (actionData.type === 'CLAIM_MISSION') {
+             setReports(prev => prev.map(r => r.id.toString() === actionData.missionId.toString() ? { ...r, status: 'In Progress' } : r));
+             setNotifications(prev => [
+               {
+                 id: Date.now(),
+                 type: 'INFO',
+                 category: 'Mission',
+                 title: 'Mission Claimed',
+                 message: `Mission ${actionData.missionId} claimed by ${actionData.volunteer}`,
+                 time: 'Just Now',
+                 iconName: 'Users',
+                 color: 'text-indigo-500',
+                 bg: 'bg-indigo-50'
+               },
+               ...prev
+             ]);
+             alert(`[TELEMETRY] Mission claimed by ${actionData.volunteer}`);
+          } else if (actionData.type === 'UPDATE_STATUS') {
+             setReports(prev => prev.map(r => r.id.toString() === actionData.missionId.toString() ? { ...r, status: actionData.status } : r));
+             setNotifications(prev => [
+               {
+                 id: Date.now(),
+                 type: 'SUCCESS',
+                 category: 'Mission',
+                 title: 'Mission Status Updated',
+                 message: `Mission ${actionData.missionId} status updated to ${actionData.status}`,
+                 time: 'Just Now',
+                 iconName: 'CheckCircle2',
+                 color: 'text-emerald-500',
+                 bg: 'bg-emerald-50'
+               },
+               ...prev
+             ]);
+             alert(`[TELEMETRY] Mission status updated: ${actionData.status}`);
+          }
+        }
+      } catch (e) {
+        console.warn("Telemetry frame parse error.");
+      }
+    };
+    return () => ws.close();
+  }, []);
+
+
   const sharedProps = { 
     reports, setReports, 
     volunteers, setVolunteers, 
@@ -242,8 +386,12 @@ function App() {
     ngos, setNgos, 
     bloodDonors, setBloodDonors,
     bloodInventory, setBloodInventory,
-    cityCoordinates, isLoading, isCrisisMode, toggleCrisisMode 
+    supplyOrders, setSupplyOrders,
+    notifications, setNotifications,
+    emergencyRequests, setEmergencyRequests,
+    cityCoordinates, isLoading
   };
+
 
   return (
     <BrowserRouter>
@@ -251,7 +399,9 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route element={<ProtectedRoute><Layout isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} isCrisisMode={isCrisisMode} toggleCrisisMode={toggleCrisisMode} /></ProtectedRoute>}>
+        <Route path="/volunteer-dashboard" element={<ProtectedRoute><VolunteerDashboard {...sharedProps} /></ProtectedRoute>} />
+
+        <Route element={<ProtectedRoute><Layout isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} /></ProtectedRoute>}>
           <Route path="/dashboard" element={<Dashboard {...sharedProps} />} />
           <Route path="/reports" element={<ReportsPage {...sharedProps} />} />
           <Route path="/tasks" element={<TasksPage {...sharedProps} />} />

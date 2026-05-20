@@ -17,6 +17,7 @@ export const reportService = {
 export const volunteerService = {
   getAll: () => api.get('/volunteers'),
   create: (data) => api.post('/volunteers', data),
+  updateProfile: (id, data) => api.put(`/volunteers/${id}`, data),
   assign: (reportId, volunteerId) => api.post(`/assign/${reportId}/${volunteerId}`),
 };
 
@@ -36,6 +37,10 @@ export const resourceService = {
 export const settingsService = {
   getSettings: () => api.get('/settings'),
   updateSetting: (key, value, category = "General") => api.post('/settings', { key, value, category }),
+};
+
+export const chatService = {
+  sendMessage: (message) => api.post('/chat', { message }),
 };
 
 export default api;

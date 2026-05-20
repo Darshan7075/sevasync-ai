@@ -7,19 +7,17 @@ import {
   ChevronRight, AlertTriangle, Info, MessageSquare,
   Box, Truck, RefreshCw, Shield, UserPlus
 } from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
 
-const AlertsPage = () => {
+const getIconComponent = (note) => {
+  if (note.icon) return note.icon;
+  const Comp = LucideIcons[note.iconName];
+  return Comp || LucideIcons.Bell;
+};
+
+const AlertsPage = ({ notifications = [], setNotifications }) => {
   const [activeTab, setActiveTab] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
-  
-  const [notifications, setNotifications] = useState([
-    { id: 1, type: 'CRITICAL', category: 'Mission', title: 'New Emergency Report', message: 'Medical emergency reported in Sector-07. Urgent triage required.', time: '2m ago', icon: ShieldAlert, color: 'text-rose-500', bg: 'bg-rose-50' },
-    { id: 2, type: 'SUCCESS', category: 'Logistics', title: 'Resource Dispatched', message: '120 units of Food Packs successfully dispatched to Ahmedabad Hub.', time: '14m ago', icon: Truck, color: 'text-emerald-500', bg: 'bg-emerald-50' },
-    { id: 3, type: 'INFO', category: 'Personnel', title: 'Task Completed', message: 'Agent Rahul Sharma finished the debris clearance mission in Bhopal.', time: '1h ago', icon: CheckCircle2, color: 'text-blue-500', bg: 'bg-blue-50' },
-    { id: 4, type: 'WARNING', category: 'Resources', title: 'Low Stock Alert', message: 'Oxygen Cylinders in Surat storage falling below 15% threshold.', time: '3h ago', icon: AlertTriangle, color: 'text-amber-500', bg: 'bg-amber-50' },
-    { id: 5, type: 'SUCCESS', category: 'Resources', title: 'Inventory Restored', message: 'Blood Bank Inventory updated. 50 units of O+ added to central stock.', time: '5h ago', icon: RefreshCw, color: 'text-emerald-500', bg: 'bg-emerald-50' },
-    { id: 6, type: 'INFO', category: 'Mission', title: 'New Volunteer Request', message: 'Devansh Panchal applied for Field Lead role in Sector-02.', time: '6h ago', icon: UserPlus, color: 'text-indigo-500', bg: 'bg-indigo-50' },
-  ]);
 
   const filteredNotifications = useMemo(() => {
     return notifications.filter(n => {
@@ -51,14 +49,16 @@ const AlertsPage = () => {
         title: 'Intelligence Sync Complete', 
         message: 'Tactical data synchronized with regional hubs. Signal integrity at 100%.', 
         time: 'Just Now', 
-        icon: Zap, 
+        iconName: 'Zap', 
         color: 'text-indigo-400', 
         bg: 'bg-slate-900 text-white' 
       };
-      setNotifications(prev => [liveAlert, ...prev].slice(0, 10));
+      if (setNotifications) {
+        setNotifications(prev => [liveAlert, ...prev].slice(0, 15));
+      }
     }, 45000);
     return () => clearInterval(interval);
-  }, []);
+  }, [setNotifications]);
 
   return (
     <div className="p-8 space-y-8 animate-fade-in max-w-[1400px] mx-auto pb-24">
@@ -135,7 +135,10 @@ const AlertsPage = () => {
                     {/* Visual Indicator */}
                     <div className={`w-20 h-20 rounded-[24px] ${note.bg} flex items-center justify-center ${note.color} transition-transform group-hover:scale-110 relative`}>
                        {note.type === 'CRITICAL' && <div className="absolute inset-0 rounded-[24px] bg-rose-400 animate-ping opacity-20" />}
-                       <note.icon size={32} className="relative z-10" />
+                       {(() => {
+                         const Icon = getIconComponent(note);
+                         return <Icon size={32} className="relative z-10" />;
+                       })()}
                     </div>
 
                     <div className="flex-1 space-y-2">

@@ -16,7 +16,7 @@ function MapController({ center, zoom }) {
 
 // --- MAIN COMPONENT ---
 
-const MapView = ({ reports, volunteers, selectedCity, cityCoordinates, isCrisisMode, focusedLocation }) => {
+const MapView = ({ reports, volunteers, selectedCity, cityCoordinates, focusedLocation }) => {
   const isAllCities = selectedCity === 'All Cities';
   
   const center = useMemo(() => {
@@ -115,15 +115,6 @@ const MapView = ({ reports, volunteers, selectedCity, cityCoordinates, isCrisisM
                 </div>
              </Popup>
            </Marker>
-        )}
-
-        {/* Crisis Visualization */}
-        {isCrisisMode && (
-          <Circle 
-            center={center} 
-            radius={20000} 
-            pathOptions={{ fillColor: '#ea4335', fillOpacity: 0.05, color: '#ea4335', weight: 1, dashArray: '5, 10' }} 
-          />
         )}
       </MapContainer>
 
