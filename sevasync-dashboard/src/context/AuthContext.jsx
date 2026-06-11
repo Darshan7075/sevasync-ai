@@ -32,26 +32,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = (email, password) => {
-    console.log('Attempting login for:', email);
-    // Add demo accounts
-    const demoAccounts = [
-      { email: 'volunteer@sevasync.com', password: 'demo123', name: 'Demo Volunteer', role: 'Volunteer' },
-      { email: 'admin@sevasync.com', password: 'admin123', name: 'System Admin', role: 'admin' }
-    ];
-
     const users = JSON.parse(localStorage.getItem('sevasync_registered_users') || '[]');
-    const allUsers = [...demoAccounts, ...users];
-    
-    const foundUser = allUsers.find(u => u.email === (email || '').toLowerCase() && u.password === password);
+    const foundUser = users.find(u => u.email === (email || '').toLowerCase() && u.password === password);
 
     if (foundUser) {
-      console.log('Login successful:', foundUser.role);
-      const { password, ...userWithoutPassword } = foundUser;
+      const { password: _pw, ...userWithoutPassword } = foundUser;
       setUser(userWithoutPassword);
       localStorage.setItem('sevasync_user', JSON.stringify(userWithoutPassword));
       return userWithoutPassword;
     } else {
-      console.error('Login failed: Invalid credentials');
       throw new Error('Invalid email or password');
     }
   };

@@ -10,7 +10,7 @@ venv/
 env/
 
 # Databases
-# sevasync.db (Uncomment if you want to keep the local DB private)
+*.db
 
 # IDE
 .vscode/

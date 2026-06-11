@@ -223,11 +223,11 @@ const TasksPage = ({ reports, volunteers, resources, setReports, setVolunteers }
                      <button 
                         onClick={(e) => {
                           const btn = e.currentTarget;
-                          btn.innerHTML = '<span class="animate-pulse">ENGAGING AI UNITS...</span>';
+                          btn.textContent = 'ENGAGING AI UNITS...';
                           btn.style.opacity = '0.8';
                           btn.style.pointerEvents = 'none';
                           setTimeout(() => {
-                            btn.innerHTML = 'SMART DISPATCH COMPLETE';
+                            btn.textContent = 'SMART DISPATCH COMPLETE';
                             btn.style.backgroundColor = '#10b981';
                             btn.style.opacity = '1';
                             alert('AI BATCH DISPATCH SUCCESS: 3 Missions in Bhopal synchronized and assigned.');

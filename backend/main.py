@@ -1,9 +1,11 @@
-from fastapi import FastAPI, Depends, HTTPException, WebSocket, WebSocketDisconnect
-
+from fastapi import FastAPI, Depends, HTTPException, WebSocket, WebSocketDisconnect, Security
+from fastapi.security import APIKeyHeader
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
+from enum import Enum
 import datetime
+import os
 
 import models, schemas, database, ai_engine
 from database import engine, get_db
@@ -12,14 +14,33 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="SevaSync AI API")
 
-# Enable CORS
+ALLOWED_ORIGINS = os.getenv(
+    "CORS_ORIGINS",
+    "https://sevasync-ai.vercel.app,http://localhost:5173,http://localhost:3000",
+).split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# --- API-key guard for destructive endpoints ---
+_api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
+
+def require_api_key(api_key: str = Security(_api_key_header)):
+    """Reject the request when an API key is configured but not provided/matched."""
+    expected = os.getenv("SEVASYNC_API_KEY")
+    if expected and api_key != expected:
+        raise HTTPException(status_code=403, detail="Invalid or missing API key")
+
+
+class ReportStatus(str, Enum):
+    pending = "Pending"
+    assigned = "Assigned"
+    resolved = "Resolved"
 
 class ConnectionManager:
     def __init__(self):
@@ -114,17 +135,17 @@ def assign_volunteer(report_id: int, volunteer_id: int, db: Session = Depends(ge
     return {"message": "Success", "assignment_id": assignment.id}
 
 @app.patch("/reports/{report_id}/status")
-def update_report_status(report_id: int, status: str, db: Session = Depends(get_db)):
+def update_report_status(report_id: int, status: ReportStatus, db: Session = Depends(get_db)):
     report = db.query(models.Report).filter(models.Report.id == report_id).first()
     if not report:
         raise HTTPException(status_code=404, detail="Report not found")
-    report.status = status
+    report.status = status.value
     db.commit()
     db.refresh(report)
     return report
 
 @app.delete("/reports/{report_id}")
-def delete_report(report_id: int, db: Session = Depends(get_db)):
+def delete_report(report_id: int, db: Session = Depends(get_db), _key: str = Depends(require_api_key)):
     report = db.query(models.Report).filter(models.Report.id == report_id).first()
     if not report:
         raise HTTPException(status_code=404, detail="Report not found")
@@ -176,7 +197,7 @@ def restock_resource(resource_id: int, quantity: int, db: Session = Depends(get_
     return db_resource
 
 @app.patch("/resources/{resource_id}/dispatch")
-def dispatch_resource(resource_id: int, quantity: int, db: Session = Depends(get_db)):
+def dispatch_resource(resource_id: int, quantity: int, db: Session = Depends(get_db), _key: str = Depends(require_api_key)):
     db_resource = db.query(models.Resource).filter(models.Resource.id == resource_id).first()
     if not db_resource:
         raise HTTPException(status_code=404, detail="Resource not found")
@@ -207,7 +228,7 @@ def get_settings(db: Session = Depends(get_db)):
     return db.query(models.SystemSetting).all()
 
 @app.post("/settings", response_model=schemas.SystemSetting)
-def update_setting(setting: schemas.SystemSettingBase, db: Session = Depends(get_db)):
+def update_setting(setting: schemas.SystemSettingBase, db: Session = Depends(get_db), _key: str = Depends(require_api_key)):
     db_setting = db.query(models.SystemSetting).filter(models.SystemSetting.key == setting.key).first()
     if db_setting:
         db_setting.value = setting.value

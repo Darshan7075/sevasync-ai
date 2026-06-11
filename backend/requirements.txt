@@ -1,10 +1,7 @@
-fastapi
-uvicorn
-sqlalchemy
-pydantic
-python-dotenv
-passlib
-python-multipart
-jose
-bcrypt
-google-generativeai
+fastapi>=0.115.0,<1.0
+uvicorn>=0.30.0,<1.0
+sqlalchemy>=2.0,<3.0
+pydantic>=2.0,<3.0
+python-dotenv>=1.0,<2.0
+python-multipart>=0.0.9,<1.0
+google-generativeai>=0.8.0,<1.0

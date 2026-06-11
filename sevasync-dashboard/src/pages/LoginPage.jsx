@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { 
   Shield, Eye, EyeOff, Lock, Mail, ArrowRight, 
   Activity, AlertTriangle, Terminal, Zap,
-  Fingerprint, ShieldCheck, Globe, Radio
+  Fingerprint, ShieldCheck, Globe
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -155,21 +155,7 @@ const LoginPage = () => {
                 )}
               </button>
 
-              <div className="grid grid-cols-2 gap-4">
-                <button
-                  type="button"
-                  onClick={async () => {
-                    try {
-                      const user = await login('volunteer@sevasync.com', 'demo123');
-                      if (user) navigate('/volunteer-dashboard');
-                    } catch (err) {
-                      setError('Demo Login Failed');
-                    }
-                  }}
-                  className="p-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-400 hover:bg-blue-600/20 hover:border-blue-500/50 hover:text-white transition-all flex flex-col items-center gap-2"
-                >
-                  <Radio size={16} /> Demo Volunteer
-                </button>
+              <div className="grid grid-cols-1 gap-4">
                 <button
                   type="button"
                   onClick={() => {
@@ -178,7 +164,7 @@ const LoginPage = () => {
                   }}
                   className="p-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-400 hover:bg-indigo-600/20 hover:border-indigo-500/50 hover:text-white transition-all flex flex-col items-center gap-2"
                 >
-                  <ShieldCheck size={16} /> Demo Admin
+                  <ShieldCheck size={16} /> Guest Demo Access
                 </button>
               </div>
 
