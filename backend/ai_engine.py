@@ -1,14 +1,20 @@
 import re
 import os
 import json
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Try to import and configure Gemini (safe fallback)
 try:
     import google.generativeai as genai
     genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
     model = genai.GenerativeModel('gemini-1.5-flash')
+except ImportError:
+    logger.info("google-generativeai package not installed; using local fallback logic")
+    model = None
 except Exception as e:
-    print(f"Failed to load google.generativeai: {e}")
+    logger.warning("Failed to configure Gemini AI: %s", e)
     model = None
 
 class AIEngine:
@@ -52,9 +58,10 @@ Respond ONLY in valid JSON format with exactly three keys:
                 score = min(max(int(score), 0), 10)
                 
                 return level, score, explanation
+            except json.JSONDecodeError as e:
+                logger.warning("Gemini returned invalid JSON for urgency calculation: %s", e)
             except Exception as e:
-                print(f"Gemini API calculation failed: {e}. Falling back to local logic...")
-                pass # Fall through to local fallback logic
+                logger.error("Gemini API urgency calculation failed: %s", e)
 
         # --- LOCAL FALLBACK LOGIC ---
         high_priority_keywords = ["emergency", "critical", "blood", "accident", "dying", "trapped", "fire", "starving"]
@@ -110,8 +117,7 @@ Respond ONLY in valid JSON format with exactly three keys:
                 response = model.generate_content(prompt)
                 return response.text.strip()
             except Exception as e:
-                print(f"Gemini Chat API failed: {e}")
-                pass
+                logger.error("Gemini Chat API failed: %s", e)
         
         # Local fallback chatbot logic
         import random

@@ -1,12 +1,15 @@
 from fastapi import FastAPI, Depends, HTTPException, WebSocket, WebSocketDisconnect
-
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import SQLAlchemyError
 from typing import List
 import datetime
+import logging
 
 import models, schemas, database, ai_engine
 from database import engine, get_db
+
+logger = logging.getLogger(__name__)
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -34,11 +37,15 @@ class ConnectionManager:
 
     async def broadcast(self, message: dict):
         import json
+        disconnected = []
         for connection in self.active_connections:
             try:
                 await connection.send_text(json.dumps(message))
-            except Exception:
-                pass
+            except Exception as e:
+                logger.warning("Failed to send WebSocket message: %s", e)
+                disconnected.append(connection)
+        for connection in disconnected:
+            self.active_connections.remove(connection)
 
 manager = ConnectionManager()
 
@@ -73,7 +80,11 @@ def get_reports(db: Session = Depends(get_db)):
 @app.post("/reports", response_model=schemas.Report)
 def create_report(report: schemas.ReportCreate, db: Session = Depends(get_db)):
     # AI Processing
-    level, score, explanation = ai_engine.AIEngine.calculate_urgency(report.description, report.people_affected)
+    try:
+        level, score, explanation = ai_engine.AIEngine.calculate_urgency(report.description, report.people_affected)
+    except Exception as e:
+        logger.error("AI urgency calculation failed: %s", e)
+        raise HTTPException(status_code=500, detail="Failed to process report urgency")
     
     db_report = models.Report(
         **report.dict(),
@@ -84,8 +95,13 @@ def create_report(report: schemas.ReportCreate, db: Session = Depends(get_db)):
         timestamp=datetime.datetime.now()
     )
     db.add(db_report)
-    db.commit()
-    db.refresh(db_report)
+    try:
+        db.commit()
+        db.refresh(db_report)
+    except SQLAlchemyError as e:
+        db.rollback()
+        logger.error("Database error creating report: %s", e)
+        raise HTTPException(status_code=500, detail="Failed to save report")
     return db_report
 
 @app.get("/volunteers", response_model=List[schemas.Volunteer])
@@ -96,8 +112,13 @@ def get_volunteers(db: Session = Depends(get_db)):
 def create_volunteer(volunteer: schemas.VolunteerBase, db: Session = Depends(get_db)):
     db_volunteer = models.Volunteer(**volunteer.dict())
     db.add(db_volunteer)
-    db.commit()
-    db.refresh(db_volunteer)
+    try:
+        db.commit()
+        db.refresh(db_volunteer)
+    except SQLAlchemyError as e:
+        db.rollback()
+        logger.error("Database error creating volunteer: %s", e)
+        raise HTTPException(status_code=500, detail="Failed to save volunteer")
     return db_volunteer
 
 @app.post("/assign/{report_id}/{volunteer_id}")
@@ -106,11 +127,20 @@ def assign_volunteer(report_id: int, volunteer_id: int, db: Session = Depends(ge
     if not report:
         raise HTTPException(status_code=404, detail="Report not found")
     
+    volunteer = db.query(models.Volunteer).filter(models.Volunteer.id == volunteer_id).first()
+    if not volunteer:
+        raise HTTPException(status_code=404, detail="Volunteer not found")
+    
     assignment = models.Assignment(report_id=report_id, volunteer_id=volunteer_id)
     report.status = "Assigned"
     
     db.add(assignment)
-    db.commit()
+    try:
+        db.commit()
+    except SQLAlchemyError as e:
+        db.rollback()
+        logger.error("Database error creating assignment: %s", e)
+        raise HTTPException(status_code=500, detail="Failed to create assignment")
     return {"message": "Success", "assignment_id": assignment.id}
 
 @app.patch("/reports/{report_id}/status")
@@ -161,34 +191,55 @@ def get_resources(db: Session = Depends(get_db)):
 def create_resource(resource: schemas.ResourceCreate, db: Session = Depends(get_db)):
     db_resource = models.Resource(**resource.dict())
     db.add(db_resource)
-    db.commit()
-    db.refresh(db_resource)
+    try:
+        db.commit()
+        db.refresh(db_resource)
+    except SQLAlchemyError as e:
+        db.rollback()
+        logger.error("Database error creating resource: %s", e)
+        raise HTTPException(status_code=500, detail="Failed to save resource")
     return db_resource
 
 @app.patch("/resources/{resource_id}/restock")
 def restock_resource(resource_id: int, quantity: int, db: Session = Depends(get_db)):
+    if quantity <= 0:
+        raise HTTPException(status_code=400, detail="Quantity must be positive")
     db_resource = db.query(models.Resource).filter(models.Resource.id == resource_id).first()
     if not db_resource:
         raise HTTPException(status_code=404, detail="Resource not found")
     db_resource.quantity += quantity
-    db.commit()
-    db.refresh(db_resource)
+    try:
+        db.commit()
+        db.refresh(db_resource)
+    except SQLAlchemyError as e:
+        db.rollback()
+        logger.error("Database error restocking resource: %s", e)
+        raise HTTPException(status_code=500, detail="Failed to restock resource")
     return db_resource
 
 @app.patch("/resources/{resource_id}/dispatch")
 def dispatch_resource(resource_id: int, quantity: int, db: Session = Depends(get_db)):
+    if quantity <= 0:
+        raise HTTPException(status_code=400, detail="Quantity must be positive")
     db_resource = db.query(models.Resource).filter(models.Resource.id == resource_id).first()
     if not db_resource:
         raise HTTPException(status_code=404, detail="Resource not found")
     if db_resource.quantity < quantity:
         raise HTTPException(status_code=400, detail="Insufficient stock")
     db_resource.quantity -= quantity
-    db.commit()
-    db.refresh(db_resource)
+    try:
+        db.commit()
+        db.refresh(db_resource)
+    except SQLAlchemyError as e:
+        db.rollback()
+        logger.error("Database error dispatching resource: %s", e)
+        raise HTTPException(status_code=500, detail="Failed to dispatch resource")
     return db_resource
 
 @app.post("/blood/donate/{donor_id}")
 def record_donation(donor_id: int, units: int, db: Session = Depends(get_db)):
+    if units <= 0:
+        raise HTTPException(status_code=400, detail="Units must be positive")
     donor = db.query(models.Donor).filter(models.Donor.id == donor_id).first()
     if not donor:
         raise HTTPException(status_code=404, detail="Donor not found")
@@ -199,7 +250,12 @@ def record_donation(donor_id: int, units: int, db: Session = Depends(get_db)):
         db.add(inventory)
     
     inventory.units_available += units
-    db.commit()
+    try:
+        db.commit()
+    except SQLAlchemyError as e:
+        db.rollback()
+        logger.error("Database error recording donation: %s", e)
+        raise HTTPException(status_code=500, detail="Failed to record donation")
     return {"message": "Success", "new_total": inventory.units_available}
 
 @app.get("/settings", response_model=List[schemas.SystemSetting])
@@ -215,8 +271,13 @@ def update_setting(setting: schemas.SystemSettingBase, db: Session = Depends(get
     else:
         db_setting = models.SystemSetting(**setting.dict())
         db.add(db_setting)
-    db.commit()
-    db.refresh(db_setting)
+    try:
+        db.commit()
+        db.refresh(db_setting)
+    except SQLAlchemyError as e:
+        db.rollback()
+        logger.error("Database error updating setting: %s", e)
+        raise HTTPException(status_code=500, detail="Failed to save setting")
     return db_setting
 
 # Trigger reload
