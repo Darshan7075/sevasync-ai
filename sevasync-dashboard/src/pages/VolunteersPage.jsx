@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, memo } from 'react';
+import React, { useMemo, useState, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -10,6 +10,11 @@ import {
   ChevronLeft, Radio, Terminal, Map as MapIcon
 } from 'lucide-react';
 import { volunteerService } from '../services/api';
+import { useNotification } from '../hooks/useNotification';
+import { usePagination } from '../hooks/usePagination';
+import { useDebouncedSearch } from '../hooks/useDebouncedSearch';
+import { createNotification } from '../utils/notifications';
+import NotificationToast from '../components/NotificationToast';
 
 // Memoized Agent Card for performance
 const AgentCard = memo(({ agent, index, onAssign, onTrack, onSelect, matchScore, viewMode }) => {
@@ -209,8 +214,7 @@ const AgentCard = memo(({ agent, index, onAssign, onTrack, onSelect, matchScore,
 });
 
 const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates, setNotifications }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useState('');
+  const { searchTerm, setSearchTerm, debouncedSearch } = useDebouncedSearch();
   const [selectedCity, setSelectedCity] = useState('All');
   const [selectedStatus, setSelectedStatus] = useState('All');
   const [selectedAgent, setSelectedAgent] = useState(null);
@@ -218,16 +222,9 @@ const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates, setNotific
   const [isRecruitModalOpen, setIsRecruitModalOpen] = useState(false);
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [notification, setNotification] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const { notification, showNotification } = useNotification();
   const [viewMode, setViewMode] = useState('detail');
   const agentsPerPage = viewMode === 'compact' ? 24 : 12;
-
-  // Debounce search term to prevent lag while typing
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedSearch(searchTerm), 300);
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
 
   const [newVolunteer, setNewVolunteer] = useState({
     name: '',
@@ -238,10 +235,7 @@ const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates, setNotific
     rating: 5.0
   });
 
-  const showNotification = (message, type = 'success') => {
-    setNotification({ message, type });
-    setTimeout(() => setNotification(null), 3000);
-  };
+
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -257,17 +251,7 @@ const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates, setNotific
         const addedLoc = res.data?.location || newVolunteer.location;
         const addedSkill = res.data?.skill || newVolunteer.skill;
         setNotifications(prev => [
-          {
-            id: Date.now(),
-            type: 'INFO',
-            category: 'Personnel',
-            title: 'New Volunteer Recruited',
-            message: `Agent ${addedName} successfully registered in ${addedLoc} as a ${addedSkill}.`,
-            time: 'Just Now',
-            iconName: 'UserPlus',
-            color: 'text-indigo-500',
-            bg: 'bg-indigo-50'
-          },
+          createNotification({ type: 'INFO', category: 'Personnel', title: 'New Volunteer Recruited', message: `Agent ${addedName} successfully registered in ${addedLoc} as a ${addedSkill}.`, iconName: 'UserPlus', color: 'text-indigo-500', bg: 'bg-indigo-50' }),
           ...prev
         ]);
       }
@@ -285,17 +269,7 @@ const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates, setNotific
       showNotification("ASSIGNMENT SUCCESSFUL", "Agent dispatched to nearest high-priority sector.");
       if (setNotifications) {
         setNotifications(prev => [
-          {
-            id: Date.now(),
-            type: 'SUCCESS',
-            category: 'Personnel',
-            title: 'Volunteer Deployed',
-            message: `Agent ${agent.name} has been successfully assigned and deployed to tactical operations.`,
-            time: 'Just Now',
-            iconName: 'Users',
-            color: 'text-blue-500',
-            bg: 'bg-blue-50'
-          },
+          createNotification({ type: 'SUCCESS', category: 'Personnel', title: 'Volunteer Deployed', message: `Agent ${agent.name} has been successfully assigned and deployed to tactical operations.`, iconName: 'Users', color: 'text-blue-500', bg: 'bg-blue-50' }),
           ...prev
         ]);
       }
@@ -322,15 +296,7 @@ const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates, setNotific
     });
   }, [volunteers, debouncedSearch, selectedCity, selectedStatus]);
 
-  // Reset page when filters change
-  useEffect(() => setCurrentPage(1), [debouncedSearch, selectedCity, selectedStatus]);
-
-  const paginatedVolunteers = useMemo(() => {
-    const start = (currentPage - 1) * agentsPerPage;
-    return filteredVolunteers.slice(start, start + agentsPerPage);
-  }, [filteredVolunteers, currentPage]);
-
-  const totalPages = Math.ceil(filteredVolunteers.length / agentsPerPage);
+  const { currentPage, setCurrentPage, paginatedItems: paginatedVolunteers, totalPages } = usePagination(filteredVolunteers, agentsPerPage, [debouncedSearch, selectedCity, selectedStatus]);
 
   const stats = useMemo(() => ({
     total: (volunteers || []).length,
@@ -342,26 +308,7 @@ const VolunteersPage = ({ volunteers, setVolunteers, cityCoordinates, setNotific
   return (
     <div className="p-8 space-y-8 animate-fade-in max-w-[1800px] mx-auto pb-24 relative">
       
-      {/* Notification Overlay */}
-      <AnimatePresence>
-        {notification && (
-          <motion.div 
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 20, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            className={`fixed top-10 left-1/2 -translate-x-1/2 z-[1000] px-8 py-4 rounded-3xl shadow-2xl flex items-center gap-4 min-w-[400px] border ${
-              notification.type === 'error' ? 'bg-rose-600 text-white border-rose-500' : 
-              notification.type === 'info' ? 'bg-blue-600 text-white border-blue-500' : 'bg-emerald-600 text-white border-emerald-500'
-            }`}
-          >
-            {notification.type === 'error' ? <AlertTriangle size={24} /> : <CheckCircle2 size={24} />}
-            <div className="flex-1">
-              <p className="text-[11px] font-black tracking-widest uppercase opacity-80">{notification.type === 'error' ? 'System Error' : 'Intelligence Update'}</p>
-              <p className="text-sm font-bold">{notification.message}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <NotificationToast notification={notification} label="Intelligence Update" />
 
       {/* Dynamic Header Section - Deployment Hub */}
       <div className="bg-white rounded-[40px] p-10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-slate-100 relative overflow-hidden group">

@@ -7,6 +7,9 @@ import {
   Heart, Info, ExternalLink, RefreshCw, Eye, Bell, Settings, Filter
 } from 'lucide-react';
 import { bloodService } from '../services/api';
+import { useNotification } from '../hooks/useNotification';
+import { createNotification } from '../utils/notifications';
+import NotificationToast from '../components/NotificationToast';
 
 const citiesData = {
   AHMEDABAD: [
@@ -91,7 +94,7 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
   const [activeTab, setActiveTab] = useState('Dashboard');
   const [selectedGroup, setSelectedGroup] = useState('AB+');
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [activeNotification, setActiveNotification] = useState(null);
+  const { notification: activeNotification, showNotification } = useNotification(4000);
   const [showAllLogs, setShowAllLogs] = useState(false);
   const [isDispatchModalOpen, setIsDispatchModalOpen] = useState(false);
   const [modalData, setModalData] = useState({
@@ -175,10 +178,7 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
     }
   };
 
-  const showNotification = (title, message, type = 'info') => {
-    setActiveNotification({ title, message, type });
-    setTimeout(() => setActiveNotification(null), 4000);
-  };
+
 
   const handleCreateRequest = (e) => {
     e.preventDefault();
@@ -207,17 +207,7 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
     showNotification("REQUEST LOGGED", `Emergency request for ${newReq.type} at ${newReq.target} created!`, "success");
     if (setNotifications) {
       setNotifications(prev => [
-        {
-          id: Date.now(),
-          type: 'CRITICAL',
-          category: 'Mission',
-          title: 'Emergency Blood Request',
-          message: `Required ${newReq.volume} of ${newReq.type} at ${newReq.target} (${newReq.sector}).`,
-          time: 'Just Now',
-          iconName: 'AlertTriangle',
-          color: 'text-rose-500',
-          bg: 'bg-rose-50'
-        },
+        createNotification({ type: 'CRITICAL', category: 'Mission', title: 'Emergency Blood Request', message: `Required ${newReq.volume} of ${newReq.type} at ${newReq.target} (${newReq.sector}).`, iconName: 'AlertTriangle', color: 'text-rose-500', bg: 'bg-rose-50' }),
         ...prev
       ]);
     }
@@ -244,17 +234,7 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
     showNotification("DISPATCH CONFIRMED", `Routed ${unitsToDeduct} units of ${req.type} to ${req.target}.`, "success");
     if (setNotifications) {
       setNotifications(prev => [
-        {
-          id: Date.now(),
-          type: 'SUCCESS',
-          category: 'Logistics',
-          title: 'Blood Units Dispatched',
-          message: `Successfully routed ${unitsToDeduct} units of ${req.type} blood to ${req.target}.`,
-          time: 'Just Now',
-          iconName: 'Send',
-          color: 'text-emerald-500',
-          bg: 'bg-emerald-50'
-        },
+        createNotification({ type: 'SUCCESS', category: 'Logistics', title: 'Blood Units Dispatched', message: `Successfully routed ${unitsToDeduct} units of ${req.type} blood to ${req.target}.`, iconName: 'Send', color: 'text-emerald-500', bg: 'bg-emerald-50' }),
         ...prev
       ]);
     }
@@ -284,17 +264,7 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
       showNotification("DONATION RECORDED", `Added ${units} units locally.`, "success");
       if (setNotifications) {
         setNotifications(prev => [
-          {
-            id: Date.now(),
-            type: 'SUCCESS',
-            category: 'Resources',
-            title: 'Blood Stock Added',
-            message: `Donor ${donor.name} successfully donated ${units} units of ${donor.bloodGroup} blood in ${donor.city}.`,
-            time: 'Just Now',
-            iconName: 'Droplet',
-            color: 'text-emerald-500',
-            bg: 'bg-emerald-50'
-          },
+          createNotification({ type: 'SUCCESS', category: 'Resources', title: 'Blood Stock Added', message: `Donor ${donor.name} successfully donated ${units} units of ${donor.bloodGroup} blood in ${donor.city}.`, iconName: 'Droplet', color: 'text-emerald-500', bg: 'bg-emerald-50' }),
           ...prev
         ]);
       }
@@ -307,17 +277,7 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
         const donor = bloodDonors.find(d => d.id === donorId);
         if (setNotifications && donor) {
           setNotifications(prev => [
-            {
-              id: Date.now(),
-              type: 'SUCCESS',
-              category: 'Resources',
-              title: 'Blood Stock Added',
-              message: `Donor ${donor.name} successfully donated ${units} units of ${donor.bloodGroup} blood in ${donor.city}.`,
-              time: 'Just Now',
-              iconName: 'Droplet',
-              color: 'text-emerald-500',
-              bg: 'bg-emerald-50'
-            },
+            createNotification({ type: 'SUCCESS', category: 'Resources', title: 'Blood Stock Added', message: `Donor ${donor.name} successfully donated ${units} units of ${donor.bloodGroup} blood in ${donor.city}.`, iconName: 'Droplet', color: 'text-emerald-500', bg: 'bg-emerald-50' }),
             ...prev
           ]);
         }
@@ -342,26 +302,7 @@ const BloodBankPage = ({ bloodDonors = [], setBloodDonors, bloodInventory: backe
   return (
     <div className="min-h-screen bg-[#F8F9FA] p-6 lg:p-10 font-sans text-[#1A1A1A] animate-fade-in relative overflow-hidden">
       
-      {/* GLOBAL NOTIFICATION OVERLAY */}
-      <AnimatePresence>
-        {activeNotification && (
-          <motion.div 
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 20, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            className={`fixed top-0 left-1/2 -translate-x-1/2 z-[1000] px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 min-w-[350px] border ${
-              activeNotification.type === 'error' ? 'bg-red-600 text-white border-red-500' : 
-              activeNotification.type === 'success' ? 'bg-green-600 text-white border-green-500' : 'bg-slate-900 text-white border-slate-800'
-            }`}
-          >
-            {activeNotification.type === 'error' ? <AlertTriangle size={24} /> : <CheckCircle2 size={24} />}
-            <div>
-              <p className="text-[11px] font-black tracking-widest uppercase">{activeNotification.title}</p>
-              <p className="text-xs opacity-90">{activeNotification.message}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <NotificationToast notification={activeNotification} label="Blood Command" />
 
       <div className="max-w-[1700px] mx-auto space-y-8">
         

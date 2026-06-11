@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 
 import { volunteerService } from '../services/api';
+import { createNotification } from '../utils/notifications';
 
 const UsersPage = ({ volunteers = [], setVolunteers, setNotifications }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -106,17 +107,7 @@ const UsersPage = ({ volunteers = [], setVolunteers, setNotifications }) => {
       addLog(`Recruited naya agent: ${newAgentForm.name}`);
       if (setNotifications) {
         setNotifications(prev => [
-          {
-            id: Date.now(),
-            type: 'SUCCESS',
-            category: 'Personnel',
-            title: 'New Agent Recruited',
-            message: `${newAgentForm.name} is now authorized as a ${newAgentForm.role} in ${newAgentForm.city}.`,
-            time: 'Just Now',
-            iconName: 'UserCheck',
-            color: 'text-emerald-500',
-            bg: 'bg-emerald-50'
-          },
+          createNotification({ type: 'SUCCESS', category: 'Personnel', title: 'New Agent Recruited', message: `${newAgentForm.name} is now authorized as a ${newAgentForm.role} in ${newAgentForm.city}.`, iconName: 'UserCheck', color: 'text-emerald-500', bg: 'bg-emerald-50' }),
           ...prev
         ]);
       }
@@ -158,17 +149,7 @@ const UsersPage = ({ volunteers = [], setVolunteers, setNotifications }) => {
       ]);
       if (setNotifications) {
         setNotifications(prev => [
-          {
-            id: Date.now(),
-            type: 'WARNING',
-            category: 'Personnel',
-            title: 'User Deactivated',
-            message: `${user.name} has been deactivated.`,
-            time: 'Just Now',
-            iconName: 'ShieldAlert',
-            color: 'text-rose-500',
-            bg: 'bg-rose-50'
-          },
+          createNotification({ type: 'WARNING', category: 'Personnel', title: 'User Deactivated', message: `${user.name} has been deactivated.`, iconName: 'ShieldAlert', color: 'text-rose-500', bg: 'bg-rose-50' }),
           ...prev
         ]);
       }
@@ -202,17 +183,7 @@ const UsersPage = ({ volunteers = [], setVolunteers, setNotifications }) => {
     
     if (setNotifications) {
       setNotifications(prev => [
-        {
-          id: Date.now(),
-          type: 'SUCCESS',
-          category: 'Personnel',
-          title: 'User Reactivated',
-          message: `${user.name} has been restored to the active roster.`,
-          time: 'Just Now',
-          iconName: 'UserCheck',
-          color: 'text-emerald-500',
-          bg: 'bg-emerald-50'
-        },
+        createNotification({ type: 'SUCCESS', category: 'Personnel', title: 'User Reactivated', message: `${user.name} has been restored to the active roster.`, iconName: 'UserCheck', color: 'text-emerald-500', bg: 'bg-emerald-50' }),
         ...prev
       ]);
     }

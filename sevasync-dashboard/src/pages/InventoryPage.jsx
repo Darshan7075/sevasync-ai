@@ -5,43 +5,22 @@ import {
   ArrowUpRight, ArrowDownRight, Clock, MapPin,
   Plus, MoreVertical, CheckCircle2, History,
   TrendingUp, BarChart3, ChevronRight, Zap,
-  ShieldCheck, Globe, Truck, Boxes, RefreshCcw, X
+  ShieldCheck, Globe, Truck, Boxes, RefreshCcw
 } from 'lucide-react';
 import { resourceService } from '../services/api';
-
-const Modal = ({ title, children, onClose }) => (
-  <motion.div 
-    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-    className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-md"
-  >
-    <motion.div 
-      initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }}
-      className="bg-white rounded-[40px] w-full max-w-xl shadow-2xl overflow-hidden"
-    >
-      <div className="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/50">
-        <h3 className="text-[18px] font-black text-slate-900 uppercase tracking-tight">{title}</h3>
-        <button onClick={onClose} className="p-2 hover:bg-white rounded-full transition-colors text-slate-400 hover:text-slate-900"><X size={20} /></button>
-      </div>
-      <div className="p-10">{children}</div>
-    </motion.div>
-  </motion.div>
-);
+import { useNotification } from '../hooks/useNotification';
+import { usePagination } from '../hooks/usePagination';
+import NotificationToast from '../components/NotificationToast';
+import Modal from '../components/Modal';
 
 const InventoryPage = ({ resources, setResources, cityCoordinates }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('ALL STOCK');
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [activeResource, setActiveResource] = useState(null);
-  const [notification, setNotification] = useState(null);
+  const { notification, showNotification } = useNotification();
 
   const categories = ['All', 'Medical', 'Food', 'Water', 'Shelter', 'Other'];
-
-  const showNotification = (message, type = 'success') => {
-    setNotification({ message, type });
-    setTimeout(() => setNotification(null), 3000);
-  };
 
   const handleAddResource = async (e) => {
     e.preventDefault();
@@ -58,14 +37,14 @@ const InventoryPage = ({ resources, setResources, cityCoordinates }) => {
       setResources(prev => [data, ...prev]);
       showNotification("SHIPMENT REGISTERED", "New resource units have been added to the global matrix.");
       setIsAddModalOpen(false);
-      setCurrentPage(1);
+      pagination.setCurrentPage(1);
     } catch (err) {
       // Local fallback for demo
       const mockNew = { ...payload, id: Date.now() };
       setResources(prev => [mockNew, ...prev]);
       showNotification("LOCAL REGISTRATION", "Shipment logged locally. Server sync pending.", "info");
       setIsAddModalOpen(false);
-      setCurrentPage(1);
+      pagination.setCurrentPage(1);
     }
   };
 
@@ -104,38 +83,13 @@ const InventoryPage = ({ resources, setResources, cityCoordinates }) => {
     });
   }, [resources, searchTerm, activeTab]);
 
-  const totalPages = Math.ceil(filteredResources.length / itemsPerPage);
-  const paginatedResources = useMemo(() => {
-    const start = (currentPage - 1) * itemsPerPage;
-    return filteredResources.slice(start, start + itemsPerPage);
-  }, [filteredResources, currentPage]);
-
-  // Reset page when filtering
-  React.useEffect(() => {
-    setCurrentPage(1);
-  }, [searchTerm, activeTab]);
+  const pagination = usePagination(filteredResources, 10, [searchTerm, activeTab]);
+  const { paginatedItems: paginatedResources, totalPages, currentPage, setCurrentPage } = pagination;
 
   return (
     <div className="p-8 space-y-10 animate-fade-in max-w-[1700px] mx-auto pb-24">
       
-      {/* Tactical Notifications */}
-      <AnimatePresence>
-        {notification && (
-          <motion.div 
-            initial={{ y: -100, opacity: 0 }} animate={{ y: 20, opacity: 1 }} exit={{ y: -100, opacity: 0 }}
-            className={`fixed top-10 left-1/2 -translate-x-1/2 z-[1000] px-8 py-4 rounded-3xl shadow-2xl flex items-center gap-4 min-w-[400px] border ${
-              notification.type === 'error' ? 'bg-rose-600 text-white border-rose-500' : 
-              notification.type === 'info' ? 'bg-blue-600 text-white border-blue-500' : 'bg-emerald-600 text-white border-emerald-500'
-            }`}
-          >
-            {notification.type === 'error' ? <AlertTriangle size={24} /> : <ShieldCheck size={24} />}
-            <div>
-              <p className="text-[11px] font-black tracking-widest uppercase opacity-80">Inventory Update</p>
-              <p className="text-sm font-bold">{notification.message}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <NotificationToast notification={notification} label="Inventory Update" />
       
       {/* 1. Tactical Intelligence Header */}
       <div className="bg-[#0f172a] rounded-[48px] p-10 text-white shadow-2xl relative overflow-hidden group">
@@ -434,9 +388,7 @@ const InventoryPage = ({ resources, setResources, cityCoordinates }) => {
       </div>
 
       {/* Register Shipment Modal */}
-      <AnimatePresence>
-         {isAddModalOpen && (
-           <Modal title="REGISTER NEW SHIPMENT" onClose={() => setIsAddModalOpen(false)}>
+           <Modal isOpen={isAddModalOpen} title="REGISTER NEW SHIPMENT" onClose={() => setIsAddModalOpen(false)}>
               <form onSubmit={handleAddResource} className="space-y-6">
                  <div className="space-y-2">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Resource Type</label>
@@ -465,10 +417,8 @@ const InventoryPage = ({ resources, setResources, cityCoordinates }) => {
                  </button>
               </form>
            </Modal>
-         )}
 
-         {activeResource && (
-           <Modal title="RESOURCE INTELLIGENCE" onClose={() => setActiveResource(null)}>
+           <Modal isOpen={!!activeResource} title="RESOURCE INTELLIGENCE" onClose={() => setActiveResource(null)}>
               <div className="space-y-8">
                  <div className="flex items-center gap-6 p-6 bg-slate-50 rounded-[32px] border border-slate-100">
                     <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center text-blue-600 shadow-sm">
@@ -497,8 +447,6 @@ const InventoryPage = ({ resources, setResources, cityCoordinates }) => {
                  </div>
               </div>
            </Modal>
-         )}
-      </AnimatePresence>
 
     </div>
   );

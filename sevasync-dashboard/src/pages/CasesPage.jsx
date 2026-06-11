@@ -8,12 +8,15 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { reportService } from '../services/api';
+import { useNotification } from '../hooks/useNotification';
+import { optimisticUpdate } from '../utils/statusUpdater';
+import NotificationToast from '../components/NotificationToast';
 
 const CasesPage = ({ reports, setReports, volunteers, isLoading }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('All');
   const [selectedCase, setSelectedCase] = useState(null);
-  const [activeNotification, setActiveNotification] = useState(null);
+  const { notification: activeNotification, showNotification } = useNotification(4000);
   const navigate = useNavigate();
 
   const filteredCases = useMemo(() => {
@@ -33,23 +36,17 @@ const CasesPage = ({ reports, setReports, volunteers, isLoading }) => {
     resolved: reports?.filter(r => r.status === 'Resolved').length || 0
   }), [reports]);
 
-  const showNotification = (title, message, type = 'info') => {
-    setActiveNotification({ title, message, type });
-    setTimeout(() => setActiveNotification(null), 4000);
-  };
+
 
   const handleUpdateStatus = async (id, status) => {
     const numericId = typeof id === 'string' ? id.replace('SS-', '') : id;
-    
-    try {
-      await reportService.updateStatus(numericId, status);
-      setReports(prev => prev.map(r => r.id === id ? { ...r, status } : r));
-      showNotification("STATUS UPDATED", `Case SS-${id} successfully synced with tactical server.`, "success");
-    } catch (error) {
-      console.warn("Backend update failed, falling back to local state:", error);
-      setReports(prev => prev.map(r => r.id === id ? { ...r, status } : r));
-      showNotification("LOCAL UPDATE", `Case SS-${id} updated locally. (Server connection required for persistence)`, "info");
-    }
+    await optimisticUpdate(
+      () => reportService.updateStatus(numericId, status),
+      setReports,
+      prev => prev.map(r => r.id === id ? { ...r, status } : r),
+      () => showNotification("LOCAL UPDATE", `Case SS-${id} updated locally. (Server connection required for persistence)`, "info")
+    );
+    showNotification("STATUS UPDATED", `Case SS-${id} successfully synced with tactical server.`, "success");
   };
 
   const handleAIDiagnosis = (c) => {
@@ -66,26 +63,7 @@ const CasesPage = ({ reports, setReports, volunteers, isLoading }) => {
   return (
     <div className="p-8 space-y-8 animate-fade-in max-w-[1700px] mx-auto pb-20 relative">
       
-      {/* GLOBAL NOTIFICATION OVERLAY */}
-      <AnimatePresence>
-        {activeNotification && (
-          <motion.div 
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 20, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            className={`fixed top-0 left-1/2 -translate-x-1/2 z-[1000] px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 min-w-[350px] border ${
-              activeNotification.type === 'error' ? 'bg-red-600 text-white border-red-500' : 
-              activeNotification.type === 'success' ? 'bg-green-600 text-white border-green-500' : 'bg-slate-900 text-white border-slate-800'
-            }`}
-          >
-            {activeNotification.type === 'error' ? <AlertTriangle size={24} /> : <CheckCircle2 size={24} />}
-            <div>
-              <p className="text-[11px] font-black tracking-widest uppercase">{activeNotification.title}</p>
-              <p className="text-xs opacity-90">{activeNotification.message}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <NotificationToast notification={activeNotification} label="Case Update" />
 
       {/* CASE DETAIL MODAL */}
       <AnimatePresence>

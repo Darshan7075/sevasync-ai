@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, memo } from 'react';
+import React, { useMemo, useState, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, Package, MapPin, Truck, AlertTriangle, Droplets, 
@@ -12,6 +12,11 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { resourceService } from '../services/api';
+import { useNotification } from '../hooks/useNotification';
+import { usePagination } from '../hooks/usePagination';
+import { useDebouncedSearch } from '../hooks/useDebouncedSearch';
+import { createNotification } from '../utils/notifications';
+import NotificationToast from '../components/NotificationToast';
 
 // Memoized Resource Card for Grid View
 const ResourceCard = memo(({ resource, onSend, onRestock }) => {
@@ -103,18 +108,15 @@ const ResourceCard = memo(({ resource, onSend, onRestock }) => {
 
 const ResourcesPage = ({ resources, setResources, supplyOrders, setSupplyOrders, cityCoordinates, setNotifications }) => {
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useState('');
+  const { searchTerm, setSearchTerm, debouncedSearch } = useDebouncedSearch();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedStatus, setSelectedStatus] = useState('All');
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
   
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isSendModalOpen, setIsSendModalOpen] = useState(false);
   const [isRestockModalOpen, setIsRestockModalOpen] = useState(false);
   const [activeResource, setActiveResource] = useState(null);
-  const [notification, setNotification] = useState(null);
+  const { notification, showNotification } = useNotification();
 
   const categories = ['All', 'Food', 'Water', 'Medical', 'Shelter', 'Logistics'];
   const statuses = ['All', 'Stable', 'Low', 'Critical'];
@@ -151,17 +153,7 @@ const ResourcesPage = ({ resources, setResources, supplyOrders, setSupplyOrders,
       showNotification("ORDER DISPATCHED", "Supplies are in transit. Stock levels updated.");
       if (setNotifications) {
         setNotifications(prev => [
-          {
-            id: Date.now(),
-            type: 'SUCCESS',
-            category: 'Logistics',
-            title: 'Resource Order Dispatched',
-            message: `Order ${orderId} is dispatched and currently in transit to destination hub.`,
-            time: 'Just Now',
-            iconName: 'Truck',
-            color: 'text-emerald-500',
-            bg: 'bg-emerald-50'
-          },
+          createNotification({ type: 'SUCCESS', category: 'Logistics', title: 'Resource Order Dispatched', message: `Order ${orderId} is dispatched and currently in transit to destination hub.`, iconName: 'Truck', color: 'text-emerald-500', bg: 'bg-emerald-50' }),
           ...prev
         ]);
       }
@@ -178,17 +170,7 @@ const ResourcesPage = ({ resources, setResources, supplyOrders, setSupplyOrders,
       showNotification("ORDER DELIVERED", "Inventory node received deployment packages.");
       if (setNotifications) {
         setNotifications(prev => [
-          {
-            id: Date.now(),
-            type: 'SUCCESS',
-            category: 'Logistics',
-            title: 'Resource Order Delivered',
-            message: `Order ${orderId} has been successfully delivered and logged into local stocks.`,
-            time: 'Just Now',
-            iconName: 'CheckCircle2',
-            color: 'text-emerald-500',
-            bg: 'bg-emerald-50'
-          },
+          createNotification({ type: 'SUCCESS', category: 'Logistics', title: 'Resource Order Delivered', message: `Order ${orderId} has been successfully delivered and logged into local stocks.`, iconName: 'CheckCircle2', color: 'text-emerald-500', bg: 'bg-emerald-50' }),
           ...prev
         ]);
       }
@@ -197,15 +179,7 @@ const ResourcesPage = ({ resources, setResources, supplyOrders, setSupplyOrders,
 
 
 
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedSearch(searchTerm), 300);
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
 
-  const showNotification = (message, type = 'success') => {
-    setNotification({ message, type });
-    setTimeout(() => setNotification(null), 3000);
-  };
 
   // FEATURE 3: CSV Export Logic
   const exportToCSV = () => {
@@ -254,14 +228,7 @@ const ResourcesPage = ({ resources, setResources, supplyOrders, setSupplyOrders,
     });
   }, [resources, debouncedSearch, selectedCategory, selectedStatus]);
 
-  useEffect(() => setCurrentPage(1), [debouncedSearch, selectedCategory, selectedStatus]);
-
-  const paginatedResources = useMemo(() => {
-    const start = (currentPage - 1) * itemsPerPage;
-    return filteredResources.slice(start, start + itemsPerPage);
-  }, [filteredResources, currentPage]);
-
-  const totalPages = Math.ceil(filteredResources.length / itemsPerPage);
+  const { currentPage, setCurrentPage, paginatedItems: paginatedResources, totalPages } = usePagination(filteredResources, 6, [debouncedSearch, selectedCategory, selectedStatus]);
 
   const stats = useMemo(() => {
     const totalCount = resources.length || 1;
@@ -289,25 +256,7 @@ const ResourcesPage = ({ resources, setResources, supplyOrders, setSupplyOrders,
   return (
     <div className="p-8 space-y-10 animate-fade-in max-w-[1800px] mx-auto pb-24 relative">
       
-      {/* Notification Overlay */}
-      <AnimatePresence>
-        {notification && (
-          <motion.div 
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 20, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            className={`fixed top-10 left-1/2 -translate-x-1/2 z-[1000] px-8 py-4 rounded-3xl shadow-2xl flex items-center gap-4 min-w-[400px] border ${
-              notification.type === 'error' ? 'bg-rose-600 text-white border-rose-500' : 'bg-emerald-600 text-white border-emerald-500'
-            }`}
-          >
-            {notification.type === 'error' ? <AlertTriangle size={24} /> : <ShieldCheck size={24} />}
-            <div>
-              <p className="text-[11px] font-black tracking-widest uppercase opacity-80">Logistics Update</p>
-              <p className="text-sm font-bold">{notification.message}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <NotificationToast notification={notification} label="Logistics Update" />
 
       {/* 1. Tactical Command Header */}
       <div className="bg-white rounded-[40px] p-10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-slate-100 relative overflow-hidden group">

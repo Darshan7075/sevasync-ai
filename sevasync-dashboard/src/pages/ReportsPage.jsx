@@ -14,6 +14,7 @@ import {
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 import { reportService } from '../services/api';
+import { optimisticUpdate } from '../utils/statusUpdater';
 
 const ReportsPage = ({ reports, setReports, isLoading, cityCoordinates }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,21 +63,19 @@ const ReportsPage = ({ reports, setReports, isLoading, cityCoordinates }) => {
   };
 
   const handleUpdateStatus = async (id, status) => {
-    try {
-      await reportService.updateStatus(id, status);
-      setReports(prev => prev.map(r => r.id === id ? { ...r, status } : r));
-    } catch (error) {
-      setReports(prev => prev.map(r => r.id === id ? { ...r, status } : r));
-    }
+    await optimisticUpdate(
+      () => reportService.updateStatus(id, status),
+      setReports,
+      prev => prev.map(r => r.id === id ? { ...r, status } : r)
+    );
   };
 
   const handleDelete = async (id) => {
-    try {
-      await reportService.delete(id);
-      setReports(prev => prev.filter(r => r.id !== id));
-    } catch (error) {
-      setReports(prev => prev.filter(r => r.id !== id));
-    }
+    await optimisticUpdate(
+      () => reportService.delete(id),
+      setReports,
+      prev => prev.filter(r => r.id !== id)
+    );
   };
 
   const filteredReports = useMemo(() => {

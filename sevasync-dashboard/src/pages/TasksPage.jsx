@@ -10,6 +10,7 @@ import {
   BarChart, Layers
 } from 'lucide-react';
 import { reportService, volunteerService } from '../services/api';
+import { optimisticUpdate } from '../utils/statusUpdater';
 
 const TasksPage = ({ reports, volunteers, resources, setReports, setVolunteers }) => {
   const [activeTab, setActiveTab] = useState('active');
@@ -24,21 +25,19 @@ const TasksPage = ({ reports, volunteers, resources, setReports, setVolunteers }
   }, []);
 
   const handleUpdateStatus = async (id, status) => {
-    try {
-      await reportService.updateStatus(id, status);
-      setReports(prev => prev.map(r => r.id === id ? { ...r, status } : r));
-    } catch (error) {
-      setReports(prev => prev.map(r => r.id === id ? { ...r, status } : r));
-    }
+    await optimisticUpdate(
+      () => reportService.updateStatus(id, status),
+      setReports,
+      prev => prev.map(r => r.id === id ? { ...r, status } : r)
+    );
   };
 
   const handleAssign = async (reportId, volunteerId) => {
-    try {
-      await volunteerService.assign(reportId, volunteerId);
-      setReports(prev => prev.map(r => r.id === reportId ? { ...r, status: 'Assigned' } : r));
-    } catch (error) {
-      setReports(prev => prev.map(r => r.id === reportId ? { ...r, status: 'Assigned' } : r));
-    }
+    await optimisticUpdate(
+      () => volunteerService.assign(reportId, volunteerId),
+      setReports,
+      prev => prev.map(r => r.id === reportId ? { ...r, status: 'Assigned' } : r)
+    );
   };
 
   const activeTasks = useMemo(() => {
