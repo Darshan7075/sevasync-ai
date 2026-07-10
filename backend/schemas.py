@@ -107,3 +107,28 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     reply: str
+
+class UserBase(BaseModel):
+    name: str
+    email: str
+    role: str
+    status: Optional[str] = "approved"
+
+class UserCreate(UserBase):
+    password: str
+
+class UserLogin(BaseModel):
+    email: str
+    password: str
+
+class UserUpdateStatus(BaseModel):
+    status: str
+
+class UserUpdateRole(BaseModel):
+    role: str
+
+class UserResponse(UserBase):
+    id: int
+
+    class Config:
+        from_attributes = True

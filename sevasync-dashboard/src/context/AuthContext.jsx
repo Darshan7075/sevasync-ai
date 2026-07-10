@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { volunteerService } from '../services/api';
+import { volunteerService, userService } from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -25,73 +25,50 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const signup = async (userData) => {
-    // In a real app, this would be an API call
-    // For this hackathon, we'll store in localStorage
-    const users = JSON.parse(localStorage.getItem('sevasync_registered_users') || '[]');
-    
-    // Check if user already exists
-    if (users.find(u => u.email === userData.email)) {
-      throw new Error('User already exists');
-    }
+    try {
+      // Create user in SQLAlchemy backend
+      const response = await userService.signup(userData);
+      const newUser = response.data;
 
-    // Admins signup with 'pending' status, Volunteers with 'approved'
-    const newUser = { 
-      ...userData, 
-      id: Date.now().toString(),
-      status: userData.role === 'admin' ? 'pending' : 'approved'
-    };
-
-    // If registering as a Volunteer, sync with backend database
-    if (userData.role === 'Volunteer') {
-      try {
-        await volunteerService.create({
-          name: userData.name,
-          skill: 'Field Agent',
-          location: 'Vadodara',
-          availability: 'Active',
-          contact: userData.email,
-          rating: 5.0
-        });
-      } catch (err) {
-        console.error("Failed to sync volunteer to SQLite backend:", err);
-        throw new Error('BACKEND SYNC FAILED: Make sure the Python backend is active.');
+      // If registering as a Volunteer, sync with backend database
+      if (userData.role === 'Volunteer') {
+        try {
+          await volunteerService.create({
+            name: userData.name,
+            skill: 'Field Agent',
+            location: 'Vadodara',
+            availability: 'Active',
+            contact: userData.email,
+            rating: 5.0
+          });
+        } catch (err) {
+          console.error("Failed to sync volunteer to SQLite backend:", err);
+        }
       }
-    }
 
-    users.push(newUser);
-    localStorage.setItem('sevasync_registered_users', JSON.stringify(users));
-    return newUser;
+      return newUser;
+    } catch (err) {
+      console.error("Signup failed:", err);
+      const errMsg = err.response?.data?.detail || err.message || 'Registration failed';
+      throw new Error(errMsg);
+    }
   };
 
 
-  const login = (email, password) => {
+  const login = async (email, password) => {
     console.log('Attempting login for:', email);
-    // Add demo accounts (pre-approved)
-    const demoAccounts = [
-      { email: 'volunteer@sevasync.com', password: 'demo123', name: 'Demo Volunteer', role: 'Volunteer', status: 'approved' },
-      { email: 'admin@sevasync.com', password: 'admin123', name: 'System Admin', role: 'admin', status: 'approved' }
-    ];
-
-    const users = JSON.parse(localStorage.getItem('sevasync_registered_users') || '[]');
-    const allUsers = [...demoAccounts, ...users];
-    
-    const foundUser = allUsers.find(u => u.email === (email || '').toLowerCase() && u.password === password);
-
-    if (foundUser) {
-      // Check if admin is pending approval
-      if (foundUser.role === 'admin' && foundUser.status === 'pending') {
-        console.error('Login failed: Admin status is pending approval');
-        throw new Error('ACCESS PENDING: Your admin registration is awaiting commander approval.');
-      }
-
-      console.log('Login successful:', foundUser.role);
-      const { password, ...userWithoutPassword } = foundUser;
-      setUser(userWithoutPassword);
-      localStorage.setItem('sevasync_user', JSON.stringify(userWithoutPassword));
-      return userWithoutPassword;
-    } else {
-      console.error('Login failed: Invalid credentials');
-      throw new Error('Invalid email or password');
+    try {
+      const response = await userService.login(email, password);
+      const loggedInUser = response.data;
+      console.log('Login successful:', loggedInUser.role);
+      
+      setUser(loggedInUser);
+      localStorage.setItem('sevasync_user', JSON.stringify(loggedInUser));
+      return loggedInUser;
+    } catch (err) {
+      console.error('Login failed:', err);
+      const errMsg = err.response?.data?.detail || err.message || 'Invalid email or password';
+      throw new Error(errMsg);
     }
   };
 

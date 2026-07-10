@@ -39,6 +39,15 @@ export const settingsService = {
   updateSetting: (key, value, category = "General") => api.post('/settings', { key, value, category }),
 };
 
+export const userService = {
+  signup: (data) => api.post('/users/signup', data),
+  login: (email, password) => api.post('/users/login', { email, password }),
+  getAll: () => api.get('/users'),
+  updateStatus: (id, status) => api.patch(`/users/${id}/status`, { status }),
+  updateRole: (id, role) => api.patch(`/users/${id}/role`, { role }),
+  delete: (id) => api.delete(`/users/${id}`),
+};
+
 export const chatService = {
   sendMessage: (message) => api.post('/chat', { message }),
 };

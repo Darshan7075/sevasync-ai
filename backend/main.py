@@ -219,4 +219,106 @@ def update_setting(setting: schemas.SystemSettingBase, db: Session = Depends(get
     db.refresh(db_setting)
     return db_setting
 
+@app.on_event("startup")
+def seed_users():
+    db = database.SessionLocal()
+    try:
+        # Check if volunteer demo account exists
+        volunteer = db.query(models.User).filter(models.User.email == "volunteer@sevasync.com").first()
+        if not volunteer:
+            db_vol = models.User(
+                name="Demo Volunteer",
+                email="volunteer@sevasync.com",
+                password="demo123",
+                role="Volunteer",
+                status="approved"
+            )
+            db.add(db_vol)
+        
+        # Check if admin demo account exists
+        admin = db.query(models.User).filter(models.User.email == "admin@sevasync.com").first()
+        if not admin:
+            db_admin = models.User(
+                name="System Admin",
+                email="admin@sevasync.com",
+                password="admin123",
+                role="admin",
+                status="approved"
+            )
+            db.add(db_admin)
+        db.commit()
+    except Exception as e:
+        print(f"Error seeding default users: {e}")
+    finally:
+        db.close()
+
+@app.post("/users/signup", response_model=schemas.UserResponse)
+def signup(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.email == user.email.lower()).first()
+    if db_user:
+        raise HTTPException(status_code=400, detail="User already exists")
+    
+    # Assign pending status to admin registrations, approved for volunteers
+    status = "pending" if user.role == "admin" else "approved"
+    
+    new_user = models.User(
+        name=user.name,
+        email=user.email.lower(),
+        password=user.password,
+        role=user.role,
+        status=status
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
+
+@app.post("/users/login", response_model=schemas.UserResponse)
+def login(login_data: schemas.UserLogin, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(
+        models.User.email == login_data.email.lower(),
+        models.User.password == login_data.password
+    ).first()
+    
+    if not db_user:
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+        
+    if db_user.role == "admin" and db_user.status == "pending":
+        raise HTTPException(status_code=403, detail="ACCESS PENDING: Your admin registration is awaiting commander approval.")
+        
+    return db_user
+
+@app.get("/users", response_model=List[schemas.UserResponse])
+def get_users(db: Session = Depends(get_db)):
+    return db.query(models.User).all()
+
+@app.patch("/users/{user_id}/status", response_model=schemas.UserResponse)
+def update_user_status(user_id: int, status_update: schemas.UserUpdateStatus, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    db_user.status = status_update.status
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+@app.patch("/users/{user_id}/role", response_model=schemas.UserResponse)
+def update_user_role(user_id: int, role_update: schemas.UserUpdateRole, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    db_user.role = role_update.role
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+@app.delete("/users/{user_id}")
+def delete_user(user_id: int, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    db.delete(db_user)
+    db.commit()
+    return {"message": "User deleted successfully"}
+
 # Trigger reload

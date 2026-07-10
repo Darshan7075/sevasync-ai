@@ -88,3 +88,13 @@ class SystemSetting(Base):
     key = Column(String, unique=True, index=True)
     value = Column(String)
     category = Column(String) # General, Security, Mission, etc.
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    email = Column(String, unique=True, index=True)
+    password = Column(String)
+    role = Column(String) # admin, Volunteer
+    status = Column(String) # pending, approved

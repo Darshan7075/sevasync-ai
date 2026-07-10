@@ -8,7 +8,7 @@ import {
   UserCheck, Zap, Activity
 } from 'lucide-react';
 
-import { volunteerService } from '../services/api';
+import { volunteerService, userService } from '../services/api';
 import { createNotification } from '../utils/notifications';
 import { useAuth } from '../context/AuthContext';
 
@@ -29,14 +29,20 @@ const UsersPage = ({ volunteers = [], setVolunteers, setNotifications }) => {
   const [auditTab, setAuditTab] = useState('logs'); // 'logs' or 'deactivated'
   const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
   const [activeSubTab, setActiveSubTab] = useState('staff'); // 'staff' or 'web-users'
-  const [registeredUsers, setRegisteredUsers] = useState(() => {
+  const [registeredUsers, setRegisteredUsers] = useState([]);
+
+  const fetchRegisteredUsers = async () => {
     try {
-      const saved = localStorage.getItem('sevasync_registered_users');
-      return saved ? JSON.parse(saved) : [];
+      const response = await userService.getAll();
+      setRegisteredUsers(response.data);
     } catch (e) {
-      return [];
+      console.error("Failed to fetch registered users from backend API:", e);
     }
-  });
+  };
+
+  useEffect(() => {
+    fetchRegisteredUsers();
+  }, []);
   
   const [newAgentForm, setNewAgentForm] = useState({
     name: '',
@@ -249,103 +255,109 @@ const UsersPage = ({ volunteers = [], setVolunteers, setNotifications }) => {
     addLog(`Promoted/demoted agent ${userId} to ${newRole}`);
   };
 
-  const handleUpdateWebUserRole = (email, newRole) => {
-    const updated = registeredUsers.map(u => {
-      if (u.email === email) {
-        return { ...u, role: newRole };
-      }
-      return u;
-    });
-    setRegisteredUsers(updated);
-    localStorage.setItem('sevasync_registered_users', JSON.stringify(updated));
-    addLog(`Updated web user ${email} role to ${newRole}`);
-    if (setNotifications) {
-      setNotifications(prev => [
-        createNotification({ 
-          type: 'SUCCESS', 
-          category: 'Personnel', 
-          title: 'Role Updated', 
-          message: `${email}'s role is now ${newRole}.`, 
-          iconName: 'UserCheck', 
-          color: 'text-emerald-500', 
-          bg: 'bg-emerald-50' 
-        }),
-        ...prev
-      ]);
-    }
-  };
-
-  const handleDeleteWebUser = (email) => {
-    if (window.confirm(`Are you absolutely sure you want to delete the registered account for ${email}? This will permanently remove their web access.`)) {
-      const updated = registeredUsers.filter(u => u.email !== email);
-      setRegisteredUsers(updated);
-      localStorage.setItem('sevasync_registered_users', JSON.stringify(updated));
-      addLog(`Deleted web account for ${email}`);
+  const handleUpdateWebUserRole = async (userId, newRole) => {
+    try {
+      await userService.updateRole(userId, newRole);
+      addLog(`Updated web user ID ${userId} role to ${newRole}`);
       if (setNotifications) {
         setNotifications(prev => [
           createNotification({ 
-            type: 'WARNING', 
+            type: 'SUCCESS', 
             category: 'Personnel', 
-            title: 'Account Deleted', 
-            message: `Web account for ${email} has been removed.`, 
-            iconName: 'ShieldAlert', 
-            color: 'text-rose-500', 
-            bg: 'bg-rose-50' 
+            title: 'Role Updated', 
+            message: `User role has been updated to ${newRole}.`, 
+            iconName: 'UserCheck', 
+            color: 'text-emerald-500', 
+            bg: 'bg-emerald-50' 
           }),
           ...prev
         ]);
       }
+      await fetchRegisteredUsers();
+    } catch (err) {
+      console.error("Failed to update role:", err);
+      alert("Failed to update user role");
     }
   };
 
-  const handleApproveAdmin = (email) => {
-    const updated = registeredUsers.map(u => {
-      if (u.email === email) {
-        return { ...u, status: 'approved' };
+  const handleDeleteWebUser = async (userId) => {
+    if (window.confirm(`Are you absolutely sure you want to delete this registered account? This will permanently remove their web access.`)) {
+      try {
+        await userService.delete(userId);
+        addLog(`Deleted web account for ID ${userId}`);
+        if (setNotifications) {
+          setNotifications(prev => [
+            createNotification({ 
+              type: 'WARNING', 
+              category: 'Personnel', 
+              title: 'Account Deleted', 
+              message: `Web account has been removed.`, 
+              iconName: 'ShieldAlert', 
+              color: 'text-rose-500', 
+              bg: 'bg-rose-50' 
+            }),
+            ...prev
+          ]);
+        }
+        await fetchRegisteredUsers();
+      } catch (err) {
+        console.error("Failed to delete user:", err);
+        alert("Failed to delete user account.");
       }
-      return u;
-    });
-    setRegisteredUsers(updated);
-    localStorage.setItem('sevasync_registered_users', JSON.stringify(updated));
-    addLog(`Approved admin access for ${email}`);
-    if (setNotifications) {
-      setNotifications(prev => [
-        createNotification({ 
-          type: 'SUCCESS', 
-          category: 'Personnel', 
-          title: 'Access Approved', 
-          message: `${email} is now approved as an Administrator.`, 
-          iconName: 'UserCheck', 
-          color: 'text-emerald-500', 
-          bg: 'bg-emerald-50' 
-        }),
-        ...prev
-      ]);
     }
-    alert(`ADMIN ACCESS GRANTED: Account for ${email} is now approved and active.`);
   };
 
-  const handleRejectAdmin = (email) => {
-    if (window.confirm(`Are you sure you want to reject and delete the admin access request for ${email}?`)) {
-      const updated = registeredUsers.filter(u => u.email !== email);
-      setRegisteredUsers(updated);
-      localStorage.setItem('sevasync_registered_users', JSON.stringify(updated));
-      addLog(`Rejected and deleted access request for ${email}`);
+  const handleApproveAdmin = async (userId) => {
+    try {
+      await userService.updateStatus(userId, 'approved');
+      addLog(`Approved admin access for ID ${userId}`);
       if (setNotifications) {
         setNotifications(prev => [
           createNotification({ 
-            type: 'WARNING', 
+            type: 'SUCCESS', 
             category: 'Personnel', 
-            title: 'Request Rejected', 
-            message: `Admin access request for ${email} has been rejected.`, 
-            iconName: 'ShieldAlert', 
-            color: 'text-rose-500', 
-            bg: 'bg-rose-50' 
+            title: 'Access Approved', 
+            message: `Admin access request approved.`, 
+            iconName: 'UserCheck', 
+            color: 'text-emerald-500', 
+            bg: 'bg-emerald-50' 
           }),
           ...prev
         ]);
       }
-      alert(`ADMIN ACCESS REJECTED: Request for ${email} has been deleted.`);
+      alert(`ADMIN ACCESS GRANTED: Account approved successfully.`);
+      await fetchRegisteredUsers();
+    } catch (err) {
+      console.error("Failed to approve admin:", err);
+      alert("Failed to approve admin access.");
+    }
+  };
+
+  const handleRejectAdmin = async (userId) => {
+    if (window.confirm(`Are you sure you want to reject and delete this admin access request?`)) {
+      try {
+        await userService.delete(userId);
+        addLog(`Rejected and deleted access request for ID ${userId}`);
+        if (setNotifications) {
+          setNotifications(prev => [
+            createNotification({ 
+              type: 'WARNING', 
+              category: 'Personnel', 
+              title: 'Request Rejected', 
+              message: `Admin access request rejected.`, 
+              iconName: 'ShieldAlert', 
+              color: 'text-rose-500', 
+              bg: 'bg-rose-50' 
+            }),
+            ...prev
+          ]);
+        }
+        alert(`ADMIN ACCESS REJECTED: Request has been deleted.`);
+        await fetchRegisteredUsers();
+      } catch (err) {
+        console.error("Failed to reject admin:", err);
+        alert("Failed to reject access request.");
+      }
     }
   };
 
@@ -734,7 +746,7 @@ const UsersPage = ({ volunteers = [], setVolunteers, setNotifications }) => {
                                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Access Role</span>
                                <select
                                   value={u.role}
-                                  onChange={(e) => handleUpdateWebUserRole(u.email, e.target.value)}
+                                  onChange={(e) => handleUpdateWebUserRole(u.id, e.target.value)}
                                   className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-[11px] font-bold text-slate-700 outline-none focus:ring-4 focus:ring-blue-500/5 transition-all uppercase tracking-wider"
                                >
                                   <option value="Volunteer">Volunteer</option>
@@ -743,7 +755,7 @@ const UsersPage = ({ volunteers = [], setVolunteers, setNotifications }) => {
                             </div>
 
                             <button
-                               onClick={() => handleDeleteWebUser(u.email)}
+                               onClick={() => handleDeleteWebUser(u.id)}
                                className="px-4 py-2.5 bg-rose-50 hover:bg-rose-600 border border-rose-100 hover:border-rose-600 text-rose-500 hover:text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all active:scale-95 flex items-center gap-1.5"
                             >
                                <Trash2 size={14} /> Delete
@@ -787,13 +799,13 @@ const UsersPage = ({ volunteers = [], setVolunteers, setNotifications }) => {
 
                          <div className="w-full pt-6 border-t border-slate-100/80 flex items-center justify-between gap-4">
                             <button
-                               onClick={() => handleApproveAdmin(u.email)}
+                               onClick={() => handleApproveAdmin(u.id)}
                                className="flex-1 px-4 py-2.5 bg-emerald-50 hover:bg-emerald-600 border border-emerald-100 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all active:scale-95 flex items-center justify-center gap-1.5"
                             >
                                <UserCheck size={14} /> Approve
                             </button>
                             <button
-                               onClick={() => handleRejectAdmin(u.email)}
+                               onClick={() => handleRejectAdmin(u.id)}
                                className="flex-1 px-4 py-2.5 bg-rose-50 hover:bg-rose-600 border border-rose-100 hover:border-rose-600 text-rose-500 hover:text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all active:scale-95 flex items-center justify-center gap-1.5"
                             >
                                <X size={14} /> Reject
