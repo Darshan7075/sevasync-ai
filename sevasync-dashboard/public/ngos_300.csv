@@ -1,0 +1,31 @@
+name,mission,sector,coverage,rating,activeMissions,responseTime,members,contact
+Red Cross Delta,Emergency Medical & Blood Bank,Medical,Global,9.8,12,15m,4500,HQ-77 ALPHA
+Seva Foundation,Rural Food Sustainability,Nutrition,Indore,9.2,8,45m,1200,SEC-09 IND
+Akshaya Patra Ops,Global Mid-Day Meal Logistics,Food,Indore,9.9,25,1h,8500,FD-101 IND
+Bhopal Rescue Corps,Urban Search & Rescue,Rescue,Bhopal,9.5,5,30m,850,OPS-21 BPL
+Jal Seva Network,Clean Water Infrastructure,Water,Ahmedabad,9.0,3,2h,300,WTR-44 AHM
+Narmada Relief,Flood Plane Management,Rescue,Bhopal,8.7,10,20m,1500,FL-08 BPL
+Global Health Alliance,Vaccine Distribution & Logistics,Medical,Indore,9.4,14,15m,3200,MD-55 IND
+Surat Shelters,Rapid Modular Housing,Shelter,Surat,8.8,6,4h,500,SHL-05 SRT
+Pune Shiksha Center,Disaster-Zone Education,Education,Pune,9.1,4,24h,2100,ED-12 PNE
+Indore Oxygen Ops,Medical Oxygen Logistics,Medical,Indore,9.7,18,10m,900,OX-99 IND
+Asha Jyoti,Child Welfare and Safety,Social,Indore,8.9,7,2h,400,AJ-10 IND
+Bhopal Gas Mitra,Victim Rehabilitation,Medical,Bhopal,9.3,12,30m,1200,GM-44 BPL
+Green Earth,Waste Management,Water,Global,8.5,5,5h,200,GE-99 GL
+Doctors Without Borders,Global Crisis Response,Medical,Global,9.9,45,10m,25000,DWB-01 GL
+Feeding India,Hunger Relief Network,Food,Indore,9.6,30,45m,5000,FI-02 IND
+Rapid Action Force,State Emergency Response,Rescue,Bhopal,9.8,15,5m,2000,RAF-01 BPL
+Solar Light Foundation,Renewable Energy for Rural,Social,Ahmedabad,9.0,8,3h,150,SL-07 AHM
+Care International,Humanitarian Aid,Global,Global,9.7,22,1h,12000,CI-09 GL
+Goonj Foundation,Clothing and Disaster Aid,Social,Surat,9.5,18,2h,3000,GNJ-03 SRT
+Pratham Education,Primary Literacy Programs,Education,Pune,9.4,12,6h,4500,PRT-11 PNE
+Rescue Now India,High Altitude Search,Rescue,Global,9.6,6,1h,400,RN-88 GL
+Indore Sewa Sang,Local Community Support,Social,Indore,8.8,4,1h,600,ISS-04 IND
+Bhopal Eco Warriors,Nature Protection,Social,Bhopal,8.4,3,4h,100,BEW-05 BPL
+Medical Relief Society,Generic Medicine Dist,Medical,Ahmedabad,9.0,9,30m,800,MRS-02 AHM
+Blue Cross Rescue,Animal Rescue & Safety,Rescue,Surat,9.2,11,15m,550,BC-10 SRT
+Smart City NGO,Urban Planning Aid,Logistics,Indore,8.7,3,3h,120,SC-06 IND
+Save The Children,Global Youth Support,Education,Global,9.8,35,45m,15000,STC-01 GL
+UNICEF Delta,Global Vaccination,Medical,Global,9.9,50,20m,40000,UN-01 GL
+Smile Foundation,Healthcare and Education,Medical,Pune,9.3,10,2h,1500,SF-07 PNE
+Hope For All,Emergency Fund Relief,Social,Ahmedabad,9.1,5,1h,300,HFA-02 AHM
