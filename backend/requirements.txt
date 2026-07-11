@@ -8,3 +8,4 @@ python-multipart
 jose
 bcrypt
 google-generativeai
+psycopg2-binary
