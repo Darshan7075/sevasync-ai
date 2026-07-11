@@ -64,6 +64,35 @@ const ReportTable = ({ reports, onReportClick, onDelete, onUpdateStatus }) => {
 
   const toggleRow = (id) => setExpandedRow(expandedRow === id ? null : id);
 
+  const handleDownloadCSV = () => {
+    if (!processedReports || processedReports.length === 0) {
+      alert("No data available to download");
+      return;
+    }
+    const headers = ["Report ID", "Area", "Issue Type", "Urgency", "Status", "Timestamp"];
+    const rows = processedReports.map(r => [
+      r.id || "",
+      r.area || "",
+      r.issue || r.issue_type || "",
+      r.urgency || "",
+      r.status || "",
+      r.timestamp || ""
+    ]);
+    const csvContent = [
+      headers.join(","),
+      ...rows.map(row => row.map(val => `"${String(val).replace(/"/g, '""')}"`).join(","))
+    ].join("\n");
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `sevasync_reports_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="google-card flex flex-col h-full overflow-hidden">
       <div className="px-6 py-4 border-b border-[#dadce0] flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -83,9 +112,13 @@ const ReportTable = ({ reports, onReportClick, onDelete, onUpdateStatus }) => {
               onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
             />
           </div>
-          <button className="btn-google-ghost" title="Download CSV">
-             <Download size={20} />
-          </button>
+          <button 
+             onClick={handleDownloadCSV} 
+             className="btn-google-ghost" 
+             title="Download CSV"
+           >
+              <Download size={20} />
+           </button>
         </div>
       </div>
       

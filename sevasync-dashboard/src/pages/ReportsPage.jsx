@@ -97,6 +97,35 @@ const ReportsPage = ({ reports, setReports, isLoading, cityCoordinates }) => {
     return { total, critical, active, resolved };
   }, [filteredReports]);
 
+  const handleDownloadCSV = () => {
+    if (!filteredReports || filteredReports.length === 0) {
+      alert("No data available to download");
+      return;
+    }
+    const headers = ["Report ID", "Area", "Issue Type", "Urgency", "Status", "Timestamp"];
+    const rows = filteredReports.map(r => [
+      r.id || "",
+      r.area || "",
+      r.issue || r.issue_type || "",
+      r.urgency || "",
+      r.status || "",
+      r.timestamp || ""
+    ]);
+    const csvContent = [
+      headers.join(","),
+      ...rows.map(row => row.map(val => `"${String(val).replace(/"/g, '""')}"`).join(","))
+    ].join("\n");
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `sevasync_active_missions_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="min-h-screen bg-[#f8fafc] pb-24">
       
@@ -274,9 +303,13 @@ const ReportsPage = ({ reports, setReports, isLoading, cityCoordinates }) => {
                      <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">Live data from SevaSyncAI nodes</p>
                   </div>
                   <div className="flex gap-4">
-                     <button className="p-3 bg-white border border-slate-100 rounded-xl text-slate-400 hover:text-slate-900 transition-all shadow-sm">
-                        <Download size={18} />
-                     </button>
+                     <button 
+                         onClick={handleDownloadCSV}
+                         className="p-3 bg-white border border-slate-100 rounded-xl text-slate-400 hover:text-slate-900 transition-all shadow-sm"
+                         title="Download CSV"
+                      >
+                         <Download size={18} />
+                      </button>
                      <button className="p-3 bg-white border border-slate-100 rounded-xl text-slate-400 hover:text-slate-900 transition-all shadow-sm">
                         <MoreVertical size={18} />
                      </button>
